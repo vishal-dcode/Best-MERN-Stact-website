@@ -8,6 +8,9 @@ import AboutPage from "../pages/AboutPage.jsx";
 import LoginPage from "../pages/LoginPage.jsx";
 import SignupPage from "../pages/SignupPage.jsx";
 import PageNotFound from "../pages/PageNotFound.jsx";
+import CartPage from "../pages/CartPage.jsx";
+import Checkout from "../pages/Checkout.jsx";
+import ProductDetailsPage from "../pages/ProductDetailsPage.jsx";
 
 function App() {
   return (
@@ -18,6 +21,9 @@ function App() {
         <Route path="/about" element={<AboutPage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/signup" element={<SignupPage />} />
+        <Route path="/cart" element={<CartPage />} />
+        <Route path="/checkout" element={<Checkout />} />
+        <Route path="/product-detail" element={<ProductDetailsPage />} />
         <Route path="*" element={<PageNotFound />} />
       </Routes>
       <Footer />
