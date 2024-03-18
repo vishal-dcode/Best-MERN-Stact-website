@@ -1,0 +1,165 @@
+https://source.unsplash.com/random/?mountain
+
+.my-element {
+  will-change: transform, opacity; // This will-change property will optimize the animations
+}
+
+.my-element:hover{
+   transform: scale(2);
+   opacity: 0;
+}
+
+HTML Entities
+  &	&amp;	Interpreted as the beginning of an entity or character reference.
+  <	&lt;	Interpreted as the beginning of a tag
+  >	&gt;	Interpreted as the ending of a tag
+  "	&quot;	Interpreted as the beginning and end of an attribute's value.
+    &nbsp;	Interpreted as the non breaking space.
+  –	&ndash;	Interpreted as the en dash (half the width of an em unit).
+  —	&mdash;	Interpreted as the em dash (equal to width of an "m" character).
+  ©	&copy;	Interpreted as the copyright sign.
+  ®	&reg;	Interpreted as the registered sign.
+  ™	&trade;	Interpreted as the trademark sign.
+  ≈	&asymp;	Interpreted as almost equal to sign.
+  ≠	&ne;	Interpreted as not equal to sign.
+  £	&pound;	Interpreted as the pound symbol.
+  €	&euro;	Interpreted as the euro symbol.
+  °	&deg;	Interpreted as the degree symbol.
+
+HTML TAGS 
+  <header></header>                 <!-- Defines the header block for a document or a section -->
+  <footer></footer>                 <!-- Defines the footer block for a document or a section -->
+  <main></main>                     <!-- Describes the main content of a document --> 
+  <article></article>               <!-- Identifies an article inside a document -->
+  <aside></aside>                   <!-- Specifies content contained in a document sidebar -->
+  <section></section>               <!-- Defines a section of a document -->
+  <details></details>               <!-- Describes additional information that user can view or hide -->
+  <dialog></dialog>                 <!-- A dialog box or a window -->
+  <figure></figure>                 <!-- An independent content block featuring images, diagrams or illustrations -->
+  <figcaption></figcaption>         <!-- Caption that describe a figure -->
+  <mark></mark>                     <!-- Displays a portion of highlighted text with in a page content -->
+  <nav></nav>                       <!-- Navigation links for the user in a document -->
+  <meter></meter>                   <!-- Describes the scalar measurement with in a known array -->
+  <progress></progress>             <!-- Displays the progress of a task usually a progress bar -->
+  <summary></summary>               <!-- Contains a visible heading for details element -->
+  <canvas></canvas>                 <!-- Allows to draw 2D shapes on the web page with the help of javascript -->
+  <map></map>                       <!-- Specifies an image map --> 
+
+# -------------------------- Grid Responsive layout -------------------------- #
+  grid-template-columns: minmax(14rem, 30%) 1fr;
+  grid-template-columns: repeat(auto-fit, minmax(min(100px, 100%), 1fr));
+
+# -------------------------------- Line Clamp -------------------------------- #
+.line-clamp {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+
+  /* text-overflow: ellipsis;
+  line-height: 16px; fallback
+  max-height: 32px; fallback */
+}
+# --------------------------------- FONT FACE -------------------------------- #
+  @font-face {
+    font-family: "HelveticaNowDisplay";
+    font-weight: 300;
+    src: url(fonts/HelveticaNowDisplay-Thin.woff2) format("woff2"),
+    url(fonts/HelveticaNowDisplay-Thin.woff) format("woff");
+  }
+
+# ------------------------- SMOOTH SCROLL CSS AND JS ------------------------- #
+  html {
+    scroll-behavior: smooth;
+  }
+  // JavaScript Scroll to specific values
+  // scrollTo is the same
+  window.scroll({
+    top: 2500, 
+    left: 0, 
+    behavior: 'smooth'
+  });
+  // Scroll certain amounts from current position 
+  window.scrollBy({ 
+    top: 100, // could be negative value
+    left: 0, 
+    behavior: 'smooth' 
+  });
+  // Scroll to a certain element
+  document.querySelector('.hello').scrollIntoView({ 
+    behavior: 'smooth' 
+  });
+
+# -------------------------------- THEME COLOR ------------------------------- #
+  :root {
+    --c-text-primary: #eee;
+    --c-text-secondary: #d3d5db;
+    --c-border-primary: #454545;
+    --c-bg-primary: #323339;
+    --c-bg-secondary: #222128;
+    --c-bg-button: #494a50;
+    --slider-shadow: inset 0 1px 1px #767676;
+  }
+  html[data-theme='light'] {
+    --c-text-primary: #eee;
+    --c-text-secondary: #d3d5db;
+    --c-border-primary: #454545;
+    --c-bg-primary: #323339;
+    --c-bg-secondary: #222128;
+    --c-bg-button: #494a50;
+    --slider-shadow: inset 0 1px 1px #767676;
+  }
+  html[data-theme='dark'] {
+    --c-text-primary: #edeeef;
+    --c-text-secondary: #d4d7e1;
+    --c-border-primary: #323232;
+    --c-bg-primary: #1b1d23;
+    --c-bg-secondary: #000001;
+    --c-bg-button: #343844;
+    --slider-shadow: inset 0 1px 1px #555;
+  }
+
+# ----------------------------------- GRAIN ---------------------------------- #
+  .grain {
+      z-index: 999;
+      opacity: .04;
+      mix-blend-mode: normal;
+      background-image: url(https://uploads-ssl.webflow.com/645ff05b8897146b22be7def/64cde49b9d9dd1b5880c6fd5_grain-slow.gif);
+      background-position: 0 0;
+      background-repeat: repeat;
+      background-size: auto;
+      background-attachment: fixed;
+      display: block;
+      position: fixed;
+      inset: 0; 
+      pointer-events: none;
+      -webkit-user-select: none !important;
+      -moz-user-select: none !important;
+      -ms-user-select: none !important;
+      user-select: none !important;
+  }
+
+# ------------------------------ CUSTOM SELECTION ------------------------------ #
+  ::-moz-selection {
+    color: #fff;
+    background: #0031b9;
+  }
+  ::selection {
+    color: #fff;
+    background: #0031b9;
+  }
+
+# ----------------------------- CUSTOM SCROLLBAR ----------------------------- #
+  ::-webkit-scrollbar {
+    width: 0.5rem;
+  }
+  ::-webkit-scrollbar-thumb {
+    background-color: #3d7aff;
+    border-radius: 100vw;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background-color: #5f8ff5;
+  }
+  ::-webkit-scrollbar-track {
+    background-color: transparent;
+  }

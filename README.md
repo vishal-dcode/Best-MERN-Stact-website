@@ -1,2 +1,2 @@
-# Best-MERN-Stact-website
-Complete end-to-end Advanced MERN Stack website
+<h1 align="center">MERN Stack E-commerce Project</h1>
+<p align="center">This project is an advanced e-commerce platform built using the MERN stack, which includes MongoDs an advanced e-commerce platform built using the MERN stack, which includes MongoDB, Express.js, React, and Node.js. It incorporates various technologies such as React, Redux Toolkit, React Router DOM, MongoDB, Tailwind CSS, Stripe, Axios, and Nodemailer.</p>
