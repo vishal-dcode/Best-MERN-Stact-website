@@ -1,3 +1,12 @@
+/* TODO
+--- understand fetching more clearly
+--- Fix filter when unchecked it should show all filter
+--- Sorting is not working.
+Make filter that only 1 filter to select at a time
+When filtered pagination not updating
+Add filters data in backend use online converter from .js to .json
+*/
+import axios from "axios";
 import { Fragment, useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Dialog, Disclosure, Menu, Transition } from "@headlessui/react";
@@ -9,13 +18,16 @@ import {
   PlusIcon,
   Squares2X2Icon,
 } from "@heroicons/react/20/solid";
-
+import { productActions } from "./productSlice.js";
+import ProductSorted from "./containers/ProductSorted.jsx";
+import Pagination from "./containers/Pagination.jsx";
+// import { fetchProducts, fetchFilterProducts } from "./productAPI.js";
+import { ITEMS_PER_PAGE } from "../../app/constant.js";
 const sortOptions = [
   { name: "Price: Low to High", sort: "rating", order: "desc", current: false },
   { name: "Price: High to Low", sort: "price", order: "desc", current: false },
   { name: "Best Rating", sort: "price", order: "asc", current: false },
 ];
-
 const filters = [
   {
     id: "category",
@@ -181,32 +193,68 @@ const filters = [
   },
 ];
 
-import ProductSorted from "./containers/ProductSorted.jsx";
-import Pagination from "./containers/Pagination.jsx";
-import { fetchAllProducts, fetchFilterProducts } from "./productAPI.js";
-
 export default function ProductList() {
   const dispatch = useDispatch();
   const productSelector = useSelector((store) => store.productName.products);
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
   const [filter, setFilter] = useState({});
+  const [sort, setSort] = useState({});
+  const [startPage, setStartPage] = useState(0);
 
-  const handleFilterClick = (section, option) => {
-    const newFilter = { ...filter, [section.id]: option.value };
+  const handleFilterClick = (e, section, option) => {
+    let newFilter = { ...filter };
+
+    if (e.target.checked) {
+      newFilter[section.id] = [option.value];
+    } else {
+      delete newFilter[section.id];
+    }
     setFilter(newFilter);
   };
   const handleSortClick = (option) => {
-    const newFilter = { ...filter, _sort: option.sort, _order: option.order };
-    setFilter(newFilter);
+    setSort({
+      _sort: option.sort,
+      _order: option.order,
+    });
+  };
+  const handlePagination = (page) => {
+    setStartPage(page);
   };
 
   useEffect(() => {
-    fetchAllProducts(dispatch);
-  }, [dispatch]);
+    const fetchData = async () => {
+      // Construct query string based on selected filter and sort options
+      // filter = {"category":["smartphone","laptop"]}
+      // sort = {_sort:"price",_order:"desc"]}
+      // startPage = {_start:1,_limit:12]}
 
-  useEffect(() => {
-    fetchFilterProducts(dispatch, filter);
-  }, [dispatch, filter]);
+      let queryString = `_start=${
+        startPage * ITEMS_PER_PAGE
+      }&_limit=${ITEMS_PER_PAGE}`;
+      for (let key in filter) {
+        const value = filter[key];
+        if (value.length > 0) {
+          const lastValue = value[value.length - 1];
+          queryString = `${key}=${lastValue}&`;
+        }
+      }
+      for (let key in sort) {
+        queryString += `_sort=${sort._sort}&_order=${sort._order}`;
+      }
+
+      // Fetch products with the constructed query string
+      const res = await axios.get(
+        `http://localhost:8080/products?${queryString}`
+      );
+      dispatch(productActions.productDataState(res.data));
+    };
+
+    fetchData();
+  }, [dispatch, filter, sort, startPage]);
+
+  // useEffect(() => {
+  //   fetchFilterProducts(dispatch, filter);
+  // }, [dispatch, filter]);
 
   return (
     <div className="bg-white">
@@ -298,6 +346,9 @@ export default function ProductList() {
                                       defaultValue={option.value}
                                       type="checkbox"
                                       defaultChecked={option.checked}
+                                      onClick={(e) => {
+                                        handleFilterClick(e, section, option);
+                                      }}
                                       className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
                                     />
                                     <label
@@ -436,8 +487,8 @@ export default function ProductList() {
                                   defaultValue={option.value}
                                   type="checkbox"
                                   defaultChecked={option.checked}
-                                  onClick={() =>
-                                    handleFilterClick(section, option)
+                                  onClick={(e) =>
+                                    handleFilterClick(e, section, option)
                                   }
                                   className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
                                 />
@@ -457,13 +508,19 @@ export default function ProductList() {
                 ))}
               </form>
 
-              {/* Product grid */}
               <div className="lg:col-span-3">
+                {/* Product grid */}
                 <ProductSorted productSelector={productSelector} />
+                {/* Pagination */}
+                <Pagination
+                  startPage={startPage}
+                  setStartPage={setStartPage}
+                  handlePagination={handlePagination}
+                  ITEMS_PER_PAGE={ITEMS_PER_PAGE}
+                  productSelector={productSelector}
+                />
               </div>
             </div>
-            {/* Pagination */}
-            <Pagination />
           </section>
         </main>
       </div>
