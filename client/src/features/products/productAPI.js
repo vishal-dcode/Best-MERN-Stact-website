@@ -1,21 +1,25 @@
 import axios from "axios";
-import { productActions } from "./productSlice.js";
 
-export async function fetchProducts({ dispatch, filter }) {
-  if (filter) {
-    const res = await axios.get("http://localhost:8080/products");
-    dispatch(productActions.productDataState(res.data));
-  } else {
-    let queryString = "";
-    for (let key in filter) {
-      queryString = Object.entries(filter).map(
-        ([key, value]) => `${key}=${value}`
-      );
-    }
-
-    const res = await axios.get(
-      `http://localhost:8080/products?${queryString}`
-    );
-    dispatch(productActions.productDataState(res.data));
+export async function fetchProducts(pagination, filter, sort) {
+  let queryString = "";
+  for (let key in pagination) {
+    queryString += `${key}=${pagination[key]}&`;
   }
+  for (let key in filter) {
+    const value = filter[key];
+    if (value.length) {
+      const lastValue = value[value.length - 1];
+      queryString += `${key}=${lastValue}&`;
+    }
+  }
+  for (let key in sort) {
+    queryString += `${key}=${sort[key]}&`;
+  }
+  const res = await axios.get(`http://localhost:8080/products?${queryString}`);
+  return res.data;
+}
+
+export async function fetchProductById(id) {
+  const res = await axios.get(`http://localhost:8080/products/${id}`);
+  return res.data;
 }

@@ -1,12 +1,8 @@
 import logoImg from "../assets/logo.svg";
 import { Fragment } from "react";
 import { Disclosure, Menu, Transition } from "@headlessui/react";
-import {
-  Bars3Icon,
-  ShoppingCartIcon,
-  XMarkIcon,
-} from "@heroicons/react/24/outline";
-
+import { Bars3Icon, ShoppingCartIcon, XMarkIcon } from "@heroicons/react/24/outline";
+import { useSelector } from "react-redux";
 const navigation = [
   { name: "Home", to: "/" },
   { name: "Blog", to: "/blog" },
@@ -19,6 +15,7 @@ function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 export default function Header() {
+  const cartItems = useSelector((store) => store.cartsName.carts);
   return (
     <Disclosure as="nav" className="bg-gray-800">
       {({ open }) => (
@@ -40,11 +37,7 @@ export default function Header() {
               <div className="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
                 <div className="flex flex-shrink-0 items-center">
                   <Link to="/">
-                    <img
-                      className="h-8 w-auto"
-                      src={logoImg}
-                      alt="Your Company"
-                    />
+                    <img className="h-8 w-auto" src={logoImg} alt="Your Company" />
                   </Link>
                 </div>
                 <div className="hidden sm:ml-6 sm:block">
@@ -72,10 +65,13 @@ export default function Header() {
                   <span className="absolute -inset-1.5" />
                   <span className="sr-only">View notifications</span>
                   <ShoppingCartIcon className="h-6 w-6" aria-hidden="true" />
-                  <span className="inline-flex items-center rounded-md bg-gray-50 px-2 py-1 text-xs font-medium text-gray-600 ring-1 ring-inset ring-gray-500/10">
-                    2
-                  </span>
                 </Link>
+                {/* {cartItems.length > 0 && (
+                  <span className="inline-flex items-center rounded-md mb-7 -ml-3 bg-red-50 px-2 py-1 text-xs font-medium text-red-700 ring-1 ring-inset ring-red-600/10">
+                    {cartItems.length}
+                  </span>
+                )} */}
+                {cartItems.length}
 
                 {/* Profile dropdown */}
                 <Menu as="div" className="relative ml-3">
@@ -104,10 +100,7 @@ export default function Header() {
                         {({ active }) => (
                           <a
                             href="#"
-                            className={classNames(
-                              active ? "bg-gray-100" : "",
-                              "block px-4 py-2 text-sm text-gray-700"
-                            )}
+                            className={classNames(active ? "bg-gray-100" : "", "block px-4 py-2 text-sm text-gray-700")}
                           >
                             Your Profile
                           </a>
@@ -117,10 +110,7 @@ export default function Header() {
                         {({ active }) => (
                           <a
                             href="#"
-                            className={classNames(
-                              active ? "bg-gray-100" : "",
-                              "block px-4 py-2 text-sm text-gray-700"
-                            )}
+                            className={classNames(active ? "bg-gray-100" : "", "block px-4 py-2 text-sm text-gray-700")}
                           >
                             Settings
                           </a>
@@ -130,10 +120,7 @@ export default function Header() {
                         {({ active }) => (
                           <Link
                             to="/login"
-                            className={classNames(
-                              active ? "bg-gray-100" : "",
-                              "block px-4 py-2 text-sm text-gray-700"
-                            )}
+                            className={classNames(active ? "bg-gray-100" : "", "block px-4 py-2 text-sm text-gray-700")}
                           >
                             Log In
                           </Link>
@@ -154,9 +141,7 @@ export default function Header() {
                   as="a"
                   href={item.href}
                   className={classNames(
-                    item.current
-                      ? "bg-gray-900 text-white"
-                      : "text-gray-300 hover:bg-gray-700 hover:text-white",
+                    item.current ? "bg-gray-900 text-white" : "text-gray-300 hover:bg-gray-700 hover:text-white",
                     "block rounded-md px-3 py-2 text-base font-medium"
                   )}
                   aria-current={item.current ? "page" : undefined}

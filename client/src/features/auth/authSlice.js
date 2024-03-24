@@ -1,34 +1,46 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { createUsers, checkUsers } from "./authAPI.js";
 
-import { fetchAuth } from "./authAPI.js";
-
-export const fetchAsync = createAsyncThunk("auth/fetchAuth", async () => {
-  const res = await fetchAuth();
+export const createUsersAsync = createAsyncThunk("users/createUsers", async (userData) => {
+  const res = await createUsers(userData);
+  return res.data;
+});
+export const checkUsersAsync = createAsyncThunk("users/checkUsers", async (loginInfo) => {
+  const res = await checkUsers(loginInfo);
   return res.data;
 });
 
-const authSlice = createSlice({
-  name: "authName",
-  initialState: {}, // Change initialValue to initialState
+const usersSlice = createSlice({
+  name: "usersName", // import for useSelector(store=>store.productsName.products)
+  initialState: { users: null, state: "fulfilled" }, // Change initialValue to initialState
   reducers: {
-    toggle: (state, action) => {
-      return action.payload; // Update the state correctly
-    },
+    // increment: (state, action) => {
+    //   return action.payload;
+    // },
   },
   extraReducers: (builder) => {
     builder
-      .addCase(fetchAsync.pending, (state) => {
+      .addCase(createUsersAsync.pending, (state) => {
         state.state = "pending";
       })
-      .addCase(fetchAsync.fulfilled, (state, action) => {
+      .addCase(createUsersAsync.fulfilled, (state, action) => {
         state.state = "fulfilled";
-        state.auth = action.payload;
+        state.users = action.payload;
       })
-      .addCase(fetchAsync.rejected, (state) => {
+      .addCase(createUsersAsync.rejected, (state) => {
         state.state = "rejected";
+      })
+
+      .addCase(checkUsersAsync.pending, (state) => {
+        state.state = "pending";
+      })
+      .addCase(checkUsersAsync.fulfilled, (state, action) => {
+        state.state = "fulfilled";
+        state.users = action.payload;
       });
   },
 });
 
-export const authActions = authSlice.actions;
-export default authSlice;
+export const selectLoggedInUsers = (state) => state.usersName.users;
+export const usersActions = usersSlice.actions; // import for dispatch(addAsync(products))
+export default usersSlice; // import only for store.js {reducer: {usersName : usersSlice.reducer}}

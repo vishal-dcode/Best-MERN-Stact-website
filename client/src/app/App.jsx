@@ -12,18 +12,66 @@ import CartPage from "../pages/CartPage.jsx";
 import Checkout from "../pages/Checkout.jsx";
 import ProductDetailsPage from "../pages/ProductDetailsPage.jsx";
 
+import Protected from "../features/auth/containers/Protected.jsx";
+
+// import { useEffect } from "react";
+// import { useDispatch, useSelector } from "react-redux";
+// import { fetchCartByUserAsync } from "../features/cart/cartSlice.js";
 function App() {
+  // const dispatch = useDispatch();
+  // const productID = useSelector((store) => store.productName.selectedProduct);
+  // useEffect(() => {
+  //   if (productID) {
+  //     dispatch(fetchCartByUserAsync(productID.id));
+  //   }
+  // }, [dispatch, productID]);
+
   return (
     <>
       <Header />
       <Routes>
-        <Route path="/" element={<HomePage />} />
-        <Route path="/about" element={<AboutPage />} />
+        <Route
+          path="/"
+          element={
+            <Protected>
+              <HomePage />
+            </Protected>
+          }
+        />
+        <Route
+          path="/about"
+          element={
+            <Protected>
+              <AboutPage />
+            </Protected>
+          }
+        />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/signup" element={<SignupPage />} />
-        <Route path="/cart" element={<CartPage />} />
-        <Route path="/checkout" element={<Checkout />} />
-        <Route path="/product-detail/:id" element={<ProductDetailsPage />} />
+        <Route
+          path="/cart"
+          element={
+            <Protected>
+              <CartPage />
+            </Protected>
+          }
+        />
+        <Route
+          path="/checkout"
+          element={
+            <Protected>
+              <Checkout />
+            </Protected>
+          }
+        />
+        <Route
+          path="/product-detail/:id"
+          element={
+            <Protected>
+              <ProductDetailsPage />
+            </Protected>
+          }
+        />
         <Route path="*" element={<PageNotFound />} />
       </Routes>
       <Footer />
