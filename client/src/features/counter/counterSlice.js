@@ -1,34 +1,36 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { fetchCount } from "./counterAPI";
 
-import { fetchCounter } from "./counterAPI.js";
-
-export const fetchAsync = createAsyncThunk("counter/fetchCounter", async () => {
-  const res = await fetchCounter();
-  return res.data;
+export const incrementAsync = createAsyncThunk("counter/fetchCount", async (amount) => {
+  const response = await fetchCount(amount);
+  // The value we return becomes the `fulfilled` action payload
+  return response.data;
 });
 
-const counterSlice = createSlice({
-  name: "counterName",
-  initialState: {}, // Change initialValue to initialState
+export const counterSlice = createSlice({
+  name: "counter",
+  initialState: {
+    value: 0,
+    status: "idle",
+  },
   reducers: {
-    toggle: (state, action) => {
-      return action.payload; // Update the state correctly
+    increment: (state) => {
+      state.value += 1;
     },
   },
   extraReducers: (builder) => {
     builder
-      .addCase(fetchAsync.pending, (state) => {
-        state.state = "pending";
+      .addCase(incrementAsync.pending, (state) => {
+        state.status = "loading";
       })
-      .addCase(fetchAsync.fulfilled, (state, action) => {
-        state.state = "fulfilled";
-        state.counter = action.payload;
-      })
-      .addCase(fetchAsync.rejected, (state) => {
-        state.state = "rejected";
+      .addCase(incrementAsync.fulfilled, (state, action) => {
+        state.status = "idle";
+        state.value = action.payload;
       });
   },
 });
+
+export const selectCount = (state) => state.counter.value;
 
 export const counterActions = counterSlice.actions;
 export default counterSlice;

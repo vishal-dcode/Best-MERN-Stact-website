@@ -1,8 +1,9 @@
-import ProductList from "../features/products/ProductList.jsx";
+import ProductList from "../features/product/containers/ProductList";
+
 export default function HomePage() {
   return (
-    <div>
+    <>
       <ProductList />
-    </div>
+    </>
   );
 }
