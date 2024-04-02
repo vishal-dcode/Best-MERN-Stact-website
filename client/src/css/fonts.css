@@ -1,0 +1,97 @@
+@font-face {
+  font-family: 'pp_editorial';
+  src:
+    url('../../public/fonts/ppeditorialold-regular-webfont.woff2')
+      format('woff2'),
+    url('../../public/fonts/ppeditorialold-regular-webfont.woff') format('woff');
+  font-weight: 400;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'helvetica';
+  src:
+    url('../../public/fonts/HelveticaNowDisplay-Bold.woff2') format('woff2'),
+    url('../../public/fonts/HelveticaNowDisplay-Bold.woff') format('woff');
+  font-weight: 700;
+}
+
+@font-face {
+  font-family: 'helvetica';
+  src:
+    url('../../public/fonts/HelveticaNowDisplay-ExtraBold.woff2')
+      format('woff2'),
+    url('../../public/fonts/HelveticaNowDisplay-ExtraBold.woff') format('woff');
+  font-weight: 800;
+}
+
+@font-face {
+  font-family: 'helvetica';
+  src:
+    url('../../public/fonts/HelveticaNowDisplay-Medium.woff2') format('woff2'),
+    url('../../public/fonts/HelveticaNowDisplay-Medium.woff') format('woff');
+  font-weight: 500;
+}
+
+@font-face {
+  font-family: 'helvetica';
+  src:
+    url('../../public/fonts/HelveticaNowDisplay-Regular.woff2') format('woff2'),
+    url('../../public/fonts/HelveticaNowDisplay-Regular.woff') format('woff');
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: 'helvetica';
+  src:
+    url('../../public/fonts/HelveticaNowDisplay-Thin.woff2') format('woff2'),
+    url('../../public/fonts/HelveticaNowDisplay-Thin.woff') format('woff');
+  font-weight: 200;
+}
+
+@font-face {
+  font-family: 'monument';
+  src:
+    url('../../public/fonts/monumentextended-bold-webfont.woff2')
+      format('woff2'),
+    url('../../public/fonts/monumentextended-bold-webfont.woff') format('woff');
+  font-weight: 700;
+}
+
+@font-face {
+  font-family: 'monument';
+  src:
+    url('../../public/fonts/monumentextended-light-webfont.woff2')
+      format('woff2'),
+    url('../../public/fonts/monumentextended-light-webfont.woff') format('woff');
+  font-weight: 300;
+}
+
+@font-face {
+  font-family: 'monument';
+  src:
+    url('../../public/fonts/monumentextended-regular-webfont.woff2')
+      format('woff2'),
+    url('../../public/fonts/monumentextended-regular-webfont.woff')
+      format('woff');
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: 'monument';
+  src:
+    url('../../public/fonts/monumentextended-ultrabold-webfont.woff2')
+      format('woff2'),
+    url('../../public/fonts/monumentextended-ultrabold-webfont.woff')
+      format('woff');
+  font-weight: 800;
+}
+
+@font-face {
+  font-family: 'monument';
+  src:
+    url('../../public/fonts/monumentextended-ultralight-webfont.woff2')
+      format('woff2'),
+    url('../../public/fonts/monumentextended-ultralight-webfont.woff')
+      format('woff');
+  font-weight: 200;
+}

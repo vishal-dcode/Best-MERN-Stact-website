@@ -1,48 +1,54 @@
 export function fetchAllProducts() {
   return new Promise(async (resolve) => {
-    const response = await fetch("http://localhost:8080/products");
+    const response = await fetch('http://localhost:8080/products');
     const data = await response.json();
-    resolve({ data });
+    resolve({data});
   });
 }
 export function addProduct(product) {
   return new Promise(async (resolve) => {
-    const response = await fetch("http://localhost:8080/products", {
-      method: "POST",
+    const response = await fetch('http://localhost:8080/products', {
+      method: 'POST',
       body: JSON.stringify(product),
-      headers: { "content-type": "application/json" },
+      headers: {'content-type': 'application/json'},
     });
     const data = await response.json();
-    resolve({ data });
+    resolve({data});
   });
 }
 export function updateProduct(product) {
   return new Promise(async (resolve) => {
-    const response = await fetch("http://localhost:8080/products/" + product.id, {
-      method: "PATCH",
-      body: JSON.stringify(product),
-      headers: { "content-type": "application/json" },
-    });
+    const response = await fetch(
+      'http://localhost:8080/products/' + product.id,
+      {
+        method: 'PATCH',
+        body: JSON.stringify(product),
+        headers: {'content-type': 'application/json'},
+      },
+    );
     const data = await response.json();
-    resolve({ data });
+    resolve({data});
   });
 }
 export function deleteProduct(update) {
   return new Promise(async (resolve) => {
-    const response = await fetch("http://localhost:8080/products/" + update.id, {
-      method: "DELETE",
-      body: JSON.stringify(update),
-      headers: { "content-type": "application/json" },
-    });
+    const response = await fetch(
+      'http://localhost:8080/products/' + update.id,
+      {
+        method: 'DELETE',
+        body: JSON.stringify(update),
+        headers: {'content-type': 'application/json'},
+      },
+    );
     const data = await response.json();
-    resolve({ data });
+    resolve({data});
   });
 }
 export function fetchProductById(id) {
   return new Promise(async (resolve) => {
-    const response = await fetch("http://localhost:8080/products/" + id);
+    const response = await fetch('http://localhost:8080/products/' + id);
     const data = await response.json();
-    resolve({ data });
+    resolve({data});
   });
 }
 
@@ -50,7 +56,7 @@ export function fetchProductsByFilters(filter, sort, pagination) {
   // filter = {"category":["smartphone","laptops"]}
   // sort = {_sort:"price",_order="desc"}
   // pagination = {_page:1,_limit=10}
-  let queryString = "";
+  let queryString = '';
   for (let key in filter) {
     const categoryValues = filter[key];
     if (categoryValues.length) {
@@ -68,25 +74,27 @@ export function fetchProductsByFilters(filter, sort, pagination) {
 
   return new Promise(async (resolve) => {
     //TODO: we will not hard-code server URL here
-    const response = await fetch("http://localhost:8080/products?" + queryString);
+    const response = await fetch(
+      'http://localhost:8080/products?' + queryString,
+    );
     const data = await response.json();
-    const totalItems = await response.headers.get("X-Total-Count");
-    resolve({ data: { products: data, totalItems: +totalItems } });
+    const totalItems = await response.headers.get('X-Total-Count');
+    resolve({data: {products: data, totalItems: +totalItems}});
   });
 }
 
 export function fetchCategories() {
   return new Promise(async (resolve) => {
-    const response = await fetch("http://localhost:8080/categories");
+    const response = await fetch('http://localhost:8080/categories');
     const data = await response.json();
-    resolve({ data });
+    resolve({data});
   });
 }
 
 export function fetchBrands() {
   return new Promise(async (resolve) => {
-    const response = await fetch("http://localhost:8080/brands");
+    const response = await fetch('http://localhost:8080/brands');
     const data = await response.json();
-    resolve({ data });
+    resolve({data});
   });
 }

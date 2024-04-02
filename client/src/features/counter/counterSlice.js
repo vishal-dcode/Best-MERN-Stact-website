@@ -11,7 +11,7 @@ export const counterSlice = createSlice({
   name: "counter",
   initialState: {
     value: 0,
-    status: "idle",
+    status: "fulfilled",
   },
   reducers: {
     increment: (state) => {
@@ -21,10 +21,10 @@ export const counterSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(incrementAsync.pending, (state) => {
-        state.status = "loading";
+        state.status = "pending";
       })
       .addCase(incrementAsync.fulfilled, (state, action) => {
-        state.status = "idle";
+        state.status = "fulfilled";
         state.value = action.payload;
       });
   },

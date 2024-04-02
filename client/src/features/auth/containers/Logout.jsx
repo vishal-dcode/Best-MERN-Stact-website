@@ -1,7 +1,7 @@
-import { useDispatch, useSelector } from "react-redux";
-import { selectLoggedInUser, signOutAsync } from "../authSlice";
-import { useEffect } from "react";
-import { Navigate } from "react-router-dom";
+import {useDispatch, useSelector} from 'react-redux';
+import {selectLoggedInUser, signOutAsync} from '../authSlice';
+import {useEffect} from 'react';
+import {Navigate} from 'react-router-dom';
 
 export default function Logout() {
   const dispatch = useDispatch();
@@ -10,5 +10,7 @@ export default function Logout() {
   useEffect(() => {
     dispatch(signOutAsync());
   });
-  return <>{!loggedInUserSelector && <Navigate to="/login" replace={true} />}</>;
+  return (
+    <>{!loggedInUserSelector && <Navigate to="/login" replace={true} />}</>
+  );
 }

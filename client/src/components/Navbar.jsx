@@ -1,207 +1,134 @@
-import { Fragment } from "react";
-import { Link, NavLink } from "react-router-dom";
-import { useSelector } from "react-redux";
-//? UI
-import mernLogo from "../icons/mern-logo-light.png";
-import { Disclosure, Menu, Transition } from "@headlessui/react";
-import { Bars3Icon, ShoppingCartIcon, XMarkIcon } from "@heroicons/react/24/outline";
-//? Features
-import { selectItems } from "../features/cart/cartSlice";
-import { selectLoggedInUser } from "../features/auth/authSlice";
+import {Fragment} from 'react';
+import {Link, NavLink} from 'react-router-dom';
+import {useSelector} from 'react-redux';
+//* UI
+import {Disclosure, Menu, Transition} from '@headlessui/react';
+import {
+  Bars3Icon,
+  ShoppingCartIcon,
+  XMarkIcon,
+} from '@heroicons/react/24/outline';
+//* REDUX
+import {selectItems} from '../features/cart/cartSlice';
+import {selectLoggedInUser} from '../features/auth/authSlice';
 
-const user = {
-  name: "Tom Cook",
-  email: "tom@example.com",
-  imageUrl:
-    "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80",
-};
 const navigation = [
-  { name: "Products", to: "/", current: false },
-  { name: "Blog", to: "/blog", current: false },
-  { name: "Contact", to: "/contactus", current: false },
-  { name: "About us", to: "/about", current: false },
-];
-const userNavigation = [
-  { name: "My Orders", to: "/orders" },
-  { name: "Sign out", to: "/logout" },
+  {name: 'Home', to: '/', current: false},
+  {name: 'Blog', to: '/blog', current: false},
+  {name: 'About us', to: '/about', current: false},
+  {name: 'Your Orders', to: '/orders', current: false},
 ];
 
 function classNames(...classes) {
-  return classes.filter(Boolean).join(" ");
+  return classes.filter(Boolean).join(' ');
 }
 
-export default function NavBar({ children }) {
+export default function NavBar({children}) {
   const itemsSelector = useSelector(selectItems);
   const loggedInUserSelector = useSelector(selectLoggedInUser);
 
   return (
-    <>
-      <div className="min-h-full">
-        <Disclosure as="nav" className="bg-gray-800">
-          {({ open }) => (
-            <>
-              <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-                <div className="flex h-16 items-center justify-between">
-                  <div className="flex items-center">
-                    <div className="flex-shrink-0">
-                      <Link to="/">
-                        <img className="h-8" src={mernLogo} alt="Your Company" />
-                      </Link>
-                    </div>
-                    <div className="hidden md:block">
-                      <nav className="ml-10 flex items-baseline space-x-4">
-                        {navigation.map((item) => (
-                          <NavLink
-                            key={item.name}
-                            to={item.to}
-                            className={classNames(
-                              item.current
-                                ? "bg-gray-900 text-white"
-                                : "text-gray-300 hover:bg-gray-700 hover:text-white",
-                              "rounded-md px-3 py-2 text-sm font-medium"
-                            )}
-                            aria-current={item.current ? "page" : undefined}
-                          >
-                            {item.name}
-                          </NavLink>
-                        ))}
-                      </nav>
-                    </div>
-                  </div>
-                  <div className="hidden md:block">
-                    <div className="ml-4 flex items-center md:ml-6">
-                      <Link to="/cart">
-                        <button
-                          type="button"
-                          className="rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
-                        >
-                          <span className="sr-only">View notifications</span>
-                          <ShoppingCartIcon className="h-6 w-6" aria-hidden="true" />
-                        </button>
-                      </Link>
-                      {itemsSelector.length > 0 && (
-                        <span className="inline-flex items-center rounded-md mb-7 -ml-3 bg-red-50 px-2 py-1 text-xs font-medium text-red-700 ring-1 ring-inset ring-red-600/10">
-                          {itemsSelector.length}
-                        </span>
-                      )}
-
-                      {/* Profile dropdown */}
-                      <Menu as="div" className="relative ml-3">
-                        <div>
-                          <Menu.Button className="flex max-w-xs items-center rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
-                            <span className="sr-only">Open user menu</span>
-                            <img className="h-8 w-8 rounded-full" src={user.imageUrl} alt="" />
-                          </Menu.Button>
-                        </div>
-                        <Transition
-                          as={Fragment}
-                          enter="transition ease-out duration-100"
-                          enterFrom="transform opacity-0 scale-95"
-                          enterTo="transform opacity-100 scale-100"
-                          leave="transition ease-in duration-75"
-                          leaveFrom="transform opacity-100 scale-100"
-                          leaveTo="transform opacity-0 scale-95"
-                        >
-                          {loggedInUserSelector && (
-                            <Menu.Items className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
-                              {loggedInUserSelector.role === "admin" ? (
-                                <Link to="/admin">Type: Admin</Link>
-                              ) : (
-                                "Type: User"
-                              )}
-                              <div>
-                                {userNavigation.map((item) => (
-                                  <Menu.Item key={item.name}>
-                                    {({ active }) => (
-                                      <Link
-                                        to={item.link}
-                                        className={classNames(
-                                          active ? "bg-gray-100" : "",
-                                          "block px-4 py-2 text-sm text-gray-700"
-                                        )}
-                                      >
-                                        {item.name}
-                                      </Link>
-                                    )}
-                                  </Menu.Item>
-                                ))}
-                              </div>
-                            </Menu.Items>
-                          )}
-                        </Transition>
-                      </Menu>
-                    </div>
-                  </div>
-                  <div className="-mr-2 flex md:hidden">
-                    {/* Mobile menu button */}
-                    <Disclosure.Button className="inline-flex items-center justify-center rounded-md bg-gray-800 p-2 text-gray-400 hover:bg-gray-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
-                      <span className="sr-only">Open main menu</span>
-                      {open ? (
-                        <XMarkIcon className="block h-6 w-6" aria-hidden="true" />
-                      ) : (
-                        <Bars3Icon className="block h-6 w-6" aria-hidden="true" />
-                      )}
-                    </Disclosure.Button>
-                  </div>
-                </div>
+    <header>
+      <section className="subheader_wrapper py-3 px-4">
+        <span className="uppercase hidden md:block italic">
+          Not Just another MERN App But an Experience
+        </span>
+        <nav className="flex justify-between gap-5">
+          {loggedInUserSelector && loggedInUserSelector.role === 'admin' && (
+            <div className="flex gap-5">
+              <NavLink className="link" to="/admin">
+                Admin Panel
+              </NavLink>
+              <NavLink className="link" to="/admin/product-form">
+                Add Products
+              </NavLink>
+              <NavLink className="link" to="/admin/orders">
+                Orders
+              </NavLink>
+            </div>
+          )}
+          <Link className="link_signout" to="/logout">
+            Signout
+          </Link>
+        </nav>
+      </section>
+      <Disclosure as="nav">
+        {({open}) => (
+          <nav className="navbar_wrapper">
+            <div className=" navbar_ctr px-4">
+              <div className="absolute inset-y-0 left-0 flex items-center sm:hidden">
+                {/* Mobile menu button*/}
+                <Disclosure.Button className="relative inline-flex items-center justify-center rounded-md p-2 text-gray-400 hover:bg-gray-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white">
+                  <span className="absolute -inset-0.5" />
+                  <span className="sr-only">Open main menu</span>
+                  {open ? (
+                    <XMarkIcon className="block h-6 w-6" aria-hidden="true" />
+                  ) : (
+                    <Bars3Icon className="block h-6 w-6" aria-hidden="true" />
+                  )}
+                </Disclosure.Button>
               </div>
-
-              <Disclosure.Panel className="md:hidden">
-                <div className="space-y-1 px-2 pb-3 pt-2 sm:px-3">
+              <div>
+                <Link to="/" className="logo flex flex-shrink-0 items-center">
+                  MERN
+                </Link>
+              </div>
+              <div>
+                <div className="menu_list">
                   {navigation.map((item) => (
-                    <Disclosure.Button
+                    <NavLink
+                      className="menu_item"
                       key={item.name}
-                      as="a"
-                      className={classNames(
-                        item.current ? "bg-gray-900 text-white" : "text-gray-300 hover:bg-gray-700 hover:text-white",
-                        "block rounded-md px-3 py-2 text-base font-medium"
-                      )}
-                      aria-current={item.current ? "page" : undefined}
-                    >
-                      <Link to={item.Link}>{item.name}</Link>
-                    </Disclosure.Button>
+                      to={item.to}
+                      aria-current={item.current ? 'page' : undefined}>
+                      {item.name}
+                    </NavLink>
                   ))}
                 </div>
-                <div className="border-t border-gray-700 pb-3 pt-4">
-                  <div className="flex items-center px-5">
-                    <div className="flex-shrink-0">
-                      <img className="h-10 w-10 rounded-full" src={user.imageUrl} alt="" />
-                    </div>
-                    <div className="ml-3">
-                      <div className="text-base font-medium leading-none text-white">{user.name}</div>
-                      <div className="text-sm font-medium leading-none text-gray-400">{user.email}</div>
-                    </div>
-                    <Link to="/cart">
-                      <button
-                        type="button"
-                        className="ml-auto flex-shrink-0 rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
-                      >
-                        <ShoppingCartIcon className="h-6 w-6" aria-hidden="true" />
-                      </button>
+              </div>
+              <div className="profile_wrapper">
+                <Link className="cart_ctr" to="/cart" type="button">
+                  <svg
+                    class="h-6 w-6"
+                    width="44"
+                    height="44"
+                    viewBox="0 0 44 44"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg">
+                    <path
+                      d="M31.9981 24.2C33.6475 24.2 35.099 23.298 35.8467 21.934L43.7198 7.656C44.5335 6.204 43.4779 4.4 41.8065 4.4H9.25856L7.19133 0H0V4.4H4.39837L12.3154 21.098L9.34653 26.466C7.74113 29.414 9.85234 33 13.1951 33H39.5853V28.6H13.1951L15.6142 24.2H31.9981ZM11.3478 8.8H38.0679L31.9981 19.8H16.5599L11.3478 8.8ZM13.1951 35.2C10.776 35.2 8.81873 37.18 8.81873 39.6C8.81873 42.02 10.776 44 13.1951 44C15.6142 44 17.5935 42.02 17.5935 39.6C17.5935 37.18 15.6142 35.2 13.1951 35.2ZM35.1869 35.2C32.7678 35.2 30.8106 37.18 30.8106 39.6C30.8106 42.02 32.7678 44 35.1869 44C37.606 44 39.5853 42.02 39.5853 39.6C39.5853 37.18 37.606 35.2 35.1869 35.2Z"
+                      fill="black"
+                      stroke="white"
+                      stroke-width="1"
+                    />
+                  </svg>
+
+                  {itemsSelector.length > 0 && (
+                    <span className="items_length">{itemsSelector.length}</span>
+                  )}
+                </Link>
+
+                {/* Profile dropdown */}
+                <Menu as="div">
+                  <div>
+                    <Link to="/orders" className="profile_ctr">
+                      <img
+                        className="h-8 w-8"
+                        src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+                        alt=""
+                      />
+                      <div>
+                        <h4>Vishal Vishwakarma</h4>
+                        <p>vishalvish4225@gmail.com</p>
+                      </div>
                     </Link>
-                    {itemsSelector.length > 0 && (
-                      <span className="inline-flex items-center rounded-md bg-red-50 mb-7 -ml-3 px-2 py-1 text-xs font-medium text-red-700 ring-1 ring-inset ring-red-600/10">
-                        {itemsSelector.length}
-                      </span>
-                    )}
                   </div>
-                  <div className="mt-3 space-y-1 px-2">
-                    {userNavigation.map((item) => (
-                      <Disclosure.Button
-                        key={item.name}
-                        as="a"
-                        className="block rounded-md px-3 py-2 text-base font-medium text-gray-400 hover:bg-gray-700 hover:text-white"
-                      >
-                        <Link to={item.to}>{item.name}</Link>
-                      </Disclosure.Button>
-                    ))}
-                  </div>
-                </div>
-              </Disclosure.Panel>
-            </>
-          )}
-        </Disclosure>
-      </div>
-    </>
+                </Menu>
+              </div>
+            </div>
+          </nav>
+        )}
+      </Disclosure>
+    </header>
   );
 }

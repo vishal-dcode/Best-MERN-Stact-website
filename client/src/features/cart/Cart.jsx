@@ -1,17 +1,19 @@
-import { useSelector, useDispatch } from "react-redux";
-import { deleteItemFromCartAsync, selectItems, updateCartAsync } from "./cartSlice";
-import { Link } from "react-router-dom";
-import { DISCOUNT_PRICE } from "../../app/constants";
+import {useSelector, useDispatch} from 'react-redux';
+//* CONSTANTS
+import {DISCOUNT_PRICE} from '../../app/constants';
+//* REDUX
+import {
+  deleteItemFromCartAsync,
+  selectItems,
+  updateCartAsync,
+} from './cartSlice';
 
 export default function Cart() {
   const dispatch = useDispatch();
-
   const cartItemsSelector = useSelector(selectItems);
-  const totalAmount = cartItemsSelector.reduce((amount, item) => DISCOUNT_PRICE(item) * item.quantity + amount, 0);
-  const totalItems = cartItemsSelector.reduce((total, item) => item.quantity + total, 0);
 
   const handleQuantity = (e, item) => {
-    dispatch(updateCartAsync({ ...item, quantity: +e.target.value }));
+    dispatch(updateCartAsync({...item, quantity: +e.target.value}));
   };
 
   const handleRemove = (e, id) => {
@@ -20,91 +22,80 @@ export default function Cart() {
 
   return (
     <>
-      <div>
-        <div className="mx-auto mt-12 bg-white max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="border-t border-gray-200 px-4 py-6 sm:px-6">
-            <h1 className="text-4xl my-5 font-bold tracking-tight text-gray-900">Cart</h1>
-            <div className="flow-root">
-              <ul className="-my-6 divide-y divide-gray-200">
-                {cartItemsSelector.map((item) => (
-                  <li key={item.id} className="flex py-6">
-                    <div className="h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-200">
-                      <img src={item.thumbnail} alt={item.title} className="h-full w-full object-cover object-center" />
+      <section className="cart_wrapper">
+        <div className="flow-root">
+          <ul className="cart_list">
+            {cartItemsSelector.map((item) => (
+              <li key={item.id} className="cart_items">
+                <figure className="h-32 w-32">
+                  <img
+                    src={item.thumbnail}
+                    alt={item.title}
+                    className="h-full w-full object-cover object-center"
+                  />
+                </figure>
+
+                <div className="cart_items-info">
+                  <div>
+                    <div className="cart_items-title">
+                      <p className="order_id">{item.brand}</p>
+                      <h3>{item.title}</h3>
                     </div>
-
-                    <div className="ml-4 flex flex-1 flex-col">
-                      <div>
-                        <div className="flex justify-between text-base font-medium text-gray-900">
-                          <h3>
-                            <a href={item.href}>{item.title}</a>
-                          </h3>
-                          <p className="ml-4">${DISCOUNT_PRICE(item)}</p>
-                        </div>
-                        <p className="mt-1 text-sm text-gray-500">{item.brand}</p>
-                      </div>
-                      <div className="flex flex-1 items-end justify-between text-sm">
-                        <div className="text-gray-500">
-                          <label htmlFor="quantity" className="inline mr-5 text-sm font-medium leading-6 text-gray-900">
-                            Qty
-                          </label>
-                          <select onChange={(e) => handleQuantity(e, item)} value={item.quantity}>
-                            <option value="1">1</option>
-                            <option value="2">2</option>
-                            <option value="3">3</option>
-                            <option value="4">4</option>
-                            <option value="5">5</option>
-                          </select>
-                        </div>
-
-                        <div className="flex">
-                          <button
-                            onClick={(e) => handleRemove(e, item.id)}
-                            type="button"
-                            className="font-medium text-indigo-600 hover:text-indigo-500"
-                          >
-                            Remove
-                          </button>
-                        </div>
-                      </div>
+                    <div className="qty-ctr">
+                      <label htmlFor="quantity" className="">
+                        Qty:
+                      </label>
+                      <select
+                        onChange={(e) => handleQuantity(e, item)}
+                        value={item.quantity}>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                      </select>
                     </div>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </div>
+                  </div>
 
-          <div className="border-t border-gray-200 px-4 py-6 sm:px-6">
-            <div className="flex justify-between my-2 text-base font-medium text-gray-900">
-              <p>Subtotal</p>
-              <p>$ {totalAmount}</p>
-            </div>
-            <div className="flex justify-between my-2 text-base font-medium text-gray-900">
-              <p>Total Items in Cart</p>
-              <p>{totalItems} items</p>
-            </div>
-            <p className="mt-0.5 text-sm text-gray-500">Shipping and taxes calculated at checkout.</p>
-            <div className="mt-6">
-              <Link
-                to="/checkout"
-                className="flex items-center justify-center rounded-md border border-transparent bg-indigo-600 px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-indigo-700"
-              >
-                Checkout
-              </Link>
-            </div>
-            <div className="mt-6 flex justify-center text-center text-sm text-gray-500">
-              <p>
-                or
-                <Link to="/">
-                  <button type="button" className="font-medium text-indigo-600 hover:text-indigo-500">
-                    Continue Shopping
-                    <span aria-hidden="true"> &rarr;</span>
+                  <div>
+                    <p className="price">${DISCOUNT_PRICE(item)}</p>
+                  </div>
+                </div>
+
+                <div className="close_icon-ctr">
+                  <button
+                    onClick={(e) => handleRemove(e, item.id)}
+                    type="button"
+                    className="close_icon">
+                    <svg
+                      width="42"
+                      height="42"
+                      viewBox="0 0 18 18"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg">
+                      <line
+                        y1="9"
+                        x2="18"
+                        y2="9"
+                        stroke="black"
+                        stroke-width="2"
+                      />
+                      <line
+                        x1="9"
+                        y1="18"
+                        x2="9"
+                        y2="4.37114e-08"
+                        stroke="black"
+                        stroke-width="2"
+                      />
+                    </svg>
                   </button>
-                </Link>
-              </p>
-            </div>
-          </div>
+                </div>
+              </li>
+            ))}
+          </ul>
         </div>
-      </div>
+      </section>
     </>
   );
 }

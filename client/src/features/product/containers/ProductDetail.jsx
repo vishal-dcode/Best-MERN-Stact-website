@@ -1,59 +1,47 @@
-import { useState, useEffect } from "react";
-import { StarIcon } from "@heroicons/react/20/solid";
-import { RadioGroup } from "@headlessui/react";
-import { useDispatch, useSelector } from "react-redux";
-import { fetchAllProductByIdAsync, selectProductById } from "../productSlice";
-import { useParams } from "react-router-dom";
-import { addToCartAsync, selectItems } from "../../cart/cartSlice";
-import { selectLoggedInUser } from "../../auth/authSlice";
-import { DISCOUNT_PRICE } from "../../../app/constants";
+import {useEffect} from 'react';
+import {StarIcon} from '@heroicons/react/20/solid';
+import {useDispatch, useSelector} from 'react-redux';
+import {fetchAllProductByIdAsync, selectProductById} from '../productSlice';
+import {Link, useParams} from 'react-router-dom';
+import {addToCartAsync, selectItems} from '../../cart/cartSlice';
+import {selectLoggedInUser} from '../../auth/authSlice';
+import {DISCOUNT_PRICE} from '../../../app/constants';
+import {useAlert} from 'react-alert';
 
 // TODO: In server data we will add colors, sizes , highlights. to each product
 
-const colors = [
-  { name: "White", class: "bg-white", selectedClass: "ring-gray-400" },
-  { name: "Gray", class: "bg-gray-200", selectedClass: "ring-gray-400" },
-  { name: "Black", class: "bg-gray-900", selectedClass: "ring-gray-900" },
-];
-const sizes = [
-  { name: "XXS", inStock: false },
-  { name: "XS", inStock: true },
-  { name: "S", inStock: true },
-  { name: "M", inStock: true },
-  { name: "L", inStock: true },
-  { name: "XL", inStock: true },
-  { name: "2XL", inStock: true },
-  { name: "3XL", inStock: true },
-];
-
 const highlights = [
-  "Hand cut and sewn locally",
-  "Dyed with our proprietary colors",
-  "Pre-washed & pre-shrunk",
-  "Ultra-soft 100% cotton",
+  'Hand cut and sewn locally',
+  'Dyed with our proprietary colors',
+  'Pre-washed & pre-shrunk',
+  'Ultra-soft 100% cotton',
 ];
 
 function classNames(...classes) {
-  return classes.filter(Boolean).join(" ");
+  return classes.filter(Boolean).join(' ');
 }
 
-// TODO : Loading UI
-
 export default function ProductDetail() {
-  const [selectedColor, setSelectedColor] = useState(colors[0]);
-  const [selectedSize, setSelectedSize] = useState(sizes[2]);
   const user = useSelector(selectLoggedInUser);
   const productSelector = useSelector(selectProductById);
   const itemSelector = useSelector(selectItems);
   const dispatch = useDispatch();
   const params = useParams();
+  const alert = useAlert();
 
   const handleCart = (e) => {
     e.preventDefault();
-    if (itemSelector.findIndex((itemSelector) => itemSelector.id === productSelector.id) < 0) {
-      dispatch(addToCartAsync({ ...productSelector, quantity: 1, user: user.id }));
+    if (
+      itemSelector.findIndex(
+        (itemSelector) => itemSelector.id === productSelector.id,
+      ) < 0
+    ) {
+      dispatch(
+        addToCartAsync({...productSelector, quantity: 1, user: user.id}),
+      );
+      alert.success('Item added successfully');
     } else {
-      console.log("stop");
+      alert.info('Item already in cart');
     }
   };
 
@@ -62,251 +50,187 @@ export default function ProductDetail() {
   }, [dispatch, params.id]);
 
   return (
-    <div className="bg-white">
+    <>
       {productSelector && (
-        <div className="pt-6">
-          <nav aria-label="Breadcrumb">
-            <ol className="mx-auto flex max-w-2xl items-center space-x-2 px-4 sm:px-6 lg:max-w-7xl lg:px-8">
-              {productSelector.breadcrumbs &&
-                productSelector.breadcrumbs.map((breadcrumb) => (
-                  <li key={breadcrumb.id}>
-                    <div className="flex items-center">
-                      <a href={breadcrumb.href} className="mr-2 text-sm font-medium text-gray-900">
-                        {breadcrumb.name}
-                      </a>
-                      <svg
-                        width={16}
-                        height={20}
-                        viewBox="0 0 16 20"
-                        fill="currentColor"
-                        aria-hidden="true"
-                        className="h-5 w-4 text-gray-300"
-                      >
-                        <path d="M5.697 4.34L8.98 16.532h1.327L7.025 4.341H5.697z" />
-                      </svg>
-                    </div>
-                  </li>
-                ))}
-              <li className="text-sm">
-                <a
-                  href={productSelector.href}
-                  aria-current="page"
-                  className="font-medium text-gray-500 hover:text-gray-600"
-                >
-                  {productSelector.title}
-                </a>
-              </li>
-            </ol>
-          </nav>
-
+        <main className="product_detail-wrapper">
           {/* Image gallery */}
-          <div className="mx-auto mt-6 max-w-2xl sm:px-6 lg:grid lg:max-w-7xl lg:grid-cols-3 lg:gap-x-8 lg:px-8">
-            <div className="aspect-h-4 aspect-w-3 hidden overflow-hidden rounded-lg lg:block">
-              <img
-                src={productSelector.images[0]}
-                alt={productSelector.title}
-                className="h-full w-full object-cover object-center"
-              />
-            </div>
-            <div className="hidden lg:grid lg:grid-cols-1 lg:gap-y-8">
-              <div className="aspect-h-2 aspect-w-3 overflow-hidden rounded-lg">
+          <section className="product_images-wrapper">
+            <div className="product_images-ctr">
+              <figure className="product_thumbnail">
                 <img
-                  src={productSelector.images[1]}
+                  src={productSelector.images[0]}
                   alt={productSelector.title}
                   className="h-full w-full object-cover object-center"
                 />
-              </div>
-              <div className="aspect-h-2 aspect-w-3 overflow-hidden rounded-lg">
-                <img
-                  src={productSelector.images[2]}
-                  alt={productSelector.title}
-                  className="h-full w-full object-cover object-center"
-                />
+              </figure>
+              <div className="product_images">
+                <figure className="product_images-1">
+                  <img
+                    src={productSelector.images[1]}
+                    alt={productSelector.title}
+                    className="h-full w-full object-cover object-center"
+                  />
+                </figure>
+                <figure className="product_images-2">
+                  <img
+                    src={productSelector.images[2]}
+                    alt={productSelector.title}
+                    className="h-full w-full object-cover object-center"
+                  />
+                </figure>
+                <figure className="product_images-3">
+                  <img
+                    src={productSelector.images[3]}
+                    alt={productSelector.title}
+                    className="h-full w-full object-cover object-center"
+                  />
+                </figure>
               </div>
             </div>
-            <div className="aspect-h-5 aspect-w-4 lg:aspect-h-4 lg:aspect-w-3 sm:overflow-hidden sm:rounded-lg">
-              <img
-                src={productSelector.images[3]}
-                alt={productSelector.title}
-                className="h-full w-full object-cover object-center"
-              />
-            </div>
-          </div>
+          </section>
 
           {/* Product info */}
-          <div className="mx-auto max-w-2xl px-4 pb-16 pt-10 sm:px-6 lg:grid lg:max-w-7xl lg:grid-cols-3 lg:grid-rows-[auto,auto,1fr] lg:gap-x-8 lg:px-8 lg:pb-24 lg:pt-16">
-            <div className="lg:col-span-2 lg:border-r lg:border-gray-200 lg:pr-8">
-              <h1 className="text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl">{productSelector.title}</h1>
-            </div>
+          <section className="product_info-wrapper">
+            <nav aria-label="Breadcrumb">
+              <ol className="breadcrumb-wrapper whitespace-nowrap flex items-center gap-2 uppercase">
+                <li>
+                  <Link
+                    className="breadcrumb-go_back uppercase flex items-center gap-1"
+                    to="/">
+                    <figure>
+                      <svg
+                        width="60"
+                        height="20"
+                        viewBox="0 0 65 34"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <path
+                          d="M10 18L65 18L65 16L10 16L10 18Z"
+                          fill="black"
+                        />
+                        <path
+                          d="M9 16C10.1819 16 11.3522 16.2328 12.4442 16.6851C13.5361 17.1374 14.5282 17.8003 15.364 18.636C16.1997 19.4718 16.8626 20.4639 17.3149 21.5558C17.7672 22.6478 18 23.8181 18 25L16.0178 25C16.0178 24.0784 15.8363 23.1658 15.4836 22.3144C15.1309 21.463 14.614 20.6893 13.9623 20.0377C13.3107 19.386 12.537 18.8691 11.6856 18.5164C10.8342 18.1637 9.92159 17.9822 9 17.9822L9 16Z"
+                          fill="black"
+                        />
+                        <path
+                          d="M18 9C18 11.3869 17.0518 13.6761 15.364 15.364C13.6761 17.0518 11.3869 18 9 18L9 16.0178C10.8612 16.0178 12.6462 15.2784 13.9623 13.9623C15.2784 12.6462 16.0178 10.8612 16.0178 9L18 9Z"
+                          fill="black"
+                        />
+                      </svg>
+                    </figure>
+                    GO BACK
+                  </Link>
+                </li>
+                <li className="breadcrumb-items flex items-center gap-1">
+                  <p className="">{productSelector.category}</p>
+                  <span>/</span>
+                  <p className="">{productSelector.brand}</p>
+                </li>
+              </ol>
+            </nav>
 
-            {/* Options */}
-            <div className="mt-4 lg:row-span-3 lg:mt-0">
-              <h2 className="sr-only">Product information</h2>
-              <p className="text-3xl line-through tracking-tight text-gray-900">${productSelector.price}</p>
-              <p className="text-3xl tracking-tight text-gray-900">${DISCOUNT_PRICE(productSelector)}</p>
+            <div className="product_info-ctr">
+              <h1 className="product_title">{productSelector.title}</h1>
 
-              {/* Reviews */}
-              <div className="mt-6">
-                <h3 className="sr-only">Reviews</h3>
-                <div className="flex items-center">
+              <div className="product_rating-ctr">
+                <div className="product_rating">
+                  <svg
+                    width="14"
+                    height="14"
+                    viewBox="0 0 16 16"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg">
+                    <path
+                      d="M12.2829 16C12.083 16 11.883 15.9304 11.7163 15.8261L8.01679 13.4609L4.31723 15.8261C3.9506 16.0696 3.48402 16.0348 3.11739 15.7913C2.75076 15.513 2.58413 15.0609 2.68412 14.6087L3.68399 10.1913L0.384376 7.23479C0.051087 6.92176 -0.0822286 6.46958 0.051087 6.01739C0.184403 5.56521 0.551031 5.28697 0.984296 5.25218L5.35043 4.86956L7.01688 0.695651C7.18352 0.278261 7.58346 0 8.01675 0C8.45003 0 8.84996 0.278261 9.01661 0.695651L10.6831 4.86956L15.0157 5.25218C15.449 5.28696 15.8156 5.6 15.9489 6.01739C16.0822 6.46956 15.9489 6.92174 15.6156 7.23479L12.3495 10.1913L13.3494 14.6087C13.4494 15.0609 13.2827 15.513 12.9161 15.7913C12.7495 15.9304 12.5162 16 12.2829 16Z"
+                      fill="#FF9325"
+                    />
+                  </svg>
+
                   <div className="flex items-center">
-                    {[0, 1, 2, 3, 4].map((rating) => (
-                      <StarIcon
-                        key={rating}
-                        className={classNames(
-                          productSelector.rating > rating ? "text-gray-900" : "text-gray-200",
-                          "h-5 w-5 flex-shrink-0"
-                        )}
-                        aria-hidden="true"
-                      />
-                    ))}
+                    <p>{Math.round(productSelector.rating * 10) / 10} / 5</p>
                   </div>
-                  <p className="sr-only">{productSelector.rating} out of 5 stars</p>
                 </div>
+                <span>
+                  <svg
+                    width="7"
+                    height="7"
+                    viewBox="0 0 7 7"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="3.5" cy="3.5" r="3.5" fill="#737373" />
+                  </svg>
+                </span>
+                {productSelector.stock === 0 ? (
+                  <div className="product_stocks">
+                    <p>Out of Stock</p>
+                  </div>
+                ) : (
+                  <div className="product_stocks">
+                    <p>Stocks {productSelector.stock}</p>
+                  </div>
+                )}
+              </div>
+              {/* Description */}
+              <div className="product_description">
+                <p>{productSelector.description}</p>
               </div>
 
-              <form className="mt-10">
-                {/* Colors */}
+              {/* Price */}
+              <div className="product_price-ctr">
+                <h3 className="">${DISCOUNT_PRICE(productSelector)}</h3>
                 <div>
-                  <h3 className="text-sm font-medium text-gray-900">Color</h3>
-
-                  <RadioGroup value={selectedColor} onChange={setSelectedColor} className="mt-4">
-                    <RadioGroup.Label className="sr-only">Choose a color</RadioGroup.Label>
-                    <div className="flex items-center space-x-3">
-                      {colors.map((color) => (
-                        <RadioGroup.Option
-                          key={color.name}
-                          value={color}
-                          className={({ active, checked }) =>
-                            classNames(
-                              color.selectedClass,
-                              active && checked ? "ring ring-offset-1" : "",
-                              !active && checked ? "ring-2" : "",
-                              "relative -m-0.5 flex cursor-pointer items-center justify-center rounded-full p-0.5 focus:outline-none"
-                            )
-                          }
-                        >
-                          <RadioGroup.Label as="span" className="sr-only">
-                            {color.name}
-                          </RadioGroup.Label>
-                          <span
-                            aria-hidden="true"
-                            className={classNames(
-                              color.class,
-                              "h-8 w-8 rounded-full border border-black border-opacity-10"
-                            )}
-                          />
-                        </RadioGroup.Option>
-                      ))}
-                    </div>
-                  </RadioGroup>
+                  <p>
+                    M.R.P.:{' '}
+                    <span className="line-through">
+                      ${productSelector.price}
+                    </span>
+                  </p>
+                  <span>/</span>
+                  <p>
+                    -{Math.round(productSelector.discountPercentage * 10) / 10}%
+                  </p>
                 </div>
+              </div>
 
-                {/* Sizes */}
-                <div className="mt-10">
-                  <div className="flex items-center justify-between">
-                    <h3 className="text-sm font-medium text-gray-900">Size</h3>
-                    <div className="text-sm font-medium text-indigo-600 hover:text-indigo-500">Size guide</div>
-                  </div>
+              {/* Mern Features */}
+              <div className="purchase_feature-wrapper text-center">
+                <p>
+                  7 days <br /> Replacement
+                </p>
+                <span className="horizontal-line"></span>
+                <p>
+                  Free <br /> Delivery
+                </p>
+                <span className="horizontal-line"></span>
+                <p>
+                  Warranty <br /> Policy
+                </p>
+                <span className="horizontal-line"></span>
+                <p>
+                  Worldwide <br /> Shipping
+                </p>
+              </div>
 
-                  <RadioGroup value={selectedSize} onChange={setSelectedSize} className="mt-4">
-                    <RadioGroup.Label className="sr-only">Choose a size</RadioGroup.Label>
-                    <div className="grid grid-cols-4 gap-4 sm:grid-cols-8 lg:grid-cols-4">
-                      {sizes.map((size) => (
-                        <RadioGroup.Option
-                          key={size.name}
-                          value={size}
-                          disabled={!size.inStock}
-                          className={({ active }) =>
-                            classNames(
-                              size.inStock
-                                ? "cursor-pointer bg-white text-gray-900 shadow-sm"
-                                : "cursor-not-allowed bg-gray-50 text-gray-200",
-                              active ? "ring-2 ring-indigo-500" : "",
-                              "group relative flex items-center justify-center rounded-md border py-3 px-4 text-sm font-medium uppercase hover:bg-gray-50 focus:outline-none sm:flex-1 sm:py-6"
-                            )
-                          }
-                        >
-                          {({ active, checked }) => (
-                            <>
-                              <RadioGroup.Label as="span">{size.name}</RadioGroup.Label>
-                              {size.inStock ? (
-                                <span
-                                  className={classNames(
-                                    active ? "border" : "border-2",
-                                    checked ? "border-indigo-500" : "border-transparent",
-                                    "pointer-events-none absolute -inset-px rounded-md"
-                                  )}
-                                  aria-hidden="true"
-                                />
-                              ) : (
-                                <span
-                                  aria-hidden="true"
-                                  className="pointer-events-none absolute -inset-px rounded-md border-2 border-gray-200"
-                                >
-                                  <svg
-                                    className="absolute inset-0 h-full w-full stroke-2 text-gray-200"
-                                    viewBox="0 0 100 100"
-                                    preserveAspectRatio="none"
-                                    stroke="currentColor"
-                                  >
-                                    <line x1={0} y1={100} x2={100} y2={0} vectorEffect="non-scaling-stroke" />
-                                  </svg>
-                                </span>
-                              )}
-                            </>
-                          )}
-                        </RadioGroup.Option>
-                      ))}
-                    </div>
-                  </RadioGroup>
-                </div>
-
-                <button
-                  onClick={handleCart}
-                  type="submit"
-                  className="mt-10 flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 px-8 py-3 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
-                >
-                  Add to Cart
-                </button>
-              </form>
+              <div className="product_category">
+                <p className="">
+                  Delivered by - <span>Mern</span>
+                </p>
+                <p>
+                  {' '}
+                  Sold by - <span>{productSelector.brand}</span>
+                </p>
+              </div>
+              <button
+                onClick={handleCart}
+                type="submit"
+                className="btn primary-btn">
+                Add to Cart
+              </button>
+              <div className="py-10 lg:col-span-2 lg:col-start-1 lg:border-r lg:border-gray-200 lg:pb-16 lg:pr-8 lg:pt-6"></div>
             </div>
-
-            <div className="py-10 lg:col-span-2 lg:col-start-1 lg:border-r lg:border-gray-200 lg:pb-16 lg:pr-8 lg:pt-6">
-              {/* Description and details */}
-              <div>
-                <h3 className="sr-only">Description</h3>
-
-                <div className="space-y-6">
-                  <p className="text-base text-gray-900">{productSelector.description}</p>
-                </div>
-              </div>
-
-              <div className="mt-10">
-                <h3 className="text-sm font-medium text-gray-900">Highlights</h3>
-
-                <div className="mt-4">
-                  <ul className="list-disc space-y-2 pl-4 text-sm">
-                    {highlights.map((highlight) => (
-                      <li key={highlight} className="text-gray-400">
-                        <span className="text-gray-600">{highlight}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              </div>
-
-              <div className="mt-10">
-                <h2 className="text-sm font-medium text-gray-900">Details</h2>
-
-                <div className="mt-4 space-y-6">
-                  <p className="text-sm text-gray-600">{productSelector.description}</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+          </section>
+        </main>
       )}
-    </div>
+    </>
   );
 }

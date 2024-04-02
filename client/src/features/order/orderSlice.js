@@ -29,7 +29,7 @@ export const orderSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(placeOrderAsync.pending, (state) => {
-        state.status = "loading";
+        state.status = "pending";
       })
       .addCase(placeOrderAsync.fulfilled, (state, action) => {
         state.status = "fulfilled";
@@ -37,7 +37,7 @@ export const orderSlice = createSlice({
         state.orderPlaced = action.payload;
       })
       .addCase(fetchAllOrdersAsync.pending, (state) => {
-        state.status = "loading";
+        state.status = "pending";
       })
       .addCase(fetchAllOrdersAsync.fulfilled, (state, action) => {
         state.status = "fulfilled";
@@ -45,7 +45,7 @@ export const orderSlice = createSlice({
         state.totalOrders = action.payload.totalOrders;
       })
       .addCase(updateOrderAsync.pending, (state) => {
-        state.status = "loading";
+        state.status = "pending";
       })
       .addCase(updateOrderAsync.fulfilled, (state, action) => {
         state.status = "fulfilled";
