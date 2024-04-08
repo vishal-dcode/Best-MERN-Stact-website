@@ -51,6 +51,16 @@
       "email": "sandra.thompson@example.com",
       "password": "Vishal@4225",
       "addresses": []
+    },
+    {
+      "id": "a1cf",
+      "email": "vishalvish4225@gmail.com",
+      "password": "Vishal@4225"
+    },
+    {
+      "id": "65eb",
+      "email": "vishalvish4225@gmail.com",
+      "password": "Vishal@4225"
     }
   ],
   "cart": [
@@ -73,6 +83,26 @@
       ],
       "quantity": 2,
       "user": "de77"
+    },
+    {
+      "id": "4",
+      "title": "OPPOF19",
+      "description": "OPPO F19 is officially announced on April 2021.",
+      "price": 2333,
+      "discountPercentage": 17.91,
+      "rating": 4.3,
+      "stock": 123,
+      "brand": "OPPO",
+      "category": "smartphones",
+      "thumbnail": "https://cdn.dummyjson.com/product-images/4/thumbnail.jpg",
+      "images": [
+        "https://cdn.dummyjson.com/product-images/4/1.jpg",
+        "https://cdn.dummyjson.com/product-images/4/2.jpg",
+        "https://cdn.dummyjson.com/product-images/4/3.jpg",
+        "https://cdn.dummyjson.com/product-images/4/thumbnail.jpg"
+      ],
+      "quantity": 1,
+      "user": "a1cf"
     }
   ],
   "orders": [
