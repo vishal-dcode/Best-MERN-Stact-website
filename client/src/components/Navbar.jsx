@@ -1,13 +1,8 @@
-import {Fragment} from 'react';
 import {Link, NavLink} from 'react-router-dom';
 import {useSelector} from 'react-redux';
 //* UI
-import {Disclosure, Menu, Transition} from '@headlessui/react';
-import {
-  Bars3Icon,
-  ShoppingCartIcon,
-  XMarkIcon,
-} from '@heroicons/react/24/outline';
+import {Disclosure, Menu} from '@headlessui/react';
+import {Bars3Icon, XMarkIcon} from '@heroicons/react/24/outline';
 //* REDUX
 import {selectItems} from '../features/cart/cartSlice';
 import {selectLoggedInUser} from '../features/auth/authSlice';
@@ -19,9 +14,9 @@ const navigation = [
   {name: 'Your Orders', to: '/orders', current: false},
 ];
 
-function classNames(...classes) {
-  return classes.filter(Boolean).join(' ');
-}
+// function classNames(...classes) {
+//   return classes.filter(Boolean).join(' ');
+// }
 
 export default function NavBar({children}) {
   const itemsSelector = useSelector(selectItems);
@@ -89,7 +84,7 @@ export default function NavBar({children}) {
               <div className="profile_wrapper">
                 <Link className="cart_ctr" to="/cart" type="button">
                   <svg
-                    class="h-6 w-6"
+                    className="h-6 w-6"
                     width="44"
                     height="44"
                     viewBox="0 0 44 44"
@@ -99,7 +94,7 @@ export default function NavBar({children}) {
                       d="M31.9981 24.2C33.6475 24.2 35.099 23.298 35.8467 21.934L43.7198 7.656C44.5335 6.204 43.4779 4.4 41.8065 4.4H9.25856L7.19133 0H0V4.4H4.39837L12.3154 21.098L9.34653 26.466C7.74113 29.414 9.85234 33 13.1951 33H39.5853V28.6H13.1951L15.6142 24.2H31.9981ZM11.3478 8.8H38.0679L31.9981 19.8H16.5599L11.3478 8.8ZM13.1951 35.2C10.776 35.2 8.81873 37.18 8.81873 39.6C8.81873 42.02 10.776 44 13.1951 44C15.6142 44 17.5935 42.02 17.5935 39.6C17.5935 37.18 15.6142 35.2 13.1951 35.2ZM35.1869 35.2C32.7678 35.2 30.8106 37.18 30.8106 39.6C30.8106 42.02 32.7678 44 35.1869 44C37.606 44 39.5853 42.02 39.5853 39.6C39.5853 37.18 37.606 35.2 35.1869 35.2Z"
                       fill="black"
                       stroke="white"
-                      stroke-width="1"
+                      strokeWidth="1"
                     />
                   </svg>
 

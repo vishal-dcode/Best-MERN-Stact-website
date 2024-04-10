@@ -12,10 +12,6 @@ exports.createProduct = async (req, res) => {
 };
 
 exports.fetchAllProducts = async (req, res) => {
-  // filter = {"category":["smartphone","laptops"]}
-  // sort = {_sort:"price",_order="desc"}
-  // pagination = {_page:1,_limit=10}
-  // TODO : we have to try with multiple category and brands after change in front-end
   let condition = {}
   if(!req.query.admin){
       condition.deleted = {$ne:true}
@@ -40,10 +36,11 @@ exports.fetchAllProducts = async (req, res) => {
   }
 
   const totalDocs = await totalProductsQuery.count().exec();
-  console.log({ totalDocs });
+  // console.log({ totalDocs });
 
   if (req.query._page && req.query._limit) {
-    const pageSize = req.query._limit;
+    const pageSize = 12;
+    // const pageSize = req.query._limit;
     const page = req.query._page;
     query = query.skip(pageSize * (page - 1)).limit(pageSize);
   }

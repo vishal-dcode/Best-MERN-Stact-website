@@ -15,7 +15,7 @@ export default function CartPage() {
     0,
   );
   const totalAmount = cartItemsSelector.reduce(
-    (amount, item) => DISCOUNT_PRICE(item) * item.quantity + amount,
+    (amount, item) => DISCOUNT_PRICE(item.product) * item.quantity + amount,
     0,
   );
 

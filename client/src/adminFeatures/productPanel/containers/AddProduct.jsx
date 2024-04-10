@@ -1,7 +1,3 @@
-// TODO:
-// add word limit to discription and title
-
-import {PhotoIcon, UserCircleIcon} from '@heroicons/react/24/solid';
 import {
   addProductAsync,
   deleteProductAsync,
@@ -16,20 +12,16 @@ import {useDispatch, useSelector} from 'react-redux';
 import {useForm} from 'react-hook-form';
 import {useParams} from 'react-router-dom';
 import {useEffect} from 'react';
+import {useAlert} from 'react-alert';
 
 export default function AddProduct() {
-  const {
-    register,
-    handleSubmit,
-    reset,
-    setValue,
-    formState: {errors},
-  } = useForm();
+  const {register, handleSubmit, reset, setValue} = useForm();
   const dispatch = useDispatch();
   const brandsSelected = useSelector(selectBrands);
   const categoriesSelected = useSelector(selectCategories);
   const params = useParams();
   const productIdSelected = useSelector(selectProductById);
+  const alert = useAlert();
 
   useEffect(() => {
     if (params.id) {
@@ -84,8 +76,10 @@ export default function AddProduct() {
           if (params.id) {
             products.id = params.id;
             dispatch(updateProductAsync(products));
+            alert.success('Product Updated');
           } else {
             dispatch(addProductAsync(products));
+            alert.success('Product Created');
           }
           reset();
         })}>

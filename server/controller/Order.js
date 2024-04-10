@@ -24,7 +24,7 @@ exports.fetchOrdersByUser = async (req, res) => {
   exports.deleteOrder = async (req, res) => {
       const { id } = req.params;
       try {
-      const order = await Order.findByIdAndDelete(id);
+      const order = await Order.findOneAndDelete(id);
       res.status(200).json(order);
     } catch (err) {
       res.status(400).json(err);
@@ -34,7 +34,7 @@ exports.fetchOrdersByUser = async (req, res) => {
   exports.updateOrder = async (req, res) => {
     const { id } = req.params;
     try {
-      const order = await Order.findByIdAndUpdate(id, req.body, {
+      const order = await Order.findOneAndUpdate(id, req.body, {
         new: true,
       });
       res.status(200).json(order);

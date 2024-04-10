@@ -1,8 +1,8 @@
 import {useEffect, Fragment, useState} from 'react';
-import {DISCOUNT_PRICE, ITEMS_PER_PAGE} from '../../app/constants';
+import {ITEMS_PER_PAGE} from '../../app/constants';
 import {useDispatch, useSelector} from 'react-redux';
-import {PencilIcon, InformationCircleIcon} from '@heroicons/react/24/solid';
-import {Dialog, Disclosure, Menu, Transition} from '@headlessui/react';
+import {PencilIcon} from '@heroicons/react/24/solid';
+import {Menu, Transition} from '@headlessui/react';
 import {
   fetchAllOrdersAsync,
   selectOrders,
@@ -23,7 +23,7 @@ export default function AdminOrderPanel() {
     dispatch(updateOrderAsync(updatedOrder));
     setEditOrderStatus(-1); // ? to close options
   };
-  const handleShow = (orders) => {};
+  // const handleShow = (orders) => {};
   const handleEdit = (orders) => {
     setEditOrderStatus(orders.id);
   };
@@ -38,8 +38,10 @@ export default function AdminOrderPanel() {
     {name: 'Price: High to Low', sort: 'price', order: 'desc'},
   ];
   useEffect(() => {
-    handlePage();
-  }, [dispatch, page]);
+    handlePage(page);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [page]);
+
   const statusColor = (status) => {
     switch (status) {
       case 'pending':
@@ -145,16 +147,17 @@ export default function AdminOrderPanel() {
                   {orders.items.map((item) => (
                     <div className="flex flex-col">
                       <span className="order_id">
-                        Order ID: {item.id}S{Math.floor(Math.random() * 999)}
+                        Order ID: {item.product.id}S
+                        {Math.floor(Math.random() * 999)}
                       </span>
-                      <p className="product_name">{item.title}</p>
+                      <p className="product_name">{item.product.title}</p>
                     </div>
                   ))}
                 </td>
                 <td className="py-3 border-b border-blue-gray-50">
                   <div className="flex flex-col">
                     {orders.items.map((item) => (
-                      <p className="quantity">
+                      <p key={item.id} className="quantity">
                         {orders.totalItems < 10
                           ? '0' + orders.totalItems
                           : orders.totalItems}

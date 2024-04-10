@@ -3,11 +3,12 @@ const { createOrder, fetchOrdersByUser, deleteOrder, updateOrder,fetchAllOrders 
 
 const router = express.Router();
 //  /orders is already added in base path
+router.get('/',fetchAllOrders)
 router.post('/', createOrder)
-      .get('/user/:userId', fetchOrdersByUser)
-      .delete('/:id', deleteOrder)
-      .patch('/:id', updateOrder)
-      .get('/',fetchAllOrders)
+router.get('/user/:userId', fetchOrdersByUser)
+router.delete('/:id', deleteOrder)
+router.patch('/:id', updateOrder)
+      
 
 
 exports.router = router;

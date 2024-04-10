@@ -3,16 +3,23 @@ import {useDispatch, useSelector} from 'react-redux';
 import {Link, useParams} from 'react-router-dom';
 import {emptyCartAsync} from '../features/cart/cartSlice';
 import {selectLoggedInUser} from '../features/auth/authSlice';
+import {selectUserInfo, selectUserOrders} from '../features/user/userSlice';
 
 export default function OrderSuccess() {
   const dispatch = useDispatch();
   const params = useParams();
   const userSelector = useSelector(selectLoggedInUser);
+  const userInfoSelected = useSelector(selectUserInfo);
+  const userOrderSelector = useSelector(selectUserOrders);
 
   useEffect(() => {
-    // console.log(userSelector.id);
+    console.log(userSelector);
+    console.log(userOrderSelector);
+    console.log('userInfoSelected', userInfoSelected[0]);
+
+    //* This will empty the cart after checkout
     // dispatch(emptyCartAsync(userSelector.id));
-  }, [dispatch, userSelector]);
+  }, [dispatch, userSelector, userOrderSelector]);
 
   return (
     <main className="order_success-wrapper flex flex-col items-center">
@@ -64,26 +71,28 @@ export default function OrderSuccess() {
       <section className="order_details">
         <div className="order_details-ctr">
           <div className="order_details-header">
-            <h3>Order Details</h3>
-            <h3>ORDER #86S02</h3>
+            <h3>ORDER ID</h3>
+            <h3>{userInfoSelected[0].id}</h3>
           </div>
 
           {/* <p>Order ID is {params.id.toUpperCase()}</p> */}
 
           <div className="order_details-info">
             <p>
-              Andrei Dorin Dorin si Asociatii SRLD Str. Furtunei, 28, Bucharest
-              sector 6 Romania.
+              {userInfoSelected[0].selectedAddress.address},{' '}
+              {userInfoSelected[0].selectedAddress.state},{' '}
+              {userInfoSelected[0].selectedAddress.city} -{' '}
+              {userInfoSelected[0].selectedAddress.pinCode}
             </p>
             <div className="date py-2">
               <span>March 6, 2026</span>
-              <span>Payment Method: Card</span>
+              <span>Payment Method: {userInfoSelected[0].paymentMethod}</span>
             </div>
             <span className="line-dotted py-2"></span>
             <div className="order_details-total">
               <div>
                 <p>Total Items:</p>
-                <p>8</p>
+                <p>{userInfoSelected[0].totalItems}</p>
               </div>
               <div>
                 <p>Subtotal:</p>
@@ -95,7 +104,7 @@ export default function OrderSuccess() {
               </div>
               <div>
                 <p>Order Total:</p>
-                <p>$1099</p>
+                <p>${userInfoSelected[0].totalAmount}</p>
               </div>
             </div>
           </div>

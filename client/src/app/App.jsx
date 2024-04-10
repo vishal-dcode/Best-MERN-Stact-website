@@ -42,7 +42,7 @@ import OrderSuccess from '../pages/OrderSuccess.jsx';
 import Logout from '../features/auth/containers/Logout.jsx';
 //? Admin Pages
 import AdminHomePage from '../pages/AdminHomePage.jsx';
-import AdminProductDetailPage from '../pages/AdminProductDetailPage.jsx';
+// import AdminProductDetailPage from '../pages/AdminProductDetailPage.jsx';
 //? Admin Features
 import AddProduct from '../adminFeatures/productPanel/containers/AddProduct.jsx';
 import AdminOrderPanel from '../adminFeatures/orderPanel/AdminOrderPanel.jsx';

@@ -13,7 +13,7 @@ const productSchema = new Schema({
     category: { type : String, required: true},
     thumbnail: { type : String, required: true},
     images:{ type : [String], required: true},
-    deleted: { type : Boolean, default: false},
+    // deleted: { type : Boolean, default: false},
 })
 
 const virtual  = productSchema.virtual('id');

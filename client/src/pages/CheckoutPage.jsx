@@ -8,20 +8,30 @@ import Cart from '../features/cart/Cart';
 import {DISCOUNT_PRICE} from '../app/constants';
 // * REDUX
 import {selectItems} from '../features/cart/cartSlice';
-import {selectLoggedInUser, updateUserAsync} from '../features/auth/authSlice';
-import {placeOrderAsync, selectOrderPlaced} from '../features/order/orderSlice';
+import {selectLoggedInUser} from '../features/auth/authSlice';
+import {
+  createOrderAsync,
+  selectOrderPlaced,
+} from '../features/order/orderSlice';
+import {
+  selectUserInfo,
+  selectUserOrders,
+  updateUserAsync,
+} from '../features/user/userSlice';
+// import {selectUserOrders} from '../features/user/userSlice';
 
 export default function CheckoutPage() {
   const {
     register,
     handleSubmit,
     reset,
-    formState: {errors},
+    // formState: {errors},
   } = useForm();
   const dispatch = new useDispatch();
   const cartItemsSelector = useSelector(selectItems);
   const orderPlacedSelector = useSelector(selectOrderPlaced);
   const userSelector = useSelector(selectLoggedInUser);
+  // const userSelector = useSelector(selectUserOrders);
   const [address, setAddress] = useState(null);
   const [paymentMethod, setPaymentMethod] = useState('card');
   // console.log(orderPlacedSelector.id);
@@ -52,7 +62,11 @@ export default function CheckoutPage() {
   const handleAddresses = (e) => {
     // console.log(userSelector.addresses[e.target.value]);
     setAddress(userSelector.addresses[e.target.value]);
+    // console.log('Set Address:', address);
   };
+  // console.log(userSelector.addresses);
+  // console.log(userSelector.id);
+  // console.log(userSelector);
   const handlePaymentMethod = (e) => {
     // console.log(e.target.value);
     setPaymentMethod(e.target.value);
@@ -62,7 +76,7 @@ export default function CheckoutPage() {
     const order = {
       status: 'pending',
       items: cartItemsSelector,
-      user: userSelector,
+      user: userSelector.id,
       date: date,
       time: time,
       totalItems,
@@ -70,7 +84,7 @@ export default function CheckoutPage() {
       paymentMethod,
       address,
     };
-    dispatch(placeOrderAsync(order));
+    dispatch(createOrderAsync(order));
     // console.log(order);
 
     // TODO:
@@ -81,7 +95,7 @@ export default function CheckoutPage() {
 
   /*//! ------------ TOTAL AMOUNT ------------ */
   const totalAmount = cartItemsSelector.reduce(
-    (amount, item) => DISCOUNT_PRICE(item) * item.quantity + amount,
+    (amount, item) => DISCOUNT_PRICE(item.product) * item.quantity + amount,
     0,
   );
   const totalItems = cartItemsSelector.reduce(
@@ -109,9 +123,16 @@ export default function CheckoutPage() {
             className="mt-2"
             noValidate
             onSubmit={handleSubmit((data) => {
-              console.log(data);
+              console.log('ADD ADDRESS:', data);
               dispatch(
                 updateUserAsync({
+                  ...userSelector,
+                  date,
+                  addresses: [...userSelector.addresses, data],
+                }),
+              );
+              dispatch(
+                selectUserOrders({
                   ...userSelector,
                   date,
                   addresses: [...userSelector.addresses, data],
@@ -252,42 +273,44 @@ export default function CheckoutPage() {
                   Choose from Existing addresses
                 </p>
                 <ul>
-                  {userSelector.addresses.map((address, idx) => (
-                    <li
-                      key={idx}
-                      className="flex justify-between gap-x-6 px-5 py-5 border-solid border-2 border-gray-200">
-                      <div className="flex gap-x-4">
-                        <input
-                          onChange={handleAddresses}
-                          value={idx}
-                          name="address"
-                          type="radio"
-                          className="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-600"
-                        />
-                        <div className="min-w-0 flex-auto">
-                          <p className="text-base leading-3 mb-2 font-semibold leading-6 text-gray-900">
-                            {address.fullName}
-                          </p>
-                          <p className="truncate text-sm leading-5 text-gray-500">
-                            {address.address}
-                          </p>
-                          <div className="flex gap-2">
-                            <p className="truncate text-sm leading-5 text-gray-500">
-                              {address.state}
-                            </p>
-                            <span className="text-gray-400">-</span>
-                            <p className="truncate text-sm leading-5 text-gray-500">
-                              {address.city}
-                            </p>
-                            <span className="text-gray-400">-</span>
-                            <p className="truncate text-sm leading-5 text-gray-500">
-                              {address.pinCode}
-                            </p>
+                  {userSelector.addresses
+                    ? userSelector.addresses.map((address, idx) => (
+                        <li
+                          key={idx}
+                          className="flex justify-between gap-x-6 px-5 py-5 border-solid border-2 border-gray-200">
+                          <div className="flex gap-x-4">
+                            <input
+                              onChange={handleAddresses}
+                              value={idx}
+                              name="address"
+                              type="radio"
+                              className="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-600"
+                            />
+                            <div className="min-w-0 flex-auto">
+                              <p className="text-base leading-3 mb-2 font-semibold leading-6 text-gray-900">
+                                {address.fullName}
+                              </p>
+                              <p className="truncate text-sm leading-5 text-gray-500">
+                                {address.address}
+                              </p>
+                              <div className="flex gap-2">
+                                <p className="truncate text-sm leading-5 text-gray-500">
+                                  {address.state}
+                                </p>
+                                <span className="text-gray-400">-</span>
+                                <p className="truncate text-sm leading-5 text-gray-500">
+                                  {address.city}
+                                </p>
+                                <span className="text-gray-400">-</span>
+                                <p className="truncate text-sm leading-5 text-gray-500">
+                                  {address.pinCode}
+                                </p>
+                              </div>
+                            </div>
                           </div>
-                        </div>
-                      </div>
-                    </li>
-                  ))}
+                        </li>
+                      ))
+                    : 'No Address Found'}
                 </ul>
 
                 <div className="mt-10">

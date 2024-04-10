@@ -4,14 +4,7 @@ import {useSelector, useDispatch} from 'react-redux';
 // * UI
 import {Dialog, Disclosure, Menu, Transition} from '@headlessui/react';
 import {XMarkIcon} from '@heroicons/react/24/outline';
-import {StarIcon} from '@heroicons/react/20/solid';
-import {
-  ChevronDownIcon,
-  FunnelIcon,
-  MinusIcon,
-  PlusIcon,
-  Squares2X2Icon,
-} from '@heroicons/react/20/solid';
+import {FunnelIcon, MinusIcon, PlusIcon} from '@heroicons/react/20/solid';
 // * COMPONENTS
 import Pagination from '../../components/Pagination.jsx';
 // * REDUX
@@ -97,7 +90,9 @@ export default function AdminProductList() {
 
   useEffect(() => {
     const pagination = {_page: page, _limit: ITEMS_PER_PAGE};
-    dispatch(fetchProductsByFiltersAsync({filter, sort, pagination}));
+    dispatch(
+      fetchProductsByFiltersAsync({filter, sort, pagination, admin: true}),
+    );
   }, [dispatch, filter, sort, page]);
 
   useEffect(() => {
@@ -400,10 +395,7 @@ function ProductGrid({products}) {
               </p>
               <div className="product_price flex gap-2">
                 <h5 className=" block font-medium text-gray-900">
-                  $
-                  {Math.round(
-                    product.price * (1 - product.discountPercentage / 100),
-                  )}
+                  ${DISCOUNT_PRICE(product)}
                 </h5>
                 <p className=" block line-through font-medium text-gray-400">
                   ${product.price}

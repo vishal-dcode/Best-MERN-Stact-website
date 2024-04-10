@@ -1,5 +1,4 @@
 import {useEffect} from 'react';
-import {StarIcon} from '@heroicons/react/20/solid';
 import {useDispatch, useSelector} from 'react-redux';
 import {fetchAllProductByIdAsync, selectProductById} from '../productSlice';
 import {Link, useParams} from 'react-router-dom';
@@ -10,16 +9,9 @@ import {useAlert} from 'react-alert';
 
 // TODO: In server data we will add colors, sizes , highlights. to each product
 
-const highlights = [
-  'Hand cut and sewn locally',
-  'Dyed with our proprietary colors',
-  'Pre-washed & pre-shrunk',
-  'Ultra-soft 100% cotton',
-];
-
-function classNames(...classes) {
-  return classes.filter(Boolean).join(' ');
-}
+// function classNames(...classes) {
+//   return classes.filter(Boolean).join(' ');
+// }
 
 export default function ProductDetail() {
   const user = useSelector(selectLoggedInUser);
@@ -33,11 +25,15 @@ export default function ProductDetail() {
     e.preventDefault();
     if (
       itemSelector.findIndex(
-        (itemSelector) => itemSelector.id === productSelector.id,
+        (itemSelector) => itemSelector.product.id === productSelector.id,
       ) < 0
     ) {
       dispatch(
-        addToCartAsync({...productSelector, quantity: 1, user: user.id}),
+        addToCartAsync({
+          product: productSelector.id,
+          quantity: 1,
+          user: user.id,
+        }),
       );
       alert.success('Item added successfully');
     } else {
