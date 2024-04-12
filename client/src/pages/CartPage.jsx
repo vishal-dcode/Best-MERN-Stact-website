@@ -3,7 +3,7 @@ import {useSelector} from 'react-redux';
 // * COMPONENTS
 import Cart from '../features/cart/Cart';
 // * CONSTANTS
-import {DISCOUNT_PRICE} from '../app/constants';
+import {discountedPrice} from '../app/constants';
 // * REDUX
 import {selectItems} from '../features/cart/cartSlice';
 
@@ -12,11 +12,11 @@ export default function CartPage() {
 
   const totalItems = cartItemsSelector.reduce(
     (total, item) => item.quantity + total,
-    0,
+    0
   );
   const totalAmount = cartItemsSelector.reduce(
-    (amount, item) => DISCOUNT_PRICE(item.product) * item.quantity + amount,
-    0,
+    (amount, item) => discountedPrice(item.product) * item.quantity + amount,
+    0
   );
 
   let shippingAmount;
@@ -28,9 +28,9 @@ export default function CartPage() {
   return (
     <>
       {totalItems === 0 ? (
-        <h3 className="text-center uppercase font-bold text-sm">
-          No items in cart
-        </h3>
+        <div className="empty_cart flex justify-center items-center uppercase font-bold text-sm">
+          <span>No items in cart</span>
+        </div>
       ) : (
         <main className="cart_page-wrapper">
           <Cart />

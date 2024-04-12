@@ -28,6 +28,7 @@ export function updateCart(update) {
       headers: {'content-type': 'application/json'},
     });
     const data = await response.json();
+    // TODO: on server it will only return some info of user (not password)
     resolve({data});
   });
 }
@@ -39,31 +40,26 @@ export function updateCart(update) {
 //       headers: {'content-type': 'application/json'},
 //     });
 //     const data = await response.json();
+//     // TODO: on server it will only return some info of user (not password)
 //     resolve({data: {id: itemId}});
 //   });
 // }
-
 export function deleteItemFromCart(itemId) {
   return new Promise(async (resolve) => {
-    const response = await fetch('http://localhost:8080/cart/' + itemId, {
+    await fetch('http://localhost:8080/cart/' + itemId, {
       method: 'DELETE',
       headers: {'content-type': 'application/json'},
     });
-    if (response.status === 204) {
-      // No content returned for successful deletion
-      resolve({data: {}});
-    } else {
-      // If response contains data, parse and return it
-      const data = await response.json();
-      resolve({data: data});
-    }
+    // TODO: on server it will only return some info of user (not password)
+    resolve({id: itemId});
   });
 }
 
-export function emptyCart(userId) {
+export function resetCart(userId) {
+  // get all items of user's cart - and then delete each
   return new Promise(async (resolve) => {
-    const res = await fetchItemsByUserId(userId);
-    const items = res.data;
+    const response = await fetchItemsByUserId(userId);
+    const items = response.data;
     for (let item of items) {
       await deleteItemFromCart(item.id);
     }

@@ -2,6 +2,7 @@
 // // Remove navbar in /login
 // // fix navbar
 // // Fix role "admin" code
+// Download helvitica semibold font
 // add Modal confirmations for delete
 // Add multiple dummy ids
 // Fix the sidebar so that it doesn't overflow
@@ -14,85 +15,91 @@
 // Create dark theme and light theme
 // Use NODE multermeter ware to upload thumbnail and images in AddProducts
 
-import {useEffect} from 'react';
 import {Routes, Route, useLocation} from 'react-router-dom';
+import HomePage from '../pages/HomePage';
+import LoginPage from '../pages/LoginPage';
+import SignupPage from '../pages/SignupPage';
+import CartPage from '../pages/CartPage';
+import Checkout from '../pages/CheckoutPage';
+import ProductDetailPage from '../pages/ProductDetailPage';
+import Protected from '../features/auth/containers/Protected';
+import {useEffect} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
-import {positions, transitions, Provider} from 'react-alert';
+import {selectLoggedInUser} from '../features/auth/authSlice';
+import {fetchItemsByUserIdAsync} from '../features/cart/cartSlice';
+import PageNotFound from '../pages/PageNotFound';
+import OrderSuccessPage from '../pages/OrderSuccessPage';
+import UserOrdersPage from '../pages/UserOrdersPage';
+import {fetchLoggedInUserAsync} from '../features/user/userSlice';
+import Logout from '../features/auth/containers/Logout';
+import ForgotPasswordPage from '../pages/ForgotPasswordPage';
+import ProtectedAdmin from '../features/auth/containers/ProtectedAdmin';
+import AdminHome from '../pages/AdminHome';
+import AdminProductDetailPage from '../pages/AdminProductDetailPage';
+import AdminProductFormPage from '../pages/AdminProductFormPage';
+import AdminOrdersPage from '../pages/AdminOrdersPage';
+import {positions, Provider, transitions} from 'react-alert';
 import AlertTemplate from 'react-alert-template-basic';
-
-//? Components
-import Header from '../components/Navbar.jsx';
-import Footer from '../components/Footer.jsx';
-// import Loader from "../components/Loader.jsx";
-//? Pages
-import HomePage from '../pages/HomePage.jsx';
-import LoginPage from '../pages/LoginPage.jsx';
-import SignupPage from '../pages/SignupPage.jsx';
-import ProductDetailPage from '../pages/ProductDetailPage.jsx';
-import CheckoutPage from '../pages/CheckoutPage.jsx';
-import CartPage from '../pages/CartPage.jsx';
-import AboutPage from '../pages/AboutPage.jsx';
-import PageNotFound from '../pages/PageNotFound.jsx';
-import UserOrderPage from '../pages/UserOrderPage.jsx';
-//? Features
-import Protected from '../features/auth/containers/Protected.jsx';
-import {fetchItemsByUserIdAsync} from '../features/cart/cartSlice.js';
-import {selectLoggedInUser} from '../features/auth/authSlice.js';
-import OrderSuccess from '../pages/OrderSuccess.jsx';
-import Logout from '../features/auth/containers/Logout.jsx';
 //? Admin Pages
-import AdminHomePage from '../pages/AdminHomePage.jsx';
-// import AdminProductDetailPage from '../pages/AdminProductDetailPage.jsx';
+//? Pages
+//? Components
+import Navbar from '../components/Navbar';
+import Footer from '../components/Footer';
+import AboutPage from '../pages/AboutPage';
+import CardPaymentPage from '../pages/CardPaymentPage';
 //? Admin Features
-import AddProduct from '../adminFeatures/productPanel/containers/AddProduct.jsx';
-import AdminOrderPanel from '../adminFeatures/orderPanel/AdminOrderPanel.jsx';
+//? Features
 
 const alertOptions = {
   timeout: 5000,
-  position: positions.BOTTOM_RIGHT,
+  position: positions.BOTTOM_LEFT,
   transition: transitions.FADE,
 };
 
 // prettier-ignore
-export default function App() {
+export default  function App() {
   const location = useLocation();
   const isLoginPageOrSignupPage = location.pathname === '/login' || location.pathname === '/signup';
 
+
   const dispatch = useDispatch();
-  const loggedInUserSelector = useSelector(selectLoggedInUser);
+  const user = useSelector(selectLoggedInUser);
+
   useEffect(() => {
-    if (loggedInUserSelector) {
-      dispatch(fetchItemsByUserIdAsync(loggedInUserSelector.id));
+    if (user) {
+      dispatch(fetchItemsByUserIdAsync(user.id));
+      dispatch(fetchLoggedInUserAsync(user.id));
     }
-  }, [dispatch, loggedInUserSelector]);
+  }, [dispatch, user]);
 
   return (
-    <>
+    <div className="App">
       <Provider template={AlertTemplate} {...alertOptions}>
-        {!isLoginPageOrSignupPage && <Header />}
-
-        <Routes>
+        {!isLoginPageOrSignupPage && <Navbar />}
+        {/* <Navbar /> */}
+          <Routes>
+            <Route path="/" element={<Protected><HomePage /></Protected>} />
+            <Route path="/admin" element={<ProtectedAdmin><AdminHome /></ProtectedAdmin>} />
             <Route path="/login" element={<LoginPage />} />
             <Route path="/signup" element={<SignupPage />} />
-            <Route path="/" element={<><HomePage /></>} />
-            <Route path="/about" element={<Protected><AboutPage /></Protected>} />
-            <Route path="/logout" element={<Logout />} />
-            <Route path="/orders" element={<Protected><UserOrderPage /></Protected>} />
             <Route path="/cart" element={<Protected><CartPage /></Protected>} />
-            <Route path="/checkout" element={<Protected><CheckoutPage /></Protected>} />
+            <Route path="/checkout" element={<Protected><Checkout /></Protected>} />
             <Route path="/product-detail/:id" element={<Protected><ProductDetailPage /></Protected>} />
-            <Route path="/order-success/:id" element={<OrderSuccess />} />
-
-            <Route path="/admin" element={<Protected><AdminHomePage /></Protected>} />
-            <Route path="/admin/product-form" element={<Protected><AddProduct /></Protected>} />
-            <Route path="/admin/orders" element={<Protected><AdminOrderPanel /></Protected>} />
-            <Route path="/admin/product-detail/edit/:id" element={<Protected><AddProduct /></Protected>} />
-            <Route path="/admin/product-form/edit/:id" element={<Protected><AddProduct /></Protected>} />
+            <Route path="/admin/product-detail/:id" element={<ProtectedAdmin><AdminProductDetailPage /></ProtectedAdmin>} />
+            <Route path="/admin/product-form" element={<ProtectedAdmin><AdminProductFormPage /></ProtectedAdmin>} />
+            <Route path="/admin/orders" element={<ProtectedAdmin><AdminOrdersPage /></ProtectedAdmin>} />
+            <Route path="/admin/product-form/edit/:id" element={<ProtectedAdmin><AdminProductFormPage /></ProtectedAdmin>} />
+            <Route path="/order-success/:id" element={<Protected><OrderSuccessPage /></Protected>} />
+            <Route path="/orders" element={<Protected><UserOrdersPage /></Protected>} />
+            <Route path="/about" element={<Protected><AboutPage /></Protected>} />
+            <Route path="/card-payment" element={<CardPaymentPage />} />
+            <Route path="/logout" element={<Logout />} />
+            <Route path="/forgot-password" element={<ForgotPasswordPage />} />
             <Route path="*" element={<PageNotFound />} />
-        </Routes>
-
+          </Routes>
+          {/* <Footer /> */}
         {!isLoginPageOrSignupPage && <Footer />}
       </Provider>
-    </>
+    </div>
   );
 }

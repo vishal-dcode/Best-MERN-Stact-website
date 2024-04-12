@@ -1,20 +1,22 @@
+import {useState} from 'react';
 import {useSelector, useDispatch} from 'react-redux';
-//* CONSTANTS
-import {DISCOUNT_PRICE} from '../../app/constants';
-//* REDUX
 import {
   deleteItemFromCartAsync,
   selectItems,
   updateCartAsync,
 } from './cartSlice';
+import {Navigate} from 'react-router-dom';
+import {discountedPrice} from '../../app/constants';
+import Modal from '../../components/Modal';
 
 export default function Cart() {
   const dispatch = useDispatch();
-  const cartItemsSelector = useSelector(selectItems);
-  // console.log(cartItemsSelector);
+
+  const items = useSelector(selectItems);
+  const [openModal, setOpenModal] = useState(null);
 
   const handleQuantity = (e, item) => {
-    dispatch(updateCartAsync({...item, quantity: +e.target.value}));
+    dispatch(updateCartAsync({id: item.id, quantity: +e.target.value}));
   };
 
   const handleRemove = (e, id) => {
@@ -23,10 +25,12 @@ export default function Cart() {
 
   return (
     <>
+      {!items.length && <Navigate to="/" replace={true}></Navigate>}
+
       <section className="cart_wrapper">
         <div className="flow-root">
           <ul className="cart_list">
-            {cartItemsSelector.map((item) => (
+            {items.map((item) => (
               <li key={item.product.id} className="cart_items">
                 <figure className="h-32 w-32">
                   <img
@@ -59,15 +63,25 @@ export default function Cart() {
                   </div>
 
                   <div>
-                    <p className="price">${DISCOUNT_PRICE(item.product)}</p>
+                    <p className="price">${discountedPrice(item.product)}</p>
                   </div>
                 </div>
 
                 <div className="close_icon-ctr">
+                  <Modal
+                    title={`Delete ${item.product.title}`}
+                    message="Are you sure you want to delete this Cart item ?"
+                    dangerOption="Delete"
+                    cancelOption="Cancel"
+                    dangerAction={(e) => handleRemove(e, item.id)}
+                    cancelAction={() => setOpenModal(null)}
+                    showModal={openModal === item.id}></Modal>
                   <button
-                    onClick={(e) => handleRemove(e, item.product.id)}
+                    onClick={(e) => {
+                      setOpenModal(item.id);
+                    }}
                     type="button"
-                    className="close_icon">
+                    className="close_icon font-medium text-indigo-600 hover:text-indigo-500">
                     <svg
                       width="42"
                       height="42"

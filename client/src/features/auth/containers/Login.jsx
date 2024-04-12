@@ -26,7 +26,7 @@ export default function Login() {
           noValidate
           onSubmit={handleSubmit((data) => {
             dispatch(
-              checkUserAsync({email: data.email, password: data.password}),
+              checkUserAsync({email: data.email, password: data.password})
             );
           })}
           className="space-y-6"
@@ -53,9 +53,9 @@ export default function Login() {
 
           <div className="password_ctr">
             <div>
-              <a className="forget_password" href="/">
+              <Link className="forget_password" to="/forgot-password">
                 Forgot password?
-              </a>
+              </Link>
             </div>
             <div>
               <input
@@ -81,7 +81,7 @@ export default function Login() {
               Login
             </button>
           </div>
-          <span>
+          <span className="auth_note">
             “You can sign up with a temporary account to continue. All products
             listed are dummy”
           </span>

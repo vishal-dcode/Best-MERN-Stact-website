@@ -1,12 +1,13 @@
-import {useDispatch} from 'react-redux';
+import {useSelector, useDispatch} from 'react-redux';
 import {useForm} from 'react-hook-form';
 
-import {createUserAsync} from '../authSlice';
+import {selectLoggedInUser, createUserAsync} from '../authSlice';
 import {Link} from 'react-router-dom';
-// import { Navigate } from "react-router-dom";
+import {Navigate} from 'react-router-dom';
 
 export default function Signup() {
   const dispatch = useDispatch();
+  const user = useSelector(selectLoggedInUser);
 
   const {
     register,
@@ -14,10 +15,9 @@ export default function Signup() {
     formState: {errors},
   } = useForm();
 
-  // console.log(errors);
-
   return (
     <div className="signup_ctr">
+      {user && <Navigate to="/" replace={true}></Navigate>}
       <div>
         <h2>Create New Account</h2>
         <span className="new_user">
@@ -34,25 +34,24 @@ export default function Signup() {
         onSubmit={handleSubmit((data) => {
           dispatch(
             createUserAsync({
-              userName: data.userName,
               email: data.email,
               password: data.password,
               addresses: [],
-            }),
+              role: 'user',
+              //TODO: this role can be directly given on backend
+            })
           );
           console.log(data);
         })}>
         <div>
-          <div>
-            <input
-              placeholder="Your Name"
-              id="userName"
-              {...register('userName', {
-                required: 'User Name is required',
-              })}
-              type="userName"
-            />
-          </div>
+          <input
+            placeholder="Your Name"
+            id="userName"
+            {...register('userName', {
+              required: 'User Name is required',
+            })}
+            type="userName"
+          />
         </div>
 
         <div className="email_and_password">
@@ -85,44 +84,39 @@ export default function Signup() {
         </div>
 
         <div>
-          <div>
-            <input
-              placeholder="Password"
-              id="password"
-              {...register('password', {
-                required: 'password is required',
-                pattern: {
-                  value:
-                    /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/gm,
-                  message: `- at least 8 characters\n
+          <input
+            id="password"
+            {...register('password', {
+              required: 'password is required',
+              pattern: {
+                value: /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/gm,
+                message: `- at least 8 characters\n
                       - must contain at least 1 uppercase letter, 1 lowercase letter, and 1 number\n
                       - Can contain special characters`,
-                },
-              })}
-              type="password"
-            />
-            {errors.password && (
-              <p className="text-red-500">{errors.password.message}</p>
-            )}
-          </div>
+              },
+            })}
+            type="password"
+            placeholder="Password"
+          />
+          {errors.password && (
+            <p className="text-red-500">{errors.password.message}</p>
+          )}
         </div>
 
         <div>
-          <div>
-            <input
-              placeholder="Confirm Password"
-              id="confirmPassword"
-              {...register('confirmPassword', {
-                required: 'confirm password is required',
-                validate: (value, formValues) =>
-                  value === formValues.password || 'password not matching',
-              })}
-              type="password"
-            />
-            {errors.confirmPassword && (
-              <p className="text-red-500">{errors.confirmPassword.message}</p>
-            )}
-          </div>
+          <input
+            id="confirmPassword"
+            {...register('confirmPassword', {
+              required: 'confirm password is required',
+              validate: (value, formValues) =>
+                value === formValues.password || 'password not matching',
+            })}
+            placeholder="Confirm Password"
+            type="password"
+          />
+          {errors.confirmPassword && (
+            <p className="text-red-500">{errors.confirmPassword.message}</p>
+          )}
         </div>
 
         <div className="signup_ctr-btn">
@@ -130,7 +124,7 @@ export default function Signup() {
             Create Account
           </button>
         </div>
-        <span>
+        <span className="auth_note">
           “You can sign up with a temporary account to continue. All products
           listed are dummy”
         </span>

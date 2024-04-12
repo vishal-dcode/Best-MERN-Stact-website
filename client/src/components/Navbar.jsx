@@ -19,8 +19,8 @@ const navigation = [
 // }
 
 export default function NavBar({children}) {
-  const itemsSelector = useSelector(selectItems);
-  const loggedInUserSelector = useSelector(selectLoggedInUser);
+  const items = useSelector(selectItems);
+  const user = useSelector(selectLoggedInUser);
 
   return (
     <header>
@@ -29,7 +29,7 @@ export default function NavBar({children}) {
           Not Just another MERN App But an Experience
         </span>
         <nav className="flex justify-between gap-5">
-          {loggedInUserSelector && loggedInUserSelector.role === 'admin' && (
+          {user && user.role === 'admin' && (
             <div className="flex gap-5">
               <NavLink className="link" to="/admin">
                 Admin Panel
@@ -98,8 +98,8 @@ export default function NavBar({children}) {
                     />
                   </svg>
 
-                  {itemsSelector.length > 0 && (
-                    <span className="items_length">{itemsSelector.length}</span>
+                  {items.length > 0 && (
+                    <span className="items_length">{items.length}</span>
                   )}
                 </Link>
 

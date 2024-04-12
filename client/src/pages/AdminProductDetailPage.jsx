@@ -1,8 +1,10 @@
-import AdminProductDetail from "../adminFeatures/productPanel/AdminProductDetail";
-export default function AdminProductDetailPage() {
+import AdminProductDetail from '../features/admin/containers/AdminProductDetail';
+function AdminProductDetailPage() {
   return (
-    <>
-      <AdminProductDetail />
-    </>
+    <div>
+      <AdminProductDetail></AdminProductDetail>
+    </div>
   );
 }
+
+export default AdminProductDetailPage;

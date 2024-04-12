@@ -1,83 +1,74 @@
 import {useEffect} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
-import {fetchAllProductByIdAsync, selectProductById} from '../productSlice';
-import {Link, useParams} from 'react-router-dom';
+import {fetchProductByIdAsync, selectProductById} from '../productSlice';
+import {useParams, Link} from 'react-router-dom';
 import {addToCartAsync, selectItems} from '../../cart/cartSlice';
 import {selectLoggedInUser} from '../../auth/authSlice';
-import {DISCOUNT_PRICE} from '../../../app/constants';
+import {discountedPrice} from '../../../app/constants';
 import {useAlert} from 'react-alert';
-
-// TODO: In server data we will add colors, sizes , highlights. to each product
-
-// function classNames(...classes) {
-//   return classes.filter(Boolean).join(' ');
-// }
 
 export default function ProductDetail() {
   const user = useSelector(selectLoggedInUser);
-  const productSelector = useSelector(selectProductById);
-  const itemSelector = useSelector(selectItems);
+  const items = useSelector(selectItems);
+  const product = useSelector(selectProductById);
   const dispatch = useDispatch();
   const params = useParams();
   const alert = useAlert();
 
   const handleCart = (e) => {
     e.preventDefault();
-    if (
-      itemSelector.findIndex(
-        (itemSelector) => itemSelector.product.id === productSelector.id,
-      ) < 0
-    ) {
-      dispatch(
-        addToCartAsync({
-          product: productSelector.id,
-          quantity: 1,
-          user: user.id,
-        }),
-      );
-      alert.success('Item added successfully');
+    if (items.findIndex((item) => item.product.id === product.id) < 0) {
+      console.log({items, product});
+      const newItem = {
+        product: product.id,
+        quantity: 1,
+        user: user.id,
+      };
+      dispatch(addToCartAsync(newItem));
+      // TODO: it will be based on server response of backend
+      alert.success('Item added to Cart');
     } else {
-      alert.info('Item already in cart');
+      alert.error('Item Already added');
     }
   };
 
   useEffect(() => {
-    dispatch(fetchAllProductByIdAsync(params.id));
+    dispatch(fetchProductByIdAsync(params.id));
   }, [dispatch, params.id]);
 
   return (
     <>
-      {productSelector && (
+      {product && (
         <main className="product_detail-wrapper">
           {/* Image gallery */}
           <section className="product_images-wrapper">
             <div className="product_images-ctr">
               <figure className="product_thumbnail">
                 <img
-                  src={productSelector.images[0]}
-                  alt={productSelector.title}
+                  src={product.images[0]}
+                  alt={product.title}
                   className="h-full w-full object-cover object-center"
                 />
               </figure>
               <div className="product_images">
                 <figure className="product_images-1">
                   <img
-                    src={productSelector.images[1]}
-                    alt={productSelector.title}
+                    src={product.images[1]}
+                    alt={product.title}
                     className="h-full w-full object-cover object-center"
                   />
                 </figure>
                 <figure className="product_images-2">
                   <img
-                    src={productSelector.images[2]}
-                    alt={productSelector.title}
+                    src={product.images[2]}
+                    alt={product.title}
                     className="h-full w-full object-cover object-center"
                   />
                 </figure>
                 <figure className="product_images-3">
                   <img
-                    src={productSelector.images[3]}
-                    alt={productSelector.title}
+                    src={product.images[3]}
+                    alt={product.title}
                     className="h-full w-full object-cover object-center"
                   />
                 </figure>
@@ -118,15 +109,15 @@ export default function ProductDetail() {
                   </Link>
                 </li>
                 <li className="breadcrumb-items flex items-center gap-1">
-                  <p className="">{productSelector.category}</p>
+                  <p className="">{product.category}</p>
                   <span>/</span>
-                  <p className="">{productSelector.brand}</p>
+                  <p className="">{product.brand}</p>
                 </li>
               </ol>
             </nav>
 
             <div className="product_info-ctr">
-              <h1 className="product_title">{productSelector.title}</h1>
+              <h1 className="product_title">{product.title}</h1>
 
               <div className="product_rating-ctr">
                 <div className="product_rating">
@@ -143,7 +134,7 @@ export default function ProductDetail() {
                   </svg>
 
                   <div className="flex items-center">
-                    <p>{Math.round(productSelector.rating * 10) / 10} / 5</p>
+                    <p>{Math.round(product.rating * 10) / 10} / 5</p>
                   </div>
                 </div>
                 <span>
@@ -156,35 +147,31 @@ export default function ProductDetail() {
                     <circle cx="3.5" cy="3.5" r="3.5" fill="#737373" />
                   </svg>
                 </span>
-                {productSelector.stock === 0 ? (
+                {product.stock === 0 ? (
                   <div className="product_stocks">
                     <p>Out of Stock</p>
                   </div>
                 ) : (
                   <div className="product_stocks">
-                    <p>Stocks {productSelector.stock}</p>
+                    <p>Stocks {product.stock}</p>
                   </div>
                 )}
               </div>
               {/* Description */}
               <div className="product_description">
-                <p>{productSelector.description}</p>
+                <p>{product.description}</p>
               </div>
 
               {/* Price */}
               <div className="product_price-ctr">
-                <h3 className="">${DISCOUNT_PRICE(productSelector)}</h3>
+                <h3 className="">${discountedPrice(product)}</h3>
                 <div>
                   <p>
                     M.R.P.:{' '}
-                    <span className="line-through">
-                      ${productSelector.price}
-                    </span>
+                    <span className="line-through">${product.price}</span>
                   </p>
                   <span>/</span>
-                  <p>
-                    -{Math.round(productSelector.discountPercentage * 10) / 10}%
-                  </p>
+                  <p>-{Math.round(product.discountPercentage * 10) / 10}%</p>
                 </div>
               </div>
 
@@ -213,7 +200,7 @@ export default function ProductDetail() {
                 </p>
                 <p>
                   {' '}
-                  Sold by - <span>{productSelector.brand}</span>
+                  Sold by - <span>{product.brand}</span>
                 </p>
               </div>
               <button

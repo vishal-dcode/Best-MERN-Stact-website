@@ -155,6 +155,7 @@ nav .active {
   min-height: 100vh;
   padding: 6px;
 }
+
 .authPage_signup {
   display: flex;
   background-color: var(--clr-accent-500);
@@ -291,7 +292,7 @@ nav .active {
   justify-content: center;
   background-color: var(--clr-accent-500);
 }
-form > span {
+form .auth_note {
   font-size: 14px;
   color: var(--clr-neutral-400);
   display: flex;
@@ -595,11 +596,7 @@ footer .about_me > div:nth-of-type(2) {
   position: absolute;
   z-index: -1;
   inset: 0;
-  background: linear-gradient(
-    to top,
-    rgb(252, 213, 112),
-    rgba(255, 255, 255, 0)
-  );
+  background-color: var(--clr-accent-300);
 }
 .about_page-ctr {
   display: grid;
@@ -925,6 +922,18 @@ footer .about_me > div:nth-of-type(2) {
 .order_table-wrapper::-webkit-scrollbar {
   display: none;
 }
+.order_empty {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, 0%);
+  text-transform: uppercase;
+  font-weight: var(--fw-medium);
+}
+.empty_cart {
+  min-height: 65vh;
+  background-color: var(--clr-white);
+}
 table thead tr {
   border-bottom: 1px solid var(--clr-border-400);
 }
@@ -1047,7 +1056,7 @@ table tbody td .action {
 }
 .profile_page-wrapper .profile_name {
   line-height: 1;
-  font-size: 48px;
+  font-size: 38px;
   font-weight: var(--fw-bold);
 }
 .profile_link {
@@ -1163,7 +1172,7 @@ table tbody td .action {
   overflow: hidden;
   text-overflow: ellipsis;
   line-height: 24px;
-  max-height: 32px;
+  max-height: 28px;
 }
 .qty-ctr {
   display: flex;
@@ -1192,6 +1201,8 @@ table tbody td .action {
 .close_icon-ctr {
   padding-inline: 2.5rem;
   border-left: 1px solid var(--clr-border-400);
+  display: flex;
+  padding-inline: 1.5rem;
 }
 .close_icon {
   rotate: 45deg;
@@ -1209,7 +1220,7 @@ table tbody td .action {
   font-size: 28px;
 }
 .checkout_page-wrapper .close_icon-ctr {
-  padding-inline: 1.5rem;
+  align-items: center;
 }
 .checkout_page-wrapper .cart_items-info {
   padding: 0.8rem 1rem;

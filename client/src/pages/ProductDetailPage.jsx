@@ -1,8 +1,11 @@
-import ProductDetail from "../features/product/containers/ProductDetail";
-export default function ProductDetailPage() {
+import ProductDetail from '../features/product/containers/ProductDetail';
+
+function ProductDetailPage() {
   return (
     <>
       <ProductDetail />
     </>
   );
 }
+
+export default ProductDetailPage;

@@ -1,8 +1,8 @@
-import { useSelector } from "react-redux";
-import { Navigate } from "react-router-dom";
-import { selectLoggedInUser } from "../authSlice";
+import { useSelector } from 'react-redux';
+import { Navigate } from 'react-router-dom';
+import { selectLoggedInUser } from '../authSlice';
 
-export default function Protected({ children }) {
+function Protected({ children }) {
   const user = useSelector(selectLoggedInUser);
 
   if (!user) {
@@ -10,3 +10,5 @@ export default function Protected({ children }) {
   }
   return children;
 }
+
+export default Protected;
