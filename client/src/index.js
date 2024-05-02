@@ -1,12 +1,16 @@
+// * IMPORTS
 import React from 'react';
+import {BrowserRouter} from 'react-router-dom';
 import {createRoot} from 'react-dom/client';
 import {Provider} from 'react-redux';
-import {ReduxStore} from './app/store';
-import App from './app/App';
-import reportWebVitals from './reportWebVitals';
+// * MISCELLANEOUS
 import './css/index.css';
 import './css/fonts.css';
-import {BrowserRouter} from 'react-router-dom';
+import reportWebVitals from './reportWebVitals';
+// * COMPONENTS
+import App from './app/App';
+// * REDUX
+import {ReduxStore} from './app/store';
 
 const container = document.getElementById('root');
 const root = createRoot(container);

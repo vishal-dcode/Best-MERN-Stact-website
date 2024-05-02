@@ -1,19 +1,23 @@
+// * IMPORTS
 import {useState} from 'react';
 import {useSelector, useDispatch} from 'react-redux';
+import {Navigate} from 'react-router-dom';
+// * COMPONENTS
+import Modal from '../../components/Modal';
+// * CONTAINERS
+import {DISCOUNTED_PRICE} from '../../app/constants';
+// * REDUX
 import {
   deleteItemFromCartAsync,
   selectItems,
   updateCartAsync,
 } from './cartSlice';
-import {Navigate} from 'react-router-dom';
-import {discountedPrice} from '../../app/constants';
-import Modal from '../../components/Modal';
 
 export default function Cart() {
   const dispatch = useDispatch();
-
-  const items = useSelector(selectItems);
   const [openModal, setOpenModal] = useState(null);
+
+  const itemsSelector = useSelector(selectItems);
 
   const handleQuantity = (e, item) => {
     dispatch(updateCartAsync({id: item.id, quantity: +e.target.value}));
@@ -25,12 +29,12 @@ export default function Cart() {
 
   return (
     <>
-      {!items.length && <Navigate to="/" replace={true}></Navigate>}
+      {!itemsSelector.length && <Navigate to="/" replace={true}></Navigate>}
 
       <section className="cart_wrapper">
         <div className="flow-root">
           <ul className="cart_list">
-            {items.map((item) => (
+            {itemsSelector.map((item) => (
               <li key={item.product.id} className="cart_items">
                 <figure className="h-32 w-32">
                   <img
@@ -63,7 +67,7 @@ export default function Cart() {
                   </div>
 
                   <div>
-                    <p className="price">${discountedPrice(item.product)}</p>
+                    <p className="price">${DISCOUNTED_PRICE(item.product)}</p>
                   </div>
                 </div>
 

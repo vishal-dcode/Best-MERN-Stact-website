@@ -1,5 +1,11 @@
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { addToCart, deleteItemFromCart, fetchItemsByUserId, resetCart, updateCart } from './cartAPI';
+import {createAsyncThunk, createSlice} from '@reduxjs/toolkit';
+import {
+  addToCart,
+  deleteItemFromCart,
+  fetchItemsByUserId,
+  resetCart,
+  updateCart,
+} from './cartAPI';
 
 const initialState = {
   status: 'idle',
@@ -54,8 +60,7 @@ export const resetCartAsync = createAsyncThunk(
 export const cartSlice = createSlice({
   name: 'cart',
   initialState,
-  reducers: {
-  },
+  reducers: {},
   extraReducers: (builder) => {
     builder
       .addCase(addToCartAsync.pending, (state) => {
@@ -77,7 +82,9 @@ export const cartSlice = createSlice({
       })
       .addCase(updateCartAsync.fulfilled, (state, action) => {
         state.status = 'idle';
-        const index =  state.items.findIndex(item=>item.id===action.payload.id)
+        const index = state.items.findIndex(
+          (item) => item.id === action.payload.id
+        );
         state.items[index] = action.payload;
       })
       .addCase(deleteItemFromCartAsync.pending, (state) => {
@@ -85,8 +92,10 @@ export const cartSlice = createSlice({
       })
       .addCase(deleteItemFromCartAsync.fulfilled, (state, action) => {
         state.status = 'idle';
-        const index =  state.items.findIndex(item=>item.id===action.payload.id)
-        state.items.splice(index,1);
+        const index = state.items.findIndex(
+          (item) => item.id === action.payload.id
+        );
+        state.items.splice(index, 1);
       })
       .addCase(resetCartAsync.pending, (state) => {
         state.status = 'loading';
@@ -94,7 +103,7 @@ export const cartSlice = createSlice({
       .addCase(resetCartAsync.fulfilled, (state, action) => {
         state.status = 'idle';
         state.items = [];
-      })
+      });
   },
 });
 

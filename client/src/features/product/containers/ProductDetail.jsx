@@ -1,24 +1,38 @@
-import {useEffect} from 'react';
+// * IMPORTS
+import {useEffect, useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
-import {fetchProductByIdAsync, selectProductById} from '../productSlice';
 import {useParams, Link} from 'react-router-dom';
+import {useAlert} from 'react-alert';
+import Skeleton from 'react-loading-skeleton';
+// * MISCELLANEOUS
+import {DISCOUNTED_PRICE} from '../../../app/constants';
+// * REDUX
+import {fetchProductByIdAsync, selectProductById} from '../productSlice';
 import {addToCartAsync, selectItems} from '../../cart/cartSlice';
 import {selectLoggedInUser} from '../../auth/authSlice';
-import {discountedPrice} from '../../../app/constants';
-import {useAlert} from 'react-alert';
 
 export default function ProductDetail() {
-  const user = useSelector(selectLoggedInUser);
-  const items = useSelector(selectItems);
-  const product = useSelector(selectProductById);
   const dispatch = useDispatch();
   const params = useParams();
   const alert = useAlert();
+  const user = useSelector(selectLoggedInUser);
+  const items = useSelector(selectItems);
+  const product = useSelector(selectProductById);
+
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    setLoading(true);
+    const timer = setTimeout(() => {
+      setLoading(false);
+    }, 1500);
+    return () => clearTimeout(timer);
+  }, []);
 
   const handleCart = (e) => {
     e.preventDefault();
     if (items.findIndex((item) => item.product.id === product.id) < 0) {
-      console.log({items, product});
+      // console.log({items, product});
       const newItem = {
         product: product.id,
         quantity: 1,
@@ -42,43 +56,7 @@ export default function ProductDetail() {
         <main className="product_detail-wrapper">
           {/* Image gallery */}
           <section className="product_images-wrapper">
-            <div className="product_images-ctr">
-              <figure className="product_thumbnail">
-                <img
-                  src={product.images[0]}
-                  alt={product.title}
-                  className="h-full w-full object-cover object-center"
-                />
-              </figure>
-              <div className="product_images">
-                <figure className="product_images-1">
-                  <img
-                    src={product.images[1]}
-                    alt={product.title}
-                    className="h-full w-full object-cover object-center"
-                  />
-                </figure>
-                <figure className="product_images-2">
-                  <img
-                    src={product.images[2]}
-                    alt={product.title}
-                    className="h-full w-full object-cover object-center"
-                  />
-                </figure>
-                <figure className="product_images-3">
-                  <img
-                    src={product.images[3]}
-                    alt={product.title}
-                    className="h-full w-full object-cover object-center"
-                  />
-                </figure>
-              </div>
-            </div>
-          </section>
-
-          {/* Product info */}
-          <section className="product_info-wrapper">
-            <nav aria-label="Breadcrumb">
+            <nav aria-label="Breadcrumb" className="mb-5 block xl:hidden">
               <ol className="breadcrumb-wrapper whitespace-nowrap flex items-center gap-2 uppercase">
                 <li>
                   <Link
@@ -116,8 +94,90 @@ export default function ProductDetail() {
               </ol>
             </nav>
 
-            <div className="product_info-ctr">
-              <h1 className="product_title">{product.title}</h1>
+            <div className="product_images-ctr">
+              <figure className="product_thumbnail">
+                <img
+                  src={product.thumbnail}
+                  alt={product.title}
+                  loading="lazy"
+                  className="h-full w-full object-cover object-center"
+                />
+              </figure>
+              <div className="product_images">
+                <figure className="product_images-1">
+                  {loading && <Skeleton width={'100%'} height={'100%'} />}
+
+                  <img
+                    src={product.images[0]}
+                    alt={product.title}
+                    loading="lazy"
+                    className="h-full w-full object-cover object-center"
+                  />
+                </figure>
+                <figure className="product_images-2">
+                  {loading && <Skeleton width={'100%'} height={'100%'} />}
+                  <img
+                    src={product.images[1]}
+                    alt={product.title}
+                    loading="lazy"
+                    className="h-full w-full object-cover object-center"
+                  />
+                </figure>
+                <figure className="product_images-3">
+                  {loading && <Skeleton width={'100%'} height={'100%'} />}
+                  <img
+                    src={product.images[2]}
+                    alt={product.title}
+                    loading="lazy"
+                    className="h-full w-full object-cover object-center"
+                  />
+                </figure>
+              </div>
+            </div>
+          </section>
+
+          {/* Product info */}
+          <section className="product_info-wrapper  pt-0 xl:pt-10">
+            <nav aria-label="Breadcrumb" className="hidden xl:block">
+              <ol className="breadcrumb-wrapper whitespace-nowrap flex items-center gap-2 uppercase">
+                <li>
+                  <Link
+                    className="breadcrumb-go_back uppercase flex items-center gap-1"
+                    to="/">
+                    <figure>
+                      <svg
+                        width="60"
+                        height="20"
+                        viewBox="0 0 65 34"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <path
+                          d="M10 18L65 18L65 16L10 16L10 18Z"
+                          fill="black"
+                        />
+                        <path
+                          d="M9 16C10.1819 16 11.3522 16.2328 12.4442 16.6851C13.5361 17.1374 14.5282 17.8003 15.364 18.636C16.1997 19.4718 16.8626 20.4639 17.3149 21.5558C17.7672 22.6478 18 23.8181 18 25L16.0178 25C16.0178 24.0784 15.8363 23.1658 15.4836 22.3144C15.1309 21.463 14.614 20.6893 13.9623 20.0377C13.3107 19.386 12.537 18.8691 11.6856 18.5164C10.8342 18.1637 9.92159 17.9822 9 17.9822L9 16Z"
+                          fill="black"
+                        />
+                        <path
+                          d="M18 9C18 11.3869 17.0518 13.6761 15.364 15.364C13.6761 17.0518 11.3869 18 9 18L9 16.0178C10.8612 16.0178 12.6462 15.2784 13.9623 13.9623C15.2784 12.6462 16.0178 10.8612 16.0178 9L18 9Z"
+                          fill="black"
+                        />
+                      </svg>
+                    </figure>
+                    GO BACK
+                  </Link>
+                </li>
+                <li className="breadcrumb-items flex items-center gap-1">
+                  <p className="">{product.category}</p>
+                  <span>/</span>
+                  <p className="">{product.brand}</p>
+                </li>
+              </ol>
+            </nav>
+
+            <div className="product_info-ctr px-4 xl:px-0">
+              <h1 className="product_title pt-0 xl:pt-3">{product.title}</h1>
 
               <div className="product_rating-ctr">
                 <div className="product_rating">
@@ -164,7 +224,7 @@ export default function ProductDetail() {
 
               {/* Price */}
               <div className="product_price-ctr">
-                <h3 className="">${discountedPrice(product)}</h3>
+                <h3 className="pb-3">${DISCOUNTED_PRICE(product)}</h3>
                 <div>
                   <p>
                     M.R.P.:{' '}
@@ -209,7 +269,7 @@ export default function ProductDetail() {
                 className="btn primary-btn">
                 Add to Cart
               </button>
-              <div className="py-10 lg:col-span-2 lg:col-start-1 lg:border-r lg:border-gray-200 lg:pb-16 lg:pr-8 lg:pt-6"></div>
+              <div className="py-8 lg:col-span-2 lg:col-start-1 lg:border-r lg:border-gray-200 lg:pb-16 lg:pr-8 lg:pt-6"></div>
             </div>
           </section>
         </main>

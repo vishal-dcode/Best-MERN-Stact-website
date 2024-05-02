@@ -13,8 +13,8 @@ export default function PageNotFound() {
             You may have mistyped the address or the page may have moved.
           </div>
           <div className="text-center">
-            <Link to="/" className="border border-black rounded p-4 ">
-              Go Home
+            <Link to="/" className="border border-black rounded p-4">
+              Go Back
             </Link>
           </div>
         </div>

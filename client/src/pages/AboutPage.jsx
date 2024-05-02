@@ -2,9 +2,11 @@ import React from 'react';
 
 export default function AboutPage() {
   return (
-    <main className="about_page-wrapper">
-      <section className="about_page-ctr">
-        <section>M</section>
+    <main className="about_page-wrapper relative h-full">
+      <section className="about_page-ctr grid h-full p-24 grid-cols-[1fr_1fr]">
+        <section className="text-[350px] flex pr-4 items-center justify-center font-[var(--fw-thin)]">
+          M
+        </section>
         <section>
           <p>
             MERN isn't just another e-commerce platform; it's a tech

@@ -5,17 +5,19 @@ import {
   selectUserInfo,
   selectUserOrders,
 } from '../userSlice';
-// import {discountedPrice} from '../../../app/constants';
+import {Link} from 'react-router-dom';
 
 export default function UserOrders() {
   const dispatch = useDispatch();
-  const userInfo = useSelector(selectUserInfo);
-  const orders = useSelector(selectUserOrders);
+  const userInfoSelector = useSelector(selectUserInfo);
+  const ordersSelector = useSelector(selectUserOrders);
 
-  // console.log(orders);
+  // console.log(ordersSelector);
+  // console.log(userInfoSelector);
+
   useEffect(() => {
-    dispatch(fetchLoggedInUserOrderAsync(userInfo.id));
-  }, [dispatch, userInfo]);
+    dispatch(fetchLoggedInUserOrderAsync(userInfoSelector.id));
+  }, [dispatch, userInfoSelector]);
 
   const statusColor = (status) => {
     switch (status) {
@@ -33,7 +35,7 @@ export default function UserOrders() {
   };
   return (
     <section className="order_table-wrapper">
-      {orders.length > 0 ? (
+      {ordersSelector && ordersSelector.length > 0 ? (
         <table className="w-full min-w-max table-auto text-left">
           <thead>
             <tr>
@@ -58,28 +60,33 @@ export default function UserOrders() {
             </tr>
           </thead>
           <tbody>
-            {orders &&
-              orders.map((orders) => (
+            {ordersSelector &&
+              ordersSelector.map((orders) => (
                 <tr key={orders.id}>
-                  <td className="py-3 border-b border-blue-gray-50">
+                  <td className="py-3 pr-1 border-b border-blue-gray-50">
                     <div className="flex items-center gap-3">
-                      <div className="flex items-center gap-3">
-                        {orders.items.map((item) => (
+                      <div>
+                        {orders.items.map((item, idx) => (
                           <>
-                            <img
-                              className="profile_pic"
-                              src={item.product.thumbnail}
-                              alt=""
-                            />
-                            <div>
-                              <span className="order_id">
-                                Order ID:{' '}
-                                {item.id.substring(item.id.length - 4)}
-                              </span>
-                              <p className="product_name">
-                                {item.product.title}
-                              </p>
-                            </div>
+                            <Link
+                              to={`/product-detail/${item.product.id}`}
+                              className="flex items-center gap-3">
+                              <img
+                                key={idx}
+                                className="profile_pic"
+                                src={item.product.thumbnail}
+                                alt="Thumbnail"
+                              />
+                              <div>
+                                <span className="order_id">
+                                  Order ID:{' '}
+                                  {item.id.substring(item.id.length - 4)}
+                                </span>
+                                <p className="product_name">
+                                  {item.product.title}
+                                </p>
+                              </div>
+                            </Link>
                           </>
                         ))}
                       </div>
@@ -114,8 +121,8 @@ export default function UserOrders() {
                   </td>
                   <td className="py-3 border-b border-blue-gray-50">
                     <div className="date flex justify-center items-center flex-col">
-                      <p>{orders.time}NO TIME</p>
-                      <p>{orders.date}NO DATE</p>
+                      <p>{orders.time}</p>
+                      <p>{orders.date}</p>
                     </div>
                   </td>
 

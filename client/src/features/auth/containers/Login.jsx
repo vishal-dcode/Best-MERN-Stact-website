@@ -1,8 +1,7 @@
 import {useSelector, useDispatch} from 'react-redux';
-import {selectError} from '../authSlice';
 import {Link} from 'react-router-dom';
-import {checkUserAsync} from '../authSlice';
 import {useForm} from 'react-hook-form';
+import {checkUserAsync, selectError} from '../authSlice';
 
 export default function Login() {
   const dispatch = useDispatch();
@@ -53,9 +52,9 @@ export default function Login() {
 
           <div className="password_ctr">
             <div>
-              <Link className="forget_password" to="/forgot-password">
+              <p className="forget_password cursor-not-allowed">
                 Forgot password?
-              </Link>
+              </p>
             </div>
             <div>
               <input

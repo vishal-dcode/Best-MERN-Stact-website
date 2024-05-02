@@ -1,5 +1,16 @@
+// * IMPORTS
 import React, {useState, Fragment, useEffect} from 'react';
 import {useSelector, useDispatch} from 'react-redux';
+import {Link} from 'react-router-dom';
+// * UI
+import {Dialog, Disclosure, Menu, Transition} from '@headlessui/react';
+import 'react-loading-skeleton/dist/skeleton.css';
+// * COMPONENTS
+import Pagination from '../../../components/Pagination';
+import Loader from '../../../components/Loader';
+// * CONTAINERS
+import {ITEMS_PER_PAGE, DISCOUNTED_PRICE} from '../../../app/constants';
+// * REDUX
 import {
   fetchBrandsAsync,
   fetchCategoriesAsync,
@@ -10,26 +21,12 @@ import {
   selectProductListStatus,
   selectTotalItems,
 } from '../productSlice';
-import {Dialog, Disclosure, Menu, Transition} from '@headlessui/react';
-import {XMarkIcon} from '@heroicons/react/24/outline';
-// import {StarIcon} from '@heroicons/react/20/solid';
-import {Link} from 'react-router-dom';
-import {
-  // ChevronDownIcon,
-  FunnelIcon,
-  MinusIcon,
-  PlusIcon,
-  // Squares2X2Icon,
-} from '@heroicons/react/20/solid';
-import {ITEMS_PER_PAGE, discountedPrice} from '../../../app/constants';
-import Pagination from '../../../components/Pagination';
-// import {Grid} from 'react-loader-spinner';
-import Loader from '../../../components/Loader';
 
 const sortOptions = [
-  {name: 'Best Rating', sort: 'rating', order: 'desc', current: false},
-  {name: 'Price: Low to High', sort: 'price', order: 'asc', current: false},
-  {name: 'Price: High to Low', sort: 'price', order: 'desc', current: false},
+  {name: 'Popular', sort: 'popular', order: 'asc'},
+  {name: 'Best Rating', sort: 'rating', order: 'desc'},
+  {name: 'Low to High', sort: 'price', order: 'asc'},
+  {name: 'High to Low', sort: 'price', order: 'desc'},
 ];
 
 function classNames(...classes) {
@@ -39,33 +36,32 @@ function classNames(...classes) {
 export default function ProductList() {
   const dispatch = useDispatch();
   const products = useSelector(selectAllProducts);
-  const brands = useSelector(selectBrands);
-  const categories = useSelector(selectCategories);
-  const totalItems = useSelector(selectTotalItems);
-  const status = useSelector(selectProductListStatus);
-
-  const filters = [
-    {
-      id: 'category',
-      name: 'Category',
-      options: categories,
-    },
-    {
-      id: 'brand',
-      name: 'Brands',
-      options: brands,
-    },
-  ];
+  const brandsSelector = useSelector(selectBrands);
+  const categoriesSelector = useSelector(selectCategories);
+  const totalItemsSelector = useSelector(selectTotalItems);
+  const statusSelector = useSelector(selectProductListStatus);
 
   const [filter, setFilter] = useState({});
   const [sort, setSort] = useState({});
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
   const [page, setPage] = useState(1);
 
+  const filters = [
+    {
+      id: 'category',
+      name: 'Category',
+      options: categoriesSelector,
+    },
+    {
+      id: 'brand',
+      name: 'Brands',
+      options: brandsSelector,
+    },
+  ];
+
   const handleFilter = (e, section, option) => {
     console.log(e.target.checked);
     const newFilter = {...filter};
-    // TODO : on server it will support multiple categories
     if (e.target.checked) {
       if (newFilter[section.id]) {
         newFilter[section.id].push(option.value);
@@ -78,26 +74,23 @@ export default function ProductList() {
       );
       newFilter[section.id].splice(index, 1);
     }
-    console.log({newFilter});
+    // console.log({newFilter});
 
     setFilter(newFilter);
   };
-
   const handleSort = (e, option) => {
-    const sort = {_sort: option.sort, _order: option.order};
-    console.log({sort});
-    setSort(sort);
-  };
+    let newSort = {_sort: option.sort, _order: option.order, name: option.name};
 
+    setSort(newSort);
+  };
   const handlePage = (page) => {
-    console.log({page});
+    // console.log({page});
     setPage(page);
   };
 
   useEffect(() => {
     const pagination = {_page: page, _limit: ITEMS_PER_PAGE};
     dispatch(fetchProductsByFiltersAsync({filter, sort, pagination}));
-    // TODO : Server will filter deleted products
   }, [dispatch, filter, sort, page]);
 
   useEffect(() => {
@@ -123,15 +116,16 @@ export default function ProductList() {
               <DesktopFilter handleFilter={handleFilter} filters={filters} />
 
               {/* //! ------------------------------ MAIN ----------------------------- */}
-              {status === 'pending' && <Loader />}
+              {statusSelector === 'pending' && <Loader />}
               <section className="product_list">
                 {/* //!  SORT  */}
                 <div className="sorting-wrapper">
                   <span></span>
                   <div className="flex items-center">
                     <Menu as="div">
-                      <Menu.Button className="sorting-ctr group gap-1 inline-flex justify-center text-sm font-medium text-gray-700 hover:text-gray-900">
-                        <strong>Sort by:</strong> High to Low
+                      <Menu.Button className="sorting-ctr whitespace-nowrap group flex gap-1 text-sm font-medium text-gray-700 hover:text-gray-900">
+                        <strong>Sort by:</strong>
+                        <span>{sort.name ? sort.name : 'Popular'}</span>
                       </Menu.Button>
 
                       <Transition
@@ -166,26 +160,26 @@ export default function ProductList() {
                       </Transition>
                     </Menu>
 
+                    <div className="line w-2 md:w-0"></div>
                     {/* //! MOBILE FILTER */}
                     <button
                       type="button"
-                      className="-m-2 ml-4 p-2 text-gray-400 hover:text-gray-500 sm:ml-6 lg:hidden"
+                      className="block md:hidden sorting-ctr whitespace-nowrap group gap-1 text-sm font-bold text-gray-600 hover:text-gray-900"
                       onClick={() => setMobileFiltersOpen(true)}>
-                      <span className="sr-only">Filters</span>
-                      <FunnelIcon className="h-5 w-5" aria-hidden="true" />
+                      <span>Filter</span>
                     </button>
                   </div>
                 </div>
 
                 {/* //!  PRODUCT GRID  */}
-                <ProductGrid products={products} status={status} />
+                <ProductGrid products={products} />
 
                 {/* //! ------------------------------ PAGINATION ----------------------------- */}
                 <Pagination
                   page={page}
                   setPage={setPage}
                   handlePage={handlePage}
-                  totalItems={totalItems}
+                  totalItems={totalItemsSelector}
                 />
               </section>
             </div>
@@ -235,8 +229,35 @@ function MobileFilter({
                   type="button"
                   className="-mr-2 flex h-10 w-10 items-center justify-center rounded-md bg-white p-2 text-gray-400"
                   onClick={() => setMobileFiltersOpen(false)}>
-                  <span className="sr-only">Close menu</span>
-                  <XMarkIcon className="h-6 w-6" aria-hidden="true" />
+                  <svg
+                    width="26"
+                    height="26"
+                    viewBox="0 0 26 26"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg">
+                    <g clip-path="url(#clip0_25_281)">
+                      <path
+                        d="M6.36395 6.36396L19.0919 19.0919"
+                        stroke="black"
+                        strokeWidth="2"
+                      />
+                      <path
+                        d="M6.36394 19.0919L19.0919 6.36396"
+                        stroke="black"
+                        strokeWidth="2"
+                      />
+                    </g>
+                    <defs>
+                      <clipPath id="clip0_25_281">
+                        <rect
+                          width="18"
+                          height="18"
+                          fill="white"
+                          transform="translate(12.7279) rotate(45)"
+                        />
+                      </clipPath>
+                    </defs>
+                  </svg>
                 </button>
               </div>
 
@@ -256,15 +277,43 @@ function MobileFilter({
                             </span>
                             <span className="ml-6 flex items-center">
                               {open ? (
-                                <MinusIcon
-                                  className="h-5 w-5"
-                                  aria-hidden="true"
-                                />
+                                <svg
+                                  width="13"
+                                  height="2"
+                                  viewBox="0 0 18 2"
+                                  fill="none"
+                                  xmlns="http://www.w3.org/2000/svg">
+                                  <line
+                                    y1="1"
+                                    x2="18"
+                                    y2="1"
+                                    stroke="black"
+                                    strokeWidth="2.5"
+                                  />
+                                </svg>
                               ) : (
-                                <PlusIcon
-                                  className="h-5 w-5"
-                                  aria-hidden="true"
-                                />
+                                <svg
+                                  width="13"
+                                  height="13"
+                                  viewBox="0 0 18 18"
+                                  fill="none"
+                                  xmlns="http://www.w3.org/2000/svg">
+                                  <line
+                                    y1="9"
+                                    x2="18"
+                                    y2="9"
+                                    stroke="black"
+                                    strokeWidth="2.5"
+                                  />
+                                  <line
+                                    x1="9"
+                                    y1="18"
+                                    x2="9"
+                                    y2="4.37114e-08"
+                                    stroke="black"
+                                    strokeWidth="2.5"
+                                  />
+                                </svg>
                               )}
                             </span>
                           </Disclosure.Button>
@@ -310,7 +359,7 @@ function MobileFilter({
 
 function DesktopFilter({handleFilter, filters}) {
   return (
-    <form className="product_filter-wrapper">
+    <form className="product_filter-wrapper hidden md:block">
       {filters.map((section) => (
         <Disclosure as="div" key={section.id} className="product_filter-ctr">
           {({open}) => (
@@ -319,9 +368,43 @@ function DesktopFilter({handleFilter, filters}) {
                 <span>{section.name}</span>
                 <span>
                   {open ? (
-                    <MinusIcon className="h-5 w-5" aria-hidden="true" />
+                    <svg
+                      width="13"
+                      height="2"
+                      viewBox="0 0 18 2"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg">
+                      <line
+                        y1="1"
+                        x2="18"
+                        y2="1"
+                        stroke="black"
+                        strokeWidth="2.5"
+                      />
+                    </svg>
                   ) : (
-                    <PlusIcon className="h-5 w-5" aria-hidden="true" />
+                    <svg
+                      width="13"
+                      height="13"
+                      viewBox="0 0 18 18"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg">
+                      <line
+                        y1="9"
+                        x2="18"
+                        y2="9"
+                        stroke="black"
+                        strokeWidth="2.5"
+                      />
+                      <line
+                        x1="9"
+                        y1="18"
+                        x2="9"
+                        y2="4.37114e-08"
+                        stroke="black"
+                        strokeWidth="2.5"
+                      />
+                    </svg>
                   )}
                 </span>
               </Disclosure.Button>
@@ -355,7 +438,7 @@ function DesktopFilter({handleFilter, filters}) {
   );
 }
 
-function ProductGrid({products, status}) {
+function ProductGrid({products}) {
   return (
     <section className="product_grid-ctr mt-4 mb-2">
       {products.map((product) => (
@@ -368,25 +451,27 @@ function ProductGrid({products, status}) {
               <p className="out_of_stock">out of stock</p>
             </div>
           )}
+
           <div
             className={`product_card ${
               product.stock === 0 ? 'product-not-allowed' : ''
-            } btn group relative border-solid p-0.5`}>
-            <div className="product_img  min-h-60 aspect-h-1 aspect-w-1 w-full overflow-hidden lg:aspect-none lg:h-60">
+            }  group relative border-solid`}>
+            <div className="product_img min-h-60 aspect-h-1 aspect-w-1 w-full overflow-hidden lg:aspect-none lg:h-60">
               <img
                 src={product.thumbnail}
                 alt={product.title}
+                loading="lazy"
                 className="h-full w-full object-cover object-center lg:h-full lg:w-full"
               />
             </div>
-            <div className="product_detail justify-between">
-              <h3 className="text-gray-700">{product.title}</h3>
+            <div className="product_detail">
+              <h3 className="text-gray-700 font-black">{product.title}</h3>
               <p className="my-1 text-sm text-gray-500 line-clamp-1">
                 {product.description}
               </p>
               <div className="product_price flex gap-2">
-                <h5 className=" block font-medium text-gray-900">
-                  ${discountedPrice(product)}
+                <h5 className="block font-medium text-gray-900">
+                  ${DISCOUNTED_PRICE(product)}
                 </h5>
                 <p className=" block line-through font-medium text-gray-400">
                   ${product.price}

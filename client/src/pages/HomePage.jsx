@@ -1,11 +1,9 @@
 import ProductList from '../features/product/containers/ProductList';
 
-function Home() {
+export default function HomePage() {
   return (
     <>
       <ProductList />
     </>
   );
 }
-
-export default Home;

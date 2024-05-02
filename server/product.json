@@ -1,0 +1,1043 @@
+[
+  {
+    "title": "Apple iPhone 15",
+    "description": "Experience the future with the Apple iPhone 15. Redefining innovation, this smartphone boasts groundbreaking features and unparalleled performance.",
+    "price": 1099,
+    "discountPercentage": 10.25,
+    "rating": 4.75,
+    "stock": 50,
+    "brand": "Apple",
+    "category": "smartphones",
+    "thumbnail": "https://i.pinimg.com/736x/6c/a4/cc/6ca4cc57f9869a2d9dee826f9c863a93.jpg",
+    "images": [
+      "https://source.unsplash.com/random/?apple_iphone_15",
+      "https://source.unsplash.com/random/?iphone_15",
+      "https://source.unsplash.com/random/?apple_iphone"
+    ]
+  },
+  {
+    "title": "Samsung Galaxy Z Fold4",
+    "description": "Unfold possibilities with the Samsung Galaxy Z Fold 4. Seamlessly transition between smartphone and tablet modes for ultimate productivity and entertainment.",
+    "price": 2099,
+    "discountPercentage": 12.36,
+    "rating": 4.88,
+    "stock": 40,
+    "brand": "Samsung",
+    "category": "smartphones",
+    "thumbnail": "https://i.pinimg.com/564x/a0/16/90/a016904981b8fb5896c08fdf3f5b5589.jpg",
+    "images": [
+      "https://source.unsplash.com/random/?samsung_galaxy_fold",
+      "https://source.unsplash.com/random/?galaxy_fold4",
+      "https://source.unsplash.com/random/?galaxy_fold"
+    ]
+  },
+  {
+    "title": "Apple Vision Pro",
+    "description": "A cutting-edge mixed reality headset that blends the physical and digital worlds.",
+    "price": 3499,
+    "discountPercentage": 5.2,
+    "rating": 4.7,
+    "stock": 12,
+    "brand": "Apple",
+    "category": "vr-headsets",
+    "thumbnail": "https://i.pinimg.com/736x/8f/61/7a/8f617ad29c5cc2ba8674cb9c36d42888.jpg",
+    "images": [
+      "https://i.pinimg.com/564x/04/1a/7d/041a7d12570885b74850322b7907a84e.jpg",
+      "https://i.pinimg.com/564x/56/12/6d/56126d6ef7fe2e21abded304740b2b71.jpg",
+      "https://i.pinimg.com/564x/58/f0/02/58f002bd00b3faec0d8e78f7315708dd.jpg"
+    ]
+  },
+  {
+    "title": "Samsung Galaxy Z Fold5",
+    "description": "Samsung's latest foldable smartphone with a large, versatile display and enhanced durability.",
+    "price": 1999,
+    "discountPercentage": 10.3,
+    "rating": 4.6,
+    "stock": 28,
+    "brand": "Samsung",
+    "category": "smartphones",
+    "thumbnail": "https://i.pinimg.com/564x/22/2c/96/222c96cfa2df33bbb5592e79a15b5466.jpg",
+    "images": [
+      "https://source.unsplash.com/random/?samsung_galaxy_fold",
+      "https://source.unsplash.com/random/?galaxy_fold4",
+      "https://source.unsplash.com/random/?galaxy_fold"
+    ],
+    "deleted": true
+  },
+  {
+    "title": "BoAt Airdopes 441",
+    "description": "True wireless earbuds with Bluetooth 5.0 connectivity, IPX7 water resistance, and up to 25 hours of playtime.",
+    "price": 99,
+    "discountPercentage": 15.2,
+    "rating": 4.5,
+    "stock": 67,
+    "brand": "BoAt",
+    "category": "headphones",
+    "thumbnail": "https://www.boat-lifestyle.com/cdn/shop/products/IPX-3_a09fcf48-652e-41c8-babe-4f1d6fe2db79_1500x.jpg?v=1674673134",
+    "images": [
+      "https://source.unsplash.com/random/?headphone",
+      "https://source.unsplash.com/random/?earphone",
+      "https://source.unsplash.com/random/?earbuds"
+    ]
+  },
+  {
+    "title": "Infinix Zero 5G",
+    "description": "A budget-friendly 5G smartphone with a large display, impressive camera setup, and long-lasting battery.",
+    "price": 299,
+    "discountPercentage": 12.4,
+    "rating": 4.3,
+    "stock": 54,
+    "brand": "Infinix",
+    "category": "smartphones",
+    "thumbnail": "https://i.pinimg.com/736x/be/9f/ba/be9fba45df7a656cbd21d598abc81793.jpg",
+    "images": [
+      "https://source.unsplash.com/random/?smartphone",
+      "https://source.unsplash.com/random/?Infinix",
+      "https://source.unsplash.com/random/?smartphones"
+    ]
+  },
+  {
+    "title": "DJI Mavic Air 2",
+    "description": "Explore the skies with the DJI Mavic Air 2 drone. Featuring 4K video capture and intelligent flight modes, this drone empowers you to capture stunning aerial footage with ease.",
+    "price": 799,
+    "discountPercentage": 5.0,
+    "rating": 4.8,
+    "stock": 30,
+    "brand": "DJI",
+    "category": "Drones",
+    "thumbnail": "https://i.pinimg.com/736x/f0/3c/bb/f03cbb074711c8012d27652b2cd90319.jpg",
+    "images": [
+      "https://source.unsplash.com/random/?drone",
+      "https://source.unsplash.com/random/?dji-drone",
+      "https://source.unsplash.com/random/?dji-mavic"
+    ]
+  },
+  {
+    "title": "Samsung Galaxy Tab A7",
+    "description": "Enjoy entertainment on the go with the Samsung Galaxy Tab A7. Featuring a vibrant display and long battery life, this tablet is perfect for streaming movies and browsing the web.",
+    "price": 229,
+    "discountPercentage": 10.0,
+    "rating": 4.6,
+    "stock": 25,
+    "brand": "Samsung",
+    "category": "Tablets",
+    "thumbnail": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQbcvkQzFie3PaGFp3zA0r0DRJPbMv8KDzlWmy4QgKO6g&s",
+    "images": [
+      "https://source.unsplash.com/random/?Tablet",
+      "https://source.unsplash.com/random/?Samsung-tablet",
+      "https://source.unsplash.com/random/?Samsung"
+    ]
+  },
+  {
+    "title": "Dell XPS 15",
+    "description": "Experience unmatched performance with the Dell XPS 15 laptop. With stunning InfinityEdge display and powerful processor options, this laptop is perfect for creators and professionals.",
+    "price": 1799,
+    "discountPercentage": 8.75,
+    "rating": 4.8,
+    "stock": 20,
+    "brand": "Dell",
+    "category": "Laptops",
+    "thumbnail": "https://i.pinimg.com/564x/ec/83/22/ec832267c9a21bc029d2d819fb7aec57.jpg",
+    "images": [
+      "https://source.unsplash.com/random/?laptop",
+      "https://source.unsplash.com/random/?Dell-laptop",
+      "https://source.unsplash.com/random/?Dell"
+    ]
+  },
+  {
+    "title": "OnePlus 9 Pro",
+    "description": "Capture every detail with the OnePlus 9 Pro smartphone. With Hasselblad camera technology and smooth performance, this smartphone is perfect for photography enthusiasts.",
+    "price": 1069,
+    "discountPercentage": 7.25,
+    "rating": 4.9,
+    "stock": 20,
+    "brand": "OnePlus",
+    "category": "Smartphones",
+    "thumbnail": "https://www.popsci.com/uploads/2021/03/23/oneplus-9pro-cameras.jpg?auto=webp",
+    "images": [
+      "https://source.unsplash.com/random/?smartphone",
+      "https://source.unsplash.com/random/?OnePlus-smartphone",
+      "https://source.unsplash.com/random/?OnePlus"
+    ]
+  },
+  {
+    "title": "Acer Predator Helios 300",
+    "description": "Dominate the battlefield with the Acer Predator Helios 300 laptop. With powerful graphics and high-refresh-rate display, this laptop delivers smooth gaming performance.",
+    "price": 1299,
+    "discountPercentage": 11.0,
+    "rating": 4.8,
+    "stock": 25,
+    "brand": "Acer",
+    "category": "Laptops",
+    "thumbnail": "https://i.pinimg.com/564x/9b/49/38/9b4938a7ebd134fae0dd9b65111e0c17.jpg",
+    "images": [
+      "https://source.unsplash.com/random/?laptop",
+      "https://source.unsplash.com/random/?acer-laptop",
+      "https://source.unsplash.com/random/?Acer-Predator"
+    ]
+  },
+  {
+    "title": "Panasonic Lumix GH5",
+    "description": "Capture cinematic moments with the Panasonic Lumix GH5 camera. With 4K video and advanced image stabilization, this camera is perfect for filmmakers and content creators.",
+    "price": 1699,
+    "discountPercentage": 7.0,
+    "rating": 4.8,
+    "stock": 20,
+    "brand": "Panasonic",
+    "category": "Camera",
+    "thumbnail": "https://i.pinimg.com/564x/0b/42/7d/0b427dc68710afebb0c45a3a098740db.jpg",
+    "images": [
+      "https://source.unsplash.com/random/?Panasonic",
+      "https://source.unsplash.com/random/?Panasonic-Lumix",
+      "https://source.unsplash.com/random/?Panasonic-camera"
+    ]
+  },
+  {
+    "title": "Bose QuietComfort 45",
+    "description": "Immerse yourself in silence with the Bose QuietComfort 45 headphones. With advanced noise cancellation and comfortable design, these headphones are perfect for travel and work.",
+    "price": 329,
+    "discountPercentage": 10.75,
+    "rating": 4.7,
+    "stock": 25,
+    "brand": "Bose",
+    "category": "Headphones",
+    "thumbnail": "https://i.pinimg.com/236x/ab/97/8a/ab978a2c3b23bf8453cbf006ac753d4e.jpg",
+    "images": [
+      "https://source.unsplash.com/random/?bose-headphone",
+      "https://source.unsplash.com/random/?headphone",
+      "https://source.unsplash.com/random/?headphone-bose"
+    ]
+  },
+  {
+    "title": "Parrot Anafi",
+    "description": "Capture breathtaking aerial imagery with the Parrot Anafi drone. With 4K HDR video and advanced imaging capabilities, this drone is perfect for professional photography and videography.",
+    "price": 699,
+    "discountPercentage": 8.75,
+    "rating": 4.7,
+    "stock": 25,
+    "brand": "Parrot",
+    "category": "Drones",
+    "thumbnail": "https://i.pinimg.com/564x/30/15/93/301593e55629bf17fadb9f7e25edc6a7.jpg",
+    "images": [
+      "https://source.unsplash.com/random/?drone",
+      "https://source.unsplash.com/random/?drones",
+      "https://source.unsplash.com/random/?drone-image"
+    ]
+  },
+  {
+    "title": "Xiaomi Redmi Note 12 Pro+",
+    "description": "A mid-range smartphone with a high-resolution AMOLED display, powerful Snapdragon processor, and 108MP camera.",
+    "price": 399,
+    "discountPercentage": 11.8,
+    "rating": 4.4,
+    "stock": 41,
+    "brand": "Xiaomi",
+    "category": "smartphones",
+    "thumbnail": "https://cdn.dxomark.com/wp-content/uploads/medias/post-143658/Xiaomi-Redmi-Note-12-Pro-5G_featured-image-packshot-review-Recovered.jpg",
+    "images": [
+      "https://source.unsplash.com/random/?smartphone",
+      "https://source.unsplash.com/random/?realme-smartphone",
+      "https://source.unsplash.com/random/?realme"
+    ]
+  },
+  {
+    "title": "Oculus Quest 3",
+    "description": "Step into the future of virtual reality with the Oculus Quest 3. With advanced features and immersive experiences, this VR headset transports you to new worlds like never before.",
+    "price": 399,
+    "discountPercentage": 5.0,
+    "rating": 4.8,
+    "stock": 30,
+    "brand": "Oculus",
+    "category": "vr-headsets",
+    "thumbnail": "https://m.media-amazon.com/images/I/61iW8kY+yXL._SX342_.jpg",
+    "images": [
+      "https://source.unsplash.com/random/?vr-headsets",
+      "https://source.unsplash.com/random/?vr",
+      "https://source.unsplash.com/random/?oculus"
+    ]
+  },
+  {
+    "title": "OnePlus 11",
+    "description": "The flagship smartphone from OnePlus, featuring a stunning design, blazing-fast performance, and a versatile camera system.",
+    "price": 799,
+    "discountPercentage": 9.6,
+    "rating": 4.7,
+    "stock": 22,
+    "brand": "OnePlus",
+    "category": "smartphones",
+    "thumbnail": "https://i.pinimg.com/564x/5c/5d/d9/5c5dd9bac5f374f7069ff4b3426c8cdc.jpg",
+    "images": [
+      "https://source.unsplash.com/random/?smartphone",
+      "https://source.unsplash.com/random/?oneplus-smartphone",
+      "https://source.unsplash.com/random/?smartphone-photo"
+    ]
+  },
+  {
+    "title": "Sony WH-1000XM4",
+    "description": "Premium wireless noise-canceling headphones with industry-leading sound quality and advanced features.",
+    "price": 349,
+    "discountPercentage": 13.2,
+    "rating": 4.8,
+    "stock": 18,
+    "brand": "Sony",
+    "category": "headphones",
+    "thumbnail": "https://i.pinimg.com/564x/ba/20/81/ba208154fc8dda212e5a8f90d00e5ffb.jpg",
+    "images": [
+      "https://source.unsplash.com/random/?sony",
+      "https://source.unsplash.com/random/?headphone",
+      "https://source.unsplash.com/random/?sony-headphone"
+    ]
+  },
+  {
+    "title": "Canon EOS R6",
+    "description": "A high-performance full-frame mirrorless camera with advanced autofocus, impressive image quality, and 4K video capabilities.",
+    "price": 2499,
+    "discountPercentage": 6.7,
+    "rating": 4.9,
+    "stock": 14,
+    "brand": "Canon",
+    "category": "camera",
+    "thumbnail": "https://i.pinimg.com/736x/cf/4c/60/cf4c60263b0aeaa56fac52ec561ba9b6.jpg",
+    "images": [
+      "https://source.unsplash.com/random/?camera",
+      "https://source.unsplash.com/random/?Canon",
+      "https://source.unsplash.com/random/?Canon-camera"
+    ]
+  },
+  {
+    "title": "Microsoft Surface Laptop 5",
+    "description": "Empower your productivity with the Microsoft Surface Laptop 5. Sleek design meets powerful performance for a seamless computing experience.",
+    "price": 1399,
+    "discountPercentage": 15.02,
+    "rating": 4.65,
+    "stock": 30,
+    "brand": "Microsoft",
+    "category": "laptops",
+    "thumbnail": "https://i.pinimg.com/736x/66/50/38/66503830ad82687d10e9279f46e7ca98.jpg",
+    "images": [
+      "https://source.unsplash.com/random/?microsoft-laptop",
+      "https://source.unsplash.com/random/?laptops",
+      "https://source.unsplash.com/random/?Surface-Laptop"
+    ]
+  },
+  {
+    "title": "BoAt Stone 1800A",
+    "description": "Elevate your audio experience with the BoAt Stone 1800A. Immerse yourself in crystal-clear sound and rugged durability, perfect for any adventure.",
+    "price": 99,
+    "discountPercentage": 20.0,
+    "rating": 4.5,
+    "stock": 60,
+    "brand": "BoAt",
+    "category": "speakers",
+    "thumbnail": "https://i.pinimg.com/564x/fe/99/98/fe99982e5fa9a4402a52cfd253a2c4b0.jpg",
+    "images": [
+      "https://source.unsplash.com/random/?speaker",
+      "https://source.unsplash.com/random/?speaker-photo",
+      "https://source.unsplash.com/random/?speakers"
+    ]
+  },
+  {
+    "title": "Apple Watch Series 8",
+    "description": "Stay connected and stay active with the Apple Watch Series 8. Track your fitness, receive notifications, and express your style with this essential accessory.",
+    "price": 399,
+    "discountPercentage": 8.75,
+    "rating": 4.9,
+    "stock": 70,
+    "brand": "Apple",
+    "category": "smart-watch",
+    "thumbnail": "https://i0.wp.com/9to5mac.com/wp-content/uploads/sites/6/2019/07/apple-watch-serial-number.jpg?w=1024&quality=82&strip=all&ssl=1",
+    "images": [
+      "https://source.unsplash.com/random/?apple-watch",
+      "https://source.unsplash.com/random/?watch",
+      "https://source.unsplash.com/random/?apple-smart-watch"
+    ]
+  },
+  {
+    "title": "Sony WH-1000XM5",
+    "description": "Immerse yourself in pure sound with the Sony WH-1000XM5 headphones. Experience industry-leading noise cancellation and premium comfort for all-day listening.",
+    "price": 349,
+    "discountPercentage": 10.2,
+    "rating": 4.8,
+    "stock": 55,
+    "brand": "Sony",
+    "category": "headphones",
+    "thumbnail": "https://i.pinimg.com/736x/6c/02/d5/6c02d5bfd7cb6156fd37e91ce3532c4f.jpg",
+    "images": [
+      "https://source.unsplash.com/random/?sony",
+      "https://source.unsplash.com/random/?headphone",
+      "https://source.unsplash.com/random/?sony-speaker"
+    ]
+  },
+  {
+    "title": "Logitech G Pro X",
+    "description": "Dominate the competition with the Logitech G Pro X keyboard. Precision-engineered for esports performance, this keyboard is your ultimate gaming weapon.",
+    "price": 149,
+    "discountPercentage": 15.5,
+    "rating": 4.7,
+    "stock": 45,
+    "brand": "Logitech",
+    "category": "keyboards",
+    "thumbnail": "https://i.pinimg.com/736x/87/33/73/87337393a7c6e1e14c47587ced08e469.jpg",
+    "images": [
+      "https://source.unsplash.com/random/?keyboard-logitech",
+      "https://source.unsplash.com/random/?keyboard",
+      "https://source.unsplash.com/random/?keyboards"
+    ]
+  },
+  {
+    "title": "Canon EOS R5",
+    "description": "Unleash your creativity with the Canon EOS R5 camera. Capture stunning images and cinematic 8K video with unrivaled performance and versatility.",
+    "price": 3899,
+    "discountPercentage": 5.25,
+    "rating": 4.95,
+    "stock": 25,
+    "brand": "Canon",
+    "category": "camera",
+    "thumbnail": "https://i.pinimg.com/564x/00/d2/e8/00d2e81f277c3303c2c5f6ab48c0c2e4.jpg",
+    "images": [
+      "https://source.unsplash.com/random/?canon",
+      "https://source.unsplash.com/random/?canon-camera",
+      "https://source.unsplash.com/random/?camera"
+    ]
+  },
+  {
+    "title": "Xiaomi Redmi Note 11 Pro",
+    "description": "Experience exceptional performance with the Xiaomi Redmi Note 11 Pro. Boasting a stunning display and powerful processor, this smartphone elevates your mobile experience to new heights.",
+    "price": 349,
+    "discountPercentage": 10.5,
+    "rating": 4.7,
+    "stock": 60,
+    "brand": "Xiaomi",
+    "category": "smartphones",
+    "thumbnail": "https://i.pinimg.com/564x/5e/26/52/5e2652708c0052aba7a36f16d2f1d518.jpg",
+    "images": [
+      "https://source.unsplash.com/random/?smartphone",
+      "https://source.unsplash.com/random/?xiaomi",
+      "https://source.unsplash.com/random/?smartphone-photo"
+    ]
+  },
+  {
+    "title": "OnePlus 10 Pro",
+    "description": "Unleash the power of speed with the OnePlus 10 Pro. Featuring lightning-fast performance and cutting-edge technology, this smartphone redefines what's possible.",
+    "price": 899,
+    "discountPercentage": 8.2,
+    "rating": 4.85,
+    "stock": 40,
+    "brand": "OnePlus",
+    "category": "smartphones",
+    "thumbnail": "https://i.pinimg.com/564x/18/e5/58/18e558b1c3710dbdaabc9df213c66511.jpg",
+    "images": [
+      "https://source.unsplash.com/random/?smartphone",
+      "https://source.unsplash.com/random/?OnePlus",
+      "https://source.unsplash.com/random/?smartphone-photo"
+    ]
+  },
+  {
+    "title": "Fujifilm X-T4",
+    "description": "Capture life's moments in stunning detail with the Fujifilm X-T4 camera. With advanced features and exceptional image quality, this camera empowers your creativity like never before.",
+    "price": 1699,
+    "discountPercentage": 6.75,
+    "rating": 4.9,
+    "stock": 30,
+    "brand": "Fujifilm",
+    "category": "camera",
+    "thumbnail": "https://i.pinimg.com/564x/87/af/cd/87afcdfce5342ada2efabbb5eb25c3e1.jpg",
+    "images": [
+      "https://source.unsplash.com/random/?Fujifilm",
+      "https://source.unsplash.com/random/?Fujifilm-camera",
+      "https://source.unsplash.com/random/?camera"
+    ]
+  },
+  {
+    "title": "JBL Flip 6",
+    "description": "Take your music anywhere with the JBL Flip 6 portable speaker. Featuring powerful sound and rugged design, this speaker is your ultimate companion for every adventure.",
+    "price": 129,
+    "discountPercentage": 15.0,
+    "rating": 4.6,
+    "stock": 50,
+    "brand": "JBL",
+    "category": "speakers",
+    "thumbnail": "https://i.pinimg.com/736x/b7/0b/7f/b70b7f535fac5c8e6efbff016793285c.jpg",
+    "images": [
+      "https://source.unsplash.com/random/?jbl",
+      "https://source.unsplash.com/random/?speaker",
+      "https://source.unsplash.com/random/?jbl-speaker"
+    ]
+  },
+  {
+    "title": "Sennheiser Momentum 4",
+    "description": "Immerse yourself in pure audio luxury with the Sennheiser Momentum 4 headphones. Combining style and performance, these headphones deliver an unparalleled listening experience.",
+    "price": 399,
+    "discountPercentage": 10.75,
+    "rating": 4.8,
+    "stock": 35,
+    "brand": "Sennheiser",
+    "category": "headphones",
+    "thumbnail": "https://i.pinimg.com/564x/a7/33/22/a7332295d08a1ee7963b6b7b321dd131.jpg",
+    "images": [
+      "https://source.unsplash.com/random/?sennheiser",
+      "https://source.unsplash.com/random/?headphone",
+      "https://source.unsplash.com/random/?sennheiser-headphone"
+    ]
+  },
+  {
+    "title": "Microsoft Surface Pro X",
+    "description": "Redefined versatility meets unparalleled performance with the Microsoft Surface Pro X. From productivity to creativity, this 2-in-1 device adapts to your every need.",
+    "price": 1299,
+    "discountPercentage": 12.25,
+    "rating": 4.75,
+    "stock": 25,
+    "brand": "Microsoft",
+    "category": "laptops",
+    "thumbnail": "https://winaero.com/blog/wp-content/uploads/2019/10/surface-pro-x-official.jpg",
+    "images": [
+      "https://source.unsplash.com/random/?laptop",
+      "https://source.unsplash.com/random/?microsoft-laptop",
+      "https://source.unsplash.com/random/?microsoft-surface"
+    ]
+  },
+  {
+    "title": "Nikon Z7 II",
+    "description": "Unleash your photographic vision with the Nikon Z7 II camera. Combining speed, resolution, and reliability, this camera empowers photographers to capture their world in stunning detail.",
+    "price": 2999,
+    "discountPercentage": 5.0,
+    "rating": 4.95,
+    "stock": 20,
+    "brand": "Nikon",
+    "category": "camera",
+    "thumbnail": "https://i.pinimg.com/564x/fd/30/9b/fd309b5182b82c2f9091764b7ee6f9a8.jpg",
+    "images": [
+      "https://source.unsplash.com/random/?camera",
+      "https://source.unsplash.com/random/?Nikon",
+      "https://source.unsplash.com/random/?Nikon-camera"
+    ]
+  },
+  {
+    "title": "Apple AirPods Max",
+    "description": "Immerse yourself in sound like never before with the Apple AirPods Max. With high-fidelity audio and adaptive EQ, these headphones deliver a listening experience that's second to none.",
+    "price": 549,
+    "discountPercentage": 8.5,
+    "rating": 4.9,
+    "stock": 45,
+    "brand": "Apple",
+    "category": "headphones",
+    "thumbnail": "https://i.pinimg.com/564x/01/4e/02/014e027296d9eecb03a553e770359932.jpg",
+    "images": [
+      "https://source.unsplash.com/random/?headphone",
+      "https://source.unsplash.com/random/?Apple-AirPods",
+      "https://source.unsplash.com/random/?earbuds"
+    ]
+  },
+  {
+    "title": "Apple MacBook Air M2",
+    "description": "Experience unparalleled portability and performance with the Apple MacBook Air M2. With the latest M2 chip and stunning Retina display, this laptop is designed to empower your creativity wherever you go.",
+    "price": 1299,
+    "discountPercentage": 10.0,
+    "rating": 4.85,
+    "stock": 30,
+    "brand": "Apple",
+    "category": "laptops",
+    "thumbnail": "https://i.pinimg.com/564x/c7/95/04/c7950405d48143d478a519648eab5785.jpg",
+    "images": [
+      "https://source.unsplash.com/random/?Apple-MacBook",
+      "https://source.unsplash.com/random/?Apple-laptop",
+      "https://source.unsplash.com/random/?laptop"
+    ]
+  },
+  {
+    "title": "Samsung Galaxy S22 Ultra",
+    "description": "Elevate your mobile experience with the Samsung Galaxy S22 Ultra. Featuring a pro-grade camera system and stunning display, this smartphone sets a new standard for excellence.",
+    "price": 1499,
+    "discountPercentage": 8.75,
+    "rating": 4.9,
+    "stock": 25,
+    "brand": "Samsung",
+    "category": "smartphones",
+    "thumbnail": "https://i.pinimg.com/564x/73/a0/8e/73a08e8b21771d1294dd9c3186944f08.jpg",
+    "images": [
+      "https://source.unsplash.com/random/?smartphone",
+      "https://source.unsplash.com/random/?Samsung",
+      "https://source.unsplash.com/random/?Samsung-Galaxy"
+    ]
+  },
+  {
+    "title": "Microsoft Surface Book 4",
+    "description": "Unleash your creativity with the Microsoft Surface Book 4. Combining the power of a laptop and the versatility of a tablet, this device empowers you to create, collaborate, and innovate.",
+    "price": 1999,
+    "discountPercentage": 12.5,
+    "rating": 4.8,
+    "stock": 20,
+    "brand": "Microsoft",
+    "category": "laptops",
+    "thumbnail": "https://i.pinimg.com/564x/40/35/e0/4035e0dd6e1fff2f59bc7e82a36c329e.jpg",
+    "images": [
+      "https://source.unsplash.com/random/?laptop",
+      "https://source.unsplash.com/random/?Microsoft-laptop",
+      "https://source.unsplash.com/random/?Microsoft-Surface"
+    ]
+  },
+  {
+    "title": "BoAt Airdopes 601",
+    "description": "Experience true wireless freedom with the BoAt Airdopes 601 earbuds. With immersive sound and comfortable fit, these earbuds are perfect for music lovers on the go.",
+    "price": 79,
+    "discountPercentage": 15.25,
+    "rating": 4.6,
+    "stock": 35,
+    "brand": "BoAt",
+    "category": "headphones",
+    "thumbnail": "https://i.pinimg.com/564x/2c/40/f0/2c40f01b5b0e14d97ade913835b2c470.jpg",
+    "images": [
+      "https://source.unsplash.com/random/?headphone",
+      "https://source.unsplash.com/random/?earphone",
+      "https://source.unsplash.com/random/?earbuds"
+    ]
+  },
+  {
+    "title": "Infinix Zero X Pro",
+    "description": "Unleash your photography skills with the Infinix Zero X Pro smartphone. Featuring a revolutionary camera system and stunning design, this smartphone lets you capture every moment with precision.",
+    "price": 399,
+    "discountPercentage": 10.2,
+    "rating": 4.7,
+    "stock": 40,
+    "brand": "Infinix",
+    "category": "smartphones",
+    "thumbnail": "https://i.pinimg.com/564x/87/c7/32/87c732984d7d1baf6be020b0c69becce.jpg",
+    "images": [
+      "https://source.unsplash.com/random/?smartphone",
+      "https://source.unsplash.com/random/?Infinix",
+      "https://source.unsplash.com/random/?smartphone-photo"
+    ]
+  },
+  {
+    "title": "DJI Mini 2",
+    "description": "Discover the world of aerial photography with the DJI Mini 2 drone. Compact and lightweight, this drone offers 4K video and intuitive controls for capturing epic shots with ease.",
+    "price": 449,
+    "discountPercentage": 15.0,
+    "rating": 4.6,
+    "stock": 50,
+    "brand": "DJI",
+    "category": "Drones",
+    "thumbnail": "https://i.pinimg.com/564x/47/5b/39/475b39fbca5ed7a00c17e7ecd56b55d4.jpg",
+    "images": [
+      "https://source.unsplash.com/random/?drone",
+      "https://source.unsplash.com/random/?dji",
+      "https://source.unsplash.com/random/?dji-drone"
+    ]
+  },
+  {
+    "title": "Potensic D88",
+    "description": "Take your aerial photography to new heights with the Potensic D88 drone. With GPS positioning and 2K camera, this drone offers stable flight and stunning image quality.",
+    "price": 249,
+    "discountPercentage": 10.75,
+    "rating": 4.7,
+    "stock": 20,
+    "brand": "Potensic",
+    "category": "Drones",
+    "thumbnail": "https://i.pinimg.com/564x/44/19/c7/4419c795da1008d53e622f060672a02e.jpg",
+    "images": [
+      "https://source.unsplash.com/random/?drone",
+      "https://source.unsplash.com/random/?drones",
+      "https://source.unsplash.com/random/?drone-image"
+    ]
+  },
+  {
+    "title": "Xiaomi Mi Notebook Pro X",
+    "description": "Take productivity to the next level with the Xiaomi Mi Notebook Pro X. Featuring a powerful processor and stunning display, this laptop is designed for professionals who demand performance.",
+    "price": 1299,
+    "discountPercentage": 11.0,
+    "rating": 4.75,
+    "stock": 30,
+    "brand": "Xiaomi",
+    "category": "laptops",
+    "thumbnail": "https://i.pinimg.com/564x/34/e4/85/34e485f3871fa3f73e78a00ab5a71196.jpg",
+    "images": [
+      "https://source.unsplash.com/random/?laptop",
+      "https://source.unsplash.com/random/?macbook",
+      "https://source.unsplash.com/random/?laptops"
+    ]
+  },
+  {
+    "title": "OnePlus Buds Z",
+    "description": "Immerse yourself in music with the OnePlus Buds Z earbuds. With powerful bass and long battery life, these earbuds are perfect for everyday use.",
+    "price": 59,
+    "discountPercentage": 15.5,
+    "rating": 4.5,
+    "stock": 50,
+    "brand": "OnePlus",
+    "category": "headphones",
+    "thumbnail": "https://i.pinimg.com/564x/fe/0f/1f/fe0f1f97b1fac2e2f21d58ad46733299.jpg",
+    "images": [
+      "https://source.unsplash.com/random/?headphone",
+      "https://source.unsplash.com/random/?earphone",
+      "https://source.unsplash.com/random/?earbuds"
+    ]
+  },
+  {
+    "title": "Sony Alpha A7 IV",
+    "description": "Capture moments like never before with the Sony Alpha A7 IV camera. Featuring high-resolution imaging and advanced autofocus, this camera empowers photographers to push the boundaries of creativity.",
+    "price": 2499,
+    "discountPercentage": 7.5,
+    "rating": 4.95,
+    "stock": 20,
+    "brand": "Sony",
+    "category": "camera",
+    "thumbnail": "https://i.pinimg.com/564x/65/bd/69/65bd69f99158a33764eca99514b542af.jpg",
+    "images": [
+      "https://source.unsplash.com/random/?camera",
+      "https://source.unsplash.com/random/?sony",
+      "https://source.unsplash.com/random/?canon"
+    ]
+  },
+  {
+    "title": "PowerVision PowerEgg X",
+    "description": "Unleash your creativity with the PowerVision PowerEgg X drone. With versatile design and AI-powered features, this drone offers endless possibilities for aerial photography and videography.",
+    "price": 899,
+    "discountPercentage": 8.5,
+    "rating": 4.5,
+    "stock": 45,
+    "brand": "PowerVision",
+    "category": "Drones",
+    "thumbnail": "https://i.pinimg.com/564x/36/eb/af/36ebaf3e2c51db1112c7bedcf7bae42f.jpg",
+    "images": [
+      "https://source.unsplash.com/random/?drone",
+      "https://source.unsplash.com/random/?dji",
+      "https://source.unsplash.com/random/?dji-drone"
+    ]
+  },
+  {
+    "title": "Lenovo Tab P11",
+    "description": "Experience the perfect blend of productivity and entertainment with the Lenovo Tab P11. With a vibrant display and powerful performance, this tablet is ideal for work or play.",
+    "price": 299,
+    "discountPercentage": 8.0,
+    "rating": 4.5,
+    "stock": 40,
+    "brand": "Lenovo",
+    "category": "Tablets",
+    "thumbnail": "https://i.pinimg.com/564x/e7/38/48/e73848ad601204437193ecb2b0d52d62.jpg",
+    "images": [
+      "https://source.unsplash.com/random/?tablets",
+      "https://source.unsplash.com/random/?tablet",
+      "https://source.unsplash.com/random/?Lenovo-Tablet"
+    ]
+  },
+  {
+    "title": "LG Gram 17",
+    "description": "Take productivity to new heights with the LG Gram 17 laptop. Featuring a lightweight design and long battery life, this laptop is perfect for professionals on the go.",
+    "price": 1399,
+    "discountPercentage": 10.2,
+    "rating": 4.8,
+    "stock": 25,
+    "brand": "LG",
+    "category": "Laptops",
+    "thumbnail": "https://i.pinimg.com/564x/48/af/6d/48af6d36df89d3c1c265f9da94d28210.jpg",
+    "images": [
+      "https://source.unsplash.com/random/?laptop",
+      "https://source.unsplash.com/random/?macbook",
+      "https://source.unsplash.com/random/?laptops"
+    ]
+  },
+  {
+    "title": "Bose SoundLink Mini II",
+    "description": "Enjoy rich, immersive sound with the Bose SoundLink Mini II speaker. With compact design and long battery life, this speaker is perfect for music lovers on the move.",
+    "price": 199,
+    "discountPercentage": 15.0,
+    "rating": 4.7,
+    "stock": 30,
+    "brand": "Bose",
+    "category": "Speakers",
+    "thumbnail": "https://i.pinimg.com/564x/0f/82/24/0f82242d575955268e5c32498a2f3874.jpg",
+    "images": [
+      "https://source.unsplash.com/random/?speaker",
+      "https://source.unsplash.com/random/?speaker-photo",
+      "https://source.unsplash.com/random/?speakers"
+    ]
+  },
+  {
+    "title": "Google Pixel 6",
+    "description": "Capture life's moments in stunning detail with the Google Pixel 6 smartphone. With advanced camera technology and sleek design, this smartphone is perfect for photography enthusiasts.",
+    "price": 799,
+    "discountPercentage": 7.5,
+    "rating": 4.6,
+    "stock": 35,
+    "brand": "Google",
+    "category": "Smartphones",
+    "thumbnail": "https://i.pinimg.com/564x/3a/30/12/3a3012138bc8f63523c9f732eab4238e.jpg",
+    "images": [
+      "https://source.unsplash.com/random/?smartphone",
+      "https://source.unsplash.com/random/?google-pixel",
+      "https://source.unsplash.com/random/?smartphone-photo"
+    ]
+  },
+  {
+    "title": "ASUS ROG Zephyrus G14",
+    "description": "Unleash your gaming potential with the ASUS ROG Zephyrus G14 laptop. Featuring powerful graphics and immersive display, this laptop is perfect for gaming enthusiasts.",
+    "price": 1499,
+    "discountPercentage": 12.0,
+    "rating": 4.9,
+    "stock": 20,
+    "brand": "ASUS",
+    "category": "Laptops",
+    "thumbnail": "https://i.pinimg.com/736x/20/56/63/205663507539385cc9ccf7715d83c2c1.jpg",
+    "images": [
+      "https://source.unsplash.com/random/?laptop",
+      "https://source.unsplash.com/random/?macbook",
+      "https://source.unsplash.com/random/?laptops"
+    ]
+  },
+  {
+    "title": "Sennheiser HD 450BT",
+    "description": "Immerse yourself in music with the Sennheiser HD 450BT headphones. With active noise cancellation and superior sound quality, these headphones deliver an exceptional listening experience.",
+    "price": 199,
+    "discountPercentage": 10.75,
+    "rating": 4.8,
+    "stock": 25,
+    "brand": "Sennheiser",
+    "category": "Headphones",
+    "thumbnail": "https://i.pinimg.com/564x/cb/58/3e/cb583e866159cded55eeef7906c4b81d.jpg",
+    "images": [
+      "https://source.unsplash.com/random/?headphone",
+      "https://source.unsplash.com/random/?earphone",
+      "https://source.unsplash.com/random/?earbuds"
+    ]
+  },
+  {
+    "title": "GoPro HERO10 Black",
+    "description": "Capture epic moments with the GoPro HERO10 Black camera. With stunning 5.3K video and advanced stabilization, this camera is perfect for adventurers and content creators.",
+    "price": 499,
+    "discountPercentage": 8.5,
+    "rating": 4.7,
+    "stock": 40,
+    "brand": "GoPro",
+    "category": "Camera",
+    "thumbnail": "https://i.pinimg.com/564x/5b/d2/5b/5bd25ba0f1947d43cedd46014147f8ec.jpg",
+    "images": [
+      "https://source.unsplash.com/random/?camera",
+      "https://source.unsplash.com/random/?GoPro",
+      "https://source.unsplash.com/random/?canon"
+    ]
+  },
+  {
+    "title": "Fujifilm Instax Mini 11",
+    "description": "Capture memories instantly with the Fujifilm Instax Mini 11 camera. With automatic exposure and compact design, this camera is perfect for capturing life's spontaneous moments.",
+    "price": 69,
+    "discountPercentage": 15.25,
+    "rating": 4.6,
+    "stock": 50,
+    "brand": "Fujifilm",
+    "category": "Camera",
+    "thumbnail": "https://i.pinimg.com/736x/30/54/00/3054001d427d0d507cb37b07689f19ec.jpg",
+    "images": [
+      "https://source.unsplash.com/random/?camera",
+      "https://source.unsplash.com/random/?Nikon",
+      "https://source.unsplash.com/random/?canon"
+    ]
+  },
+  {
+    "title": "SteelSeries Arctis 7",
+    "description": "Immerse yourself in gaming with the SteelSeries Arctis 7 headphones. With lag-free wireless connection and DTS Headphone:X v2.0 surround sound, these headphones deliver an unparalleled gaming experience.",
+    "price": 149,
+    "discountPercentage": 10.5,
+    "rating": 4.5,
+    "stock": 30,
+    "brand": "SteelSeries",
+    "category": "Headphones",
+    "thumbnail": "https://i.pinimg.com/564x/67/69/b8/6769b8511fa1ca49ff5aaf303089b545.jpg",
+    "images": [
+      "https://source.unsplash.com/random/?headphone",
+      "https://source.unsplash.com/random/?earphone",
+      "https://source.unsplash.com/random/?earbuds"
+    ]
+  },
+  {
+    "title": "JBL Charge 5",
+    "description": "Take your music to the next level with the JBL Charge 5 portable speaker. With powerful sound and waterproof design, this speaker is perfect for outdoor adventures.",
+    "price": 179,
+    "discountPercentage": 12.0,
+    "rating": 4.8,
+    "stock": 35,
+    "brand": "JBL",
+    "category": "Speakers",
+    "thumbnail": "https://i.pinimg.com/564x/1f/09/d5/1f09d59463dbd1445ab45647df4fe68d.jpg",
+    "images": [
+      "https://source.unsplash.com/random/?speaker",
+      "https://source.unsplash.com/random/?speaker-photo",
+      "https://source.unsplash.com/random/?speakers"
+    ]
+  },
+  {
+    "title": "Nikon D850",
+    "description": "Unleash your creative vision with the Nikon D850 camera. With high-resolution imaging and robust performance, this camera is perfect for professionals and enthusiasts alike.",
+    "price": 2999,
+    "discountPercentage": 5.25,
+    "rating": 4.9,
+    "stock": 15,
+    "brand": "Nikon",
+    "category": "camera",
+    "thumbnail": "https://i.pinimg.com/564x/90/1c/05/901c059010600ac6b5eb5cce87c37bc3.jpg",
+    "images": [
+      "https://source.unsplash.com/random/?camera",
+      "https://source.unsplash.com/random/?Nikon",
+      "https://source.unsplash.com/random/?canon"
+    ]
+  },
+  {
+    "title": "Apple iPad Pro (2024)",
+    "description": "Experience unmatched versatility with the Apple iPad Pro. Featuring a stunning Liquid Retina display and the powerful M-series chip, this tablet is perfect for work, play, and everything in between.",
+    "price": 999,
+    "discountPercentage": 10.0,
+    "rating": 4.8,
+    "stock": 20,
+    "brand": "Apple",
+    "category": "tablets",
+    "thumbnail": "https://i.pinimg.com/564x/8c/42/ae/8c42ae6a6b0e0a08626da4f6eff8fadc.jpg",
+    "images": [
+      "https://source.unsplash.com/random/?apple-ipad",
+      "https://source.unsplash.com/random/?tablet",
+      "https://source.unsplash.com/random/?ipad"
+    ]
+  },
+  {
+    "title": "Samsung Galaxy Tab S8+",
+    "description": "Immerse yourself in entertainment with the Samsung Galaxy Tab S8+. Featuring a gorgeous display and powerful performance, this tablet is your gateway to endless possibilities.",
+    "price": 899,
+    "discountPercentage": 8.75,
+    "rating": 4.7,
+    "stock": 25,
+    "brand": "Samsung",
+    "category": "tablets",
+    "thumbnail": "https://techstoriesindia.in/wp-content/uploads/2022/02/Microsoft-Surface-Laptop-Studio--768x768.jpg",
+    "images": [
+      "https://source.unsplash.com/random/?tablets",
+      "https://source.unsplash.com/random/?tablet",
+      "https://source.unsplash.com/random/?samsund-tablet"
+    ]
+  },
+  {
+    "title": "Microsoft Surface Go 3",
+    "description": "Empower your productivity with the Microsoft Surface Go 3. Lightweight and portable, this tablet is perfect for work or play on the go.",
+    "price": 549,
+    "discountPercentage": 12.5,
+    "rating": 4.6,
+    "stock": 30,
+    "brand": "Microsoft",
+    "category": "tablets",
+    "thumbnail": "https://i.pinimg.com/564x/e2/c4/4a/e2c44aef795019fb8d98095127e49475.jpg",
+    "images": [
+      "https://source.unsplash.com/random/?tablets",
+      "https://source.unsplash.com/random/?tablet",
+      "https://source.unsplash.com/random/?Microsoft-Tablet"
+    ]
+  },
+  {
+    "title": "BoAt Stone 300",
+    "description": "Take your music to the next level with the BoAt Stone 300 portable speaker. Featuring rugged design and powerful sound, this speaker is perfect for outdoor adventures.",
+    "price": 69,
+    "discountPercentage": 15.0,
+    "rating": 4.5,
+    "stock": 40,
+    "brand": "BoAt",
+    "category": "speakers",
+    "thumbnail": "https://i.pinimg.com/564x/7c/b1/69/7cb169ef12798daf44e66bcfa25f2513.jpg",
+    "images": [
+      "https://source.unsplash.com/random/?speaker",
+      "https://source.unsplash.com/random/?speaker-photo",
+      "https://source.unsplash.com/random/?speakers"
+    ]
+  },
+  {
+    "title": "Infinix Hot 12",
+    "description": "Experience superior performance with the Infinix Hot 12 smartphone. With a sleek design and powerful features, this smartphone is perfect for staying connected on the go.",
+    "price": 199,
+    "discountPercentage": 10.25,
+    "rating": 4.5,
+    "stock": 35,
+    "brand": "Infinix",
+    "category": "smartphones",
+    "thumbnail": "https://i.pinimg.com/564x/73/86/a3/7386a3f4830e7824435582b5843305d2.jpg",
+    "images": [
+      "https://source.unsplash.com/random/?smartphone",
+      "https://source.unsplash.com/random/?smartphones",
+      "https://source.unsplash.com/random/?smartphone-photo"
+    ]
+  },
+  {
+    "title": "Xiaomi RedmiBook Pro",
+    "description": "Unlock your potential with the Xiaomi RedmiBook Pro. Featuring a powerful processor and stunning display, this laptop is perfect for work, study, or entertainment.",
+    "price": 899,
+    "discountPercentage": 11.0,
+    "rating": 4.7,
+    "stock": 30,
+    "brand": "Xiaomi",
+    "category": "laptops",
+    "thumbnail": "https://i.pinimg.com/564x/85/53/7c/85537c538f757c17b9875e160d715bc3.jpg",
+    "images": [
+      "https://source.unsplash.com/random/?laptop",
+      "https://source.unsplash.com/random/?macbook",
+      "https://source.unsplash.com/random/?laptops"
+    ]
+  },
+  {
+    "title": "OnePlus Bullets Wireless Z",
+    "description": "Immerse yourself in music with the OnePlus Bullets Wireless Z earbuds. Featuring powerful sound and long battery life, these earbuds are perfect for on-the-go listening.",
+    "price": 39,
+    "discountPercentage": 15.5,
+    "rating": 4.6,
+    "stock": 50,
+    "brand": "OnePlus",
+    "category": "headphones",
+    "thumbnail": "https://i.pinimg.com/564x/91/2b/86/912b86e0d8a5ac1911384d3a4a239263.jpg",
+    "images": [
+      "https://source.unsplash.com/random/?headphone",
+      "https://source.unsplash.com/random/?earphone",
+      "https://source.unsplash.com/random/?earbuds"
+    ]
+  },
+  {
+    "title": "Sony WH-CH710N",
+    "description": "Enjoy immersive sound with the Sony WH-CH710N headphones. With noise cancellation and long battery life, these headphones are perfect for all-day listening.",
+    "price": 149,
+    "discountPercentage": 10.75,
+    "rating": 4.5,
+    "stock": 45,
+    "brand": "Sony",
+    "category": "headphones",
+    "thumbnail": "https://i.pinimg.com/564x/79/75/aa/7975aa7e53fb48a1de0c596d503b10f6.jpg",
+    "images": [
+      "https://source.unsplash.com/random/?headphone",
+      "https://source.unsplash.com/random/?earphone",
+      "https://source.unsplash.com/random/?earbuds"
+    ]
+  },
+  {
+    "title": "Canon EOS M50 Mark II",
+    "description": "Capture memories with the Canon EOS M50 Mark II camera. With advanced autofocus and 4K video capabilities, this camera is perfect for content creators and enthusiasts alike.",
+    "price": 649,
+    "discountPercentage": 7.25,
+    "rating": 4.8,
+    "stock": 20,
+    "brand": "Canon",
+    "category": "camera",
+    "thumbnail": "https://i.pinimg.com/736x/ea/cc/ab/eaccaba5956f33e31a9e541e66f7ee12.jpg",
+    "images": [
+      "https://source.unsplash.com/random/?camera",
+      "https://source.unsplash.com/random/?Nikon",
+      "https://source.unsplash.com/random/?canon"
+    ]
+  },
+  {
+    "title": "Nikon Z6 II",
+    "description": "Unleash your creativity with the Nikon Z6 II camera. Featuring fast performance and stunning image quality, this camera is perfect for capturing life's moments in vivid detail.",
+    "price": 1999,
+    "discountPercentage": 5.5,
+    "rating": 4.8,
+    "stock": 15,
+    "brand": "Nikon",
+    "category": "camera",
+    "thumbnail": "https://i.pinimg.com/564x/30/ca/26/30ca269f8aa6e30f57af2da7cf6e661c.jpg",
+    "images": [
+      "https://source.unsplash.com/random/?camera",
+      "https://source.unsplash.com/random/?Nikon",
+      "https://source.unsplash.com/random/?canon"
+    ]
+  }
+]

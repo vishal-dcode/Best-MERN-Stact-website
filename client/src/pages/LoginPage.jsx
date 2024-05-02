@@ -1,16 +1,21 @@
+// * IMPORTS
 import {Navigate} from 'react-router-dom';
-import Login from '../features/auth/containers/Login';
 import {useSelector} from 'react-redux';
+// * CONTAINERS
+import Login from '../features/auth/containers/Login';
+// * REDUX
 import {selectLoggedInUser} from '../features/auth/authSlice';
 
 export default function LoginPage() {
-  const user = useSelector(selectLoggedInUser);
+  const userSelector = useSelector(selectLoggedInUser);
 
   return (
     <main className="authPage">
       <div className="auth_wrapper">
-        {user && <Navigate to="/" replace={true}></Navigate>}
+        {userSelector && <Navigate to="/" replace={true}></Navigate>}
+        {/* // ! LOGIN SECTION */}
         <Login />
+        {/* // ! PROFILE SECTION */}
         <section className="loginpage_profile">
           <div className="div">
             <figure className="img_ctr">

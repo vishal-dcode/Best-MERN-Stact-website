@@ -1,21 +1,23 @@
+// * IMPORTS
 import {useEffect} from 'react';
-import {Link, Navigate, useParams} from 'react-router-dom';
-import {resetCartAsync} from '../features/cart/cartSlice';
 import {useDispatch, useSelector} from 'react-redux';
+import {Link, Navigate, useParams} from 'react-router-dom';
+// * REDUX
+import {resetCartAsync} from '../features/cart/cartSlice';
 import {selectLoggedInUser} from '../features/auth/authSlice';
 import {resetOrder} from '../features/order/orderSlice';
 
 function OrderSuccessPage() {
   const params = useParams();
   const dispatch = useDispatch();
-  const user = useSelector(selectLoggedInUser);
+  const userSelector = useSelector(selectLoggedInUser);
 
   useEffect(() => {
     // reset cart
-    dispatch(resetCartAsync(user.id));
+    dispatch(resetCartAsync(userSelector.id));
     // reset currentOrder
     dispatch(resetOrder());
-  }, [dispatch, user]);
+  }, [dispatch, userSelector]);
 
   return (
     <>
@@ -45,7 +47,11 @@ function OrderSuccessPage() {
           <p className="text-gray-600 text-sm">
             You will receive an email with your download link
           </p>
-          <span className="continue_shopping flex gap-1 items-center py-2 text-sm text-center">
+          <div className="order_details-header">
+            <h3>ORDER ID:</h3> &nbsp;
+            <h3>{params?.id}</h3>
+          </div>
+          <span className="continue_shopping flex gap-1 items-center pb-5 text-sm text-center">
             <Link to="/">Continue Shopping</Link>
             <svg
               width="45"
@@ -64,50 +70,6 @@ function OrderSuccessPage() {
               />
             </svg>
           </span>
-        </section>
-
-        <section className="order_details">
-          <div className="order_details-ctr">
-            <div className="order_details-header">
-              <h3>ORDER ID</h3>
-              <h3>{params?.id}</h3>
-              {/* <h3>{userOrderSelector.id}</h3> */}
-            </div>
-
-            {/* <p>Order ID is {params.id.toUpperCase()}</p> */}
-
-            {/* <div className="order_details-info">
-            <p>
-              {userOrderSelector.selectedAddress.address},{' '}
-              {userOrderSelector.selectedAddress.state},{' '}
-              {userOrderSelector.selectedAddress.city} -{' '}
-              {userOrderSelector.selectedAddress.pinCode}
-            </p>
-            <div className="date py-2">
-              <span>March 6, 2026</span>
-              <span>Payment Method: {userOrderSelector.paymentMethod}</span>
-            </div>
-            <span className="line-dotted py-2"></span>
-            <div className="order_details-total">
-              <div>
-                <p>Total Items:</p>
-                <p>{userOrderSelector.totalItems}</p>
-              </div>
-              <div>
-                <p>Subtotal:</p>
-                <p>$1099</p>
-              </div>
-              <div>
-                <p>Shipping Taxes:</p>
-                <p>Free Shipping</p>
-              </div>
-              <div>
-                <p>Order Total:</p>
-                <p>${userOrderSelector.totalAmount}</p>
-              </div>
-            </div>
-          </div> */}
-          </div>
         </section>
       </main>
     </>

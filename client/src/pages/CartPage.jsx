@@ -1,9 +1,10 @@
+// * IMPORTS
 import {Link} from 'react-router-dom';
 import {useSelector} from 'react-redux';
+// * MISCELLANEOUS
+import {DISCOUNTED_PRICE} from '../app/constants';
 // * COMPONENTS
 import Cart from '../features/cart/Cart';
-// * CONSTANTS
-import {discountedPrice} from '../app/constants';
 // * REDUX
 import {selectItems} from '../features/cart/cartSlice';
 
@@ -15,7 +16,7 @@ export default function CartPage() {
     0
   );
   const totalAmount = cartItemsSelector.reduce(
-    (amount, item) => discountedPrice(item.product) * item.quantity + amount,
+    (amount, item) => DISCOUNTED_PRICE(item.product) * item.quantity + amount,
     0
   );
 
