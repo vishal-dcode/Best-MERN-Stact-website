@@ -3,6 +3,7 @@ const express = require('express');
 const server = express();
 const mongoose = require('mongoose');
 const cors = require('cors')
+const path = require('path')
 
 const productsRouter = require('./routes/Products');
 const categoriesRouter = require('./routes/Categories');
@@ -13,6 +14,7 @@ const cartRouter = require('./routes/Cart');
 const ordersRouter = require('./routes/Order');
 
 //! MIDDLEWARE
+server.use(express.static(path.resolve(__dirname,'build')))
 server.use(cors({
     exposedHeaders:['X-Total-Count']
 }))

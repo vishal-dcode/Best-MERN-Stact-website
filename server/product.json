@@ -26,9 +26,9 @@
     "category": "smartphones",
     "thumbnail": "https://i.pinimg.com/564x/a0/16/90/a016904981b8fb5896c08fdf3f5b5589.jpg",
     "images": [
-      "https://source.unsplash.com/random/?samsung_galaxy_fold",
-      "https://source.unsplash.com/random/?galaxy_fold4",
-      "https://source.unsplash.com/random/?galaxy_fold"
+      "https://source.unsplash.com/random/?samsung_galaxy",
+      "https://source.unsplash.com/random/?smartphone",
+      "https://source.unsplash.com/random/?mobile"
     ]
   },
   {
@@ -1038,6 +1038,22 @@
       "https://source.unsplash.com/random/?camera",
       "https://source.unsplash.com/random/?Nikon",
       "https://source.unsplash.com/random/?canon"
+    ]
+  },
+  {
+    "title": "AKG  Headphone",
+    "description": "Professional 40mm Drivers for reference monitor accuracy over a precisely balanced 16Hz–22kHz frequency response. Lightweight Design and Self-Adjusting Headband for exceptional comfort over long periods of time.",
+    "price": 4598,
+    "discountPercentage": 44,
+    "rating": 0,
+    "stock": 100,
+    "brand": "Samsung",
+    "category": "headphones",
+    "thumbnail": "https://static.netshoes.com.br/produtos/fone-profissional-akg-headphone-k52-original/06/DMG-0051-006/DMG-0051-006_zoom1.jpg?ts=1652451194&",
+    "images": [
+      "https://source.unsplash.com/random/?headphone",
+      "https://source.unsplash.com/random/?akg",
+      "https://source.unsplash.com/random/?headset"
     ]
   }
 ]
