@@ -25,7 +25,7 @@ export default function CardPaymentPage() {
       method: 'POST',
       headers: {'Content-Type': 'application/json'},
       body: JSON.stringify({totalAmount: currentOrder.totalAmount}),
-      meta: {
+      metadata: {
         order_id: currentOrder.id,
       },
     })

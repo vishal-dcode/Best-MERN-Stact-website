@@ -26,6 +26,7 @@ server.use('/users', usersRouter.router)
 server.use('/auth', authRouter.router)
 server.use('/cart', cartRouter.router)
 server.use('/orders', ordersRouter.router)
+server.get("*", (req, res) => {res.sendFile(path.resolve('build', 'index.html'))})
 
 main().catch(err=> console.log(err));
 
