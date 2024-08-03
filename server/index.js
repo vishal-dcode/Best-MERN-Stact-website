@@ -40,7 +40,7 @@ async function main() {
   console.log('database connected');
 }
 server.get('/', (req, res) => {
-  res.json({ status: 'success' });
+  res.send('GOTRIP SERVER RUNNING');
 });
 server.listen(process.env.PORT, () => {
   console.log('Server Started');

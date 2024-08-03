@@ -1,6 +1,6 @@
 export function fetchLoggedInUserOrders(userId) {
   return new Promise(async (resolve) => {
-    const response = await fetch('http://localhost:8080/orders/user/' + userId);
+    const response = await fetch('https://mern-stact-backend.onrender.com/orders/user/' + userId);
     const data = await response.json();
     resolve({data});
   });
@@ -8,7 +8,7 @@ export function fetchLoggedInUserOrders(userId) {
 
 export function fetchLoggedInUser(userId) {
   return new Promise(async (resolve) => {
-    const response = await fetch('http://localhost:8080/users/' + userId);
+    const response = await fetch('https://mern-stact-backend.onrender.com/users/' + userId);
     const data = await response.json();
     resolve({data});
   });
@@ -16,7 +16,7 @@ export function fetchLoggedInUser(userId) {
 
 export function updateUser(update) {
   return new Promise(async (resolve) => {
-    const response = await fetch('http://localhost:8080/users/' + update.id, {
+    const response = await fetch('https://mern-stact-backend.onrender.com/users/' + update.id, {
       method: 'PATCH',
       body: JSON.stringify(update),
       headers: {'content-type': 'application/json'},
