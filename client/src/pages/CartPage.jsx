@@ -1,24 +1,23 @@
 // * IMPORTS
-import {Link} from 'react-router-dom';
-import {useSelector} from 'react-redux';
+import { Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 // * MISCELLANEOUS
-import {DISCOUNTED_PRICE} from '../app/constants';
+import { DISCOUNTED_PRICE } from '../app/constants';
 // * COMPONENTS
 import Cart from '../features/cart/Cart';
 // * REDUX
-import {selectItems} from '../features/cart/cartSlice';
+import { selectItems } from '../features/cart/cartSlice';
 
 export default function CartPage() {
   const cartItemsSelector = useSelector(selectItems);
 
-  const totalItems = cartItemsSelector.reduce(
-    (total, item) => item.quantity + total,
-    0
-  );
-  const totalAmount = cartItemsSelector.reduce(
-    (amount, item) => DISCOUNTED_PRICE(item.product) * item.quantity + amount,
-    0
-  );
+  const totalItems = cartItemsSelector.reduce((total, item) => (item && item.quantity ? item.quantity : 0) + total, 0);
+  const totalAmount = cartItemsSelector.reduce((amount, item) => {
+    if (item && item.product) {
+      return DISCOUNTED_PRICE(item.product) * (item.quantity || 0) + amount;
+    }
+    return amount;
+  }, 0);
 
   let shippingAmount;
   const shippingOptions = [0, 10, 20]; // Shipping amounts
@@ -51,9 +50,7 @@ export default function CartPage() {
               <div className="shopping_cart-info mb-3">
                 <p>Shipping</p>
                 <p>
-                  {shippingAmount === 0
-                    ? (shippingAmount = 'Free Shipping')
-                    : (shippingAmount = `$${shippingAmount}`)}
+                  {shippingAmount === 0 ? (shippingAmount = 'Free Shipping') : (shippingAmount = `$${shippingAmount}`)}
                 </p>
               </div>
               <span className="line-dotted"></span>
@@ -75,3 +72,4 @@ export default function CartPage() {
     </>
   );
 }
+

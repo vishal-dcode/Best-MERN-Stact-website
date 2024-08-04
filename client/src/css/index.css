@@ -2,6 +2,11 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer utilities {
+  .column-divider {
+    column-rule: 1px solid #c2c2c2;
+  }
+}
 :root {
   --ff-display: 'monument';
   --ff-body: 'helvetica';
@@ -107,8 +112,7 @@ div#root {
   height: 48px;
   border-radius: 50%;
   border: 10px solid;
-  border-color: rgba(196, 239, 120, 1) rgba(253, 213, 111, 1)
-    rgba(246, 121, 121, 1) rgba(125, 114, 255, 1);
+  border-color: rgba(196, 239, 120, 1) rgba(253, 213, 111, 1) rgba(246, 121, 121, 1) rgba(125, 114, 255, 1);
   animation: rotation 1s linear infinite;
   z-index: 1000;
 }
@@ -1594,3 +1598,4 @@ table tbody td .action {
 .modal-danger_btn:hover {
   background-color: var(--clr-secondary-400);
 }
+

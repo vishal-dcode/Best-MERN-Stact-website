@@ -14,7 +14,9 @@ const cartRouter = require('./routes/Cart');
 const ordersRouter = require('./routes/Order');
 
 //! MIDDLEWARE
-server.use(express.static(path.resolve(__dirname, 'build')));
+server.get('*', (req, res) => {
+  res.sendFile(path.resolve('build', 'index.html'));
+});
 server.use(
   cors({
     exposedHeaders: ['X-Total-Count']
@@ -34,7 +36,6 @@ server.get('*', (req, res) => {
 
 main().catch((err) => console.log(err));
 
-
 async function main() {
   await mongoose.connect(process.env.DB_URI);
   console.log('database connected');
@@ -45,3 +46,4 @@ server.get('/', (req, res) => {
 server.listen(process.env.PORT, () => {
   console.log('Server Started');
 });
+

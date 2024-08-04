@@ -1,11 +1,7 @@
-import React, {useEffect} from 'react';
-import {useSelector, useDispatch} from 'react-redux';
-import {
-  fetchLoggedInUserOrderAsync,
-  selectUserInfo,
-  selectUserOrders,
-} from '../userSlice';
-import {Link} from 'react-router-dom';
+import React, { useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { fetchLoggedInUserOrderAsync, selectUserInfo, selectUserOrders } from '../userSlice';
+import { Link } from 'react-router-dom';
 
 export default function UserOrders() {
   const dispatch = useDispatch();
@@ -67,56 +63,35 @@ export default function UserOrders() {
                     <div className="flex items-center gap-3">
                       <div>
                         {orders.items.map((item, idx) => (
-                          <>
-                            <Link
-                              to={`/product-detail/${item.product.id}`}
-                              className="flex items-center gap-3">
-                              <img
-                                key={idx}
-                                className="profile_pic"
-                                src={item.product.thumbnail}
-                                alt="Thumbnail"
-                              />
-                              <div>
-                                <span className="order_id">
-                                  Order ID:{' '}
-                                  {item.id.substring(item.id.length - 4)}
-                                </span>
-                                <p className="product_name">
-                                  {item.product.title}
-                                </p>
-                              </div>
-                            </Link>
-                          </>
+                          <Link to={`/product-detail/${item.product.id}`} key={idx} className="flex items-center gap-3">
+                            <img className="profile_pic" src={item.product.thumbnail} alt="Thumbnail" />
+                            <div>
+                              <span className="order_id">Order ID: {item.id.substring(item.id.length - 4)}</span>
+                              <p className="product_name">{item.product.title}</p>
+                            </div>
+                          </Link>
                         ))}
                       </div>
                     </div>
                   </td>
                   <td className="py-3 border-b border-blue-gray-50">
                     <div>
+                      <p className="product_name">{orders.selectedAddress.street}</p>
                       <p className="product_name">
-                        {orders.selectedAddress.street}
-                      </p>
-                      <p className="product_name">
-                        {orders.selectedAddress.city}-
-                        {orders.selectedAddress.pinCode}
+                        {orders.selectedAddress.city}-{orders.selectedAddress.pinCode}
                       </p>
                     </div>
                   </td>
                   <td className="py-3 border-b border-blue-gray-50">
                     <div className="flex flex-col">
                       <p className="quantity flex justify-center">
-                        {orders.totalItems < 10
-                          ? '0' + orders.totalItems
-                          : orders.totalItems}
+                        {orders.totalItems < 10 ? '0' + orders.totalItems : orders.totalItems}
                       </p>
                     </div>
                   </td>
                   <td className="py-3 border-b border-blue-gray-50">
                     <div className="flex flex-col">
-                      <p className="amount flex justify-center">
-                        ${orders.totalAmount}
-                      </p>
+                      <p className="amount flex justify-center">${orders.totalAmount}</p>
                     </div>
                   </td>
                   <td className="py-3 border-b border-blue-gray-50">
@@ -129,12 +104,7 @@ export default function UserOrders() {
                   <td className="py-3 border-b border-blue-gray-50">
                     <div className="flex justify-center items-center">
                       <div>
-                        <span
-                          className={`status_color ${statusColor(
-                            orders.status
-                          )}`}>
-                          {orders.status}
-                        </span>
+                        <span className={`status_color ${statusColor(orders.status)}`}>{orders.status}</span>
                       </div>
                     </div>
                   </td>
@@ -148,3 +118,4 @@ export default function UserOrders() {
     </section>
   );
 }
+

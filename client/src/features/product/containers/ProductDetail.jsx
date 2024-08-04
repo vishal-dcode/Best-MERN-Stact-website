@@ -1,26 +1,53 @@
 // * IMPORTS
-import {useEffect, useState} from 'react';
-import {useDispatch, useSelector} from 'react-redux';
-import {useParams, Link} from 'react-router-dom';
-import {useAlert} from 'react-alert';
+import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useParams, Link } from 'react-router-dom';
 import Skeleton from 'react-loading-skeleton';
 // * MISCELLANEOUS
-import {DISCOUNTED_PRICE} from '../../../app/constants';
+import { DISCOUNTED_PRICE } from '../../../app/constants';
 // * REDUX
-import {fetchProductByIdAsync, selectProductById} from '../productSlice';
-import {addToCartAsync, selectItems} from '../../cart/cartSlice';
-import {selectLoggedInUser} from '../../auth/authSlice';
+import { fetchProductByIdAsync, selectProductById } from '../productSlice';
+import { addToCartAsync, selectItems } from '../../cart/cartSlice';
+import { selectLoggedInUser } from '../../auth/authSlice';
+import { createApi } from 'unsplash-js';
+
+// ! UNSPLASH API
+const unsplash = createApi({
+  accessKey: process.env.REACT_APP_UNSPLASH_ACCESS_KEY
+});
 
 export default function ProductDetail() {
   const dispatch = useDispatch();
   const params = useParams();
-  const alert = useAlert();
   const user = useSelector(selectLoggedInUser);
   const items = useSelector(selectItems);
   const product = useSelector(selectProductById);
+  const [unsplashImages, setUnsplashImages] = useState([]);
 
   const [loading, setLoading] = useState(false);
 
+  // ! UNSPLASH API
+  useEffect(() => {
+    const fetchUnsplashImages = async () => {
+      try {
+        const result = await unsplash.search.getPhotos({
+          query: product.title,
+          page: 1,
+          perPage: 3
+        });
+        if (result.type === 'success') {
+          const imageUrls = result.response.results.map((photo) => photo.urls.regular);
+          setUnsplashImages(imageUrls);
+        }
+      } catch (error) {
+        console.error('Error fetching Unsplash images:', error);
+      }
+    };
+
+    if (product?.title) {
+      fetchUnsplashImages();
+    }
+  }, [product]);
   useEffect(() => {
     setLoading(true);
     const timer = setTimeout(() => {
@@ -31,18 +58,20 @@ export default function ProductDetail() {
 
   const handleCart = (e) => {
     e.preventDefault();
-    if (items.findIndex((item) => item.product.id === product.id) < 0) {
-      // console.log({items, product});
+    if (!product) {
+      alert('Product not available');
+      return;
+    }
+    if (items.findIndex((item) => item.product && item.product.id === product.id) < 0) {
       const newItem = {
         product: product.id,
         quantity: 1,
-        user: user.id,
+        user: user.id
       };
       dispatch(addToCartAsync(newItem));
-      // TODO: it will be based on server response of backend
-      alert.success('Item added to Cart');
+      alert('Item added to Cart');
     } else {
-      alert.error('Item Already added');
+      alert('Item Already added');
     }
   };
 
@@ -59,20 +88,10 @@ export default function ProductDetail() {
             <nav aria-label="Breadcrumb" className="mb-5 block xl:hidden">
               <ol className="breadcrumb-wrapper whitespace-nowrap flex items-center gap-2 uppercase">
                 <li>
-                  <Link
-                    className="breadcrumb-go_back uppercase flex items-center gap-1"
-                    to="/">
+                  <Link className="breadcrumb-go_back uppercase flex items-center gap-1" to="/">
                     <figure>
-                      <svg
-                        width="60"
-                        height="20"
-                        viewBox="0 0 65 34"
-                        fill="none"
-                        xmlns="http://www.w3.org/2000/svg">
-                        <path
-                          d="M10 18L65 18L65 16L10 16L10 18Z"
-                          fill="black"
-                        />
+                      <svg width="60" height="20" viewBox="0 0 65 34" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M10 18L65 18L65 16L10 16L10 18Z" fill="black" />
                         <path
                           d="M9 16C10.1819 16 11.3522 16.2328 12.4442 16.6851C13.5361 17.1374 14.5282 17.8003 15.364 18.636C16.1997 19.4718 16.8626 20.4639 17.3149 21.5558C17.7672 22.6478 18 23.8181 18 25L16.0178 25C16.0178 24.0784 15.8363 23.1658 15.4836 22.3144C15.1309 21.463 14.614 20.6893 13.9623 20.0377C13.3107 19.386 12.537 18.8691 11.6856 18.5164C10.8342 18.1637 9.92159 17.9822 9 17.9822L9 16Z"
                           fill="black"
@@ -108,7 +127,7 @@ export default function ProductDetail() {
                   {loading && <Skeleton width={'100%'} height={'100%'} />}
 
                   <img
-                    src={product.images[0]}
+                    src={unsplashImages[0]}
                     alt={product.title}
                     loading="lazy"
                     className="h-full w-full object-cover object-center"
@@ -117,7 +136,7 @@ export default function ProductDetail() {
                 <figure className="product_images-2">
                   {loading && <Skeleton width={'100%'} height={'100%'} />}
                   <img
-                    src={product.images[1]}
+                    src={unsplashImages[1]}
                     alt={product.title}
                     loading="lazy"
                     className="h-full w-full object-cover object-center"
@@ -126,7 +145,7 @@ export default function ProductDetail() {
                 <figure className="product_images-3">
                   {loading && <Skeleton width={'100%'} height={'100%'} />}
                   <img
-                    src={product.images[2]}
+                    src={unsplashImages[2]}
                     alt={product.title}
                     loading="lazy"
                     className="h-full w-full object-cover object-center"
@@ -141,20 +160,10 @@ export default function ProductDetail() {
             <nav aria-label="Breadcrumb" className="hidden xl:block">
               <ol className="breadcrumb-wrapper whitespace-nowrap flex items-center gap-2 uppercase">
                 <li>
-                  <Link
-                    className="breadcrumb-go_back uppercase flex items-center gap-1"
-                    to="/">
+                  <Link className="breadcrumb-go_back uppercase flex items-center gap-1" to="/">
                     <figure>
-                      <svg
-                        width="60"
-                        height="20"
-                        viewBox="0 0 65 34"
-                        fill="none"
-                        xmlns="http://www.w3.org/2000/svg">
-                        <path
-                          d="M10 18L65 18L65 16L10 16L10 18Z"
-                          fill="black"
-                        />
+                      <svg width="60" height="20" viewBox="0 0 65 34" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M10 18L65 18L65 16L10 16L10 18Z" fill="black" />
                         <path
                           d="M9 16C10.1819 16 11.3522 16.2328 12.4442 16.6851C13.5361 17.1374 14.5282 17.8003 15.364 18.636C16.1997 19.4718 16.8626 20.4639 17.3149 21.5558C17.7672 22.6478 18 23.8181 18 25L16.0178 25C16.0178 24.0784 15.8363 23.1658 15.4836 22.3144C15.1309 21.463 14.614 20.6893 13.9623 20.0377C13.3107 19.386 12.537 18.8691 11.6856 18.5164C10.8342 18.1637 9.92159 17.9822 9 17.9822L9 16Z"
                           fill="black"
@@ -181,12 +190,7 @@ export default function ProductDetail() {
 
               <div className="product_rating-ctr">
                 <div className="product_rating">
-                  <svg
-                    width="14"
-                    height="14"
-                    viewBox="0 0 16 16"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg">
+                  <svg width="14" height="14" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path
                       d="M12.2829 16C12.083 16 11.883 15.9304 11.7163 15.8261L8.01679 13.4609L4.31723 15.8261C3.9506 16.0696 3.48402 16.0348 3.11739 15.7913C2.75076 15.513 2.58413 15.0609 2.68412 14.6087L3.68399 10.1913L0.384376 7.23479C0.051087 6.92176 -0.0822286 6.46958 0.051087 6.01739C0.184403 5.56521 0.551031 5.28697 0.984296 5.25218L5.35043 4.86956L7.01688 0.695651C7.18352 0.278261 7.58346 0 8.01675 0C8.45003 0 8.84996 0.278261 9.01661 0.695651L10.6831 4.86956L15.0157 5.25218C15.449 5.28696 15.8156 5.6 15.9489 6.01739C16.0822 6.46956 15.9489 6.92174 15.6156 7.23479L12.3495 10.1913L13.3494 14.6087C13.4494 15.0609 13.2827 15.513 12.9161 15.7913C12.7495 15.9304 12.5162 16 12.2829 16Z"
                       fill="#FF9325"
@@ -198,12 +202,7 @@ export default function ProductDetail() {
                   </div>
                 </div>
                 <span>
-                  <svg
-                    width="7"
-                    height="7"
-                    viewBox="0 0 7 7"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg">
+                  <svg width="7" height="7" viewBox="0 0 7 7" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <circle cx="3.5" cy="3.5" r="3.5" fill="#737373" />
                   </svg>
                 </span>
@@ -227,8 +226,7 @@ export default function ProductDetail() {
                 <h3 className="pb-3">${DISCOUNTED_PRICE(product)}</h3>
                 <div>
                   <p>
-                    M.R.P.:{' '}
-                    <span className="line-through">${product.price}</span>
+                    M.R.P.: <span className="line-through">${product.price}</span>
                   </p>
                   <span>/</span>
                   <p>-{Math.round(product.discountPercentage * 10) / 10}%</p>
@@ -263,10 +261,7 @@ export default function ProductDetail() {
                   Sold by - <span>{product.brand}</span>
                 </p>
               </div>
-              <button
-                onClick={handleCart}
-                type="submit"
-                className="btn primary-btn">
+              <button onClick={handleCart} type="submit" className="btn primary-btn">
                 Add to Cart
               </button>
               <div className="py-8 lg:col-span-2 lg:col-start-1 lg:border-r lg:border-gray-200 lg:pb-16 lg:pr-8 lg:pt-6"></div>
@@ -277,3 +272,4 @@ export default function ProductDetail() {
     </>
   );
 }
+

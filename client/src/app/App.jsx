@@ -1,9 +1,7 @@
 // * IMPORTS
-import {useEffect} from 'react';
-import {useDispatch, useSelector} from 'react-redux';
-import {Routes, Route, useLocation} from 'react-router-dom';
-import {positions, Provider, transitions} from 'react-alert';
-import AlertTemplate from 'react-alert-template-basic';
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { Routes, Route, useLocation } from 'react-router-dom';
 // * ADMIN IMPORTS
 import AdminHomePage from '../features/admin/AdminHomePage';
 import AdminProductFormPage from '../features/admin/AdminProductFormPage';
@@ -27,15 +25,10 @@ import PageNotFound from '../pages/PageNotFound';
 import Protected from '../features/auth/containers/Protected';
 import Logout from '../features/auth/containers/Logout';
 // * REDUX
-import {selectLoggedInUser} from '../features/auth/authSlice';
-import {fetchItemsByUserIdAsync} from '../features/cart/cartSlice';
-import {fetchLoggedInUserAsync} from '../features/user/userSlice';
-
-const alertOptions = {
-  timeout: 5000,
-  position: positions.BOTTOM_LEFT,
-  transition: transitions.FADE,
-};
+import { selectLoggedInUser } from '../features/auth/authSlice';
+import { fetchItemsByUserIdAsync } from '../features/cart/cartSlice';
+import { fetchLoggedInUserAsync } from '../features/user/userSlice';
+import BlogPage from '../pages/BlogPage';
 
 // prettier-ignore
 export default  function App() {
@@ -55,7 +48,6 @@ export default  function App() {
 
   return (
     <div className="App">
-      <Provider template={AlertTemplate} {...alertOptions}>
         {!isLoginPageOrSignupPage && <Navbar />}
 
           <Routes>
@@ -63,6 +55,7 @@ export default  function App() {
             <Route path="/login" element={<LoginPage />} />
             <Route path="/signup" element={<SignupPage />} />
             <Route path="/about" element={<Protected><AboutPage /></Protected>} />
+            <Route path="/blog" element={<Protected><BlogPage /></Protected>} />
             <Route path="/product-detail/:id" element={<Protected><ProductDetailPage /></Protected>} />
             <Route path="/cart" element={<Protected><CartPage /></Protected>} />
             <Route path="/checkout" element={<Protected><Checkout /></Protected>} />
@@ -78,7 +71,7 @@ export default  function App() {
           </Routes>
 
         {!isLoginPageOrSignupPage && <Footer />}
-      </Provider>
     </div>
   );
 }
+

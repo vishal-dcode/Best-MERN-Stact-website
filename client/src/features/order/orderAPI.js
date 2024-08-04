@@ -1,24 +1,26 @@
+import { baseURL } from '../api.js';
+
 export function createOrder(order) {
   return new Promise(async (resolve) => {
-    const response = await fetch('https://mern-stact-backend.onrender.com/orders', {
+    const response = await fetch(`${baseURL}/orders`, {
       method: 'POST',
       body: JSON.stringify(order),
-      headers: {'content-type': 'application/json'},
+      headers: { 'content-type': 'application/json' }
     });
     const data = await response.json();
-    resolve({data});
+    resolve({ data });
   });
 }
 
 export function updateOrder(order) {
   return new Promise(async (resolve) => {
-    const response = await fetch('https://mern-stact-backend.onrender.com/orders/' + order.id, {
+    const response = await fetch(`${baseURL}/orders/${order.id}`, {
       method: 'PATCH',
       body: JSON.stringify(order),
-      headers: {'content-type': 'application/json'},
+      headers: { 'content-type': 'application/json' }
     });
     const data = await response.json();
-    resolve({data});
+    resolve({ data });
   });
 }
 
@@ -34,9 +36,10 @@ export function fetchAllOrders(sort, pagination) {
 
   return new Promise(async (resolve) => {
     //TODO: we will not hard-code server URL here
-    const response = await fetch('https://mern-stact-backend.onrender.com/orders?' + queryString);
+    const response = await fetch(`${baseURL}/orders?${queryString}`);
     const data = await response.json();
     const totalOrders = await response.headers.get('X-Total-Count');
-    resolve({data: {orders: data, totalOrders: +totalOrders}});
+    resolve({ data: { orders: data, totalOrders: +totalOrders } });
   });
 }
+

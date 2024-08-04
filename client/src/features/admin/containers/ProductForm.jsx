@@ -1,9 +1,8 @@
 // * IMPORTS
-import {useDispatch, useSelector} from 'react-redux';
-import {useForm} from 'react-hook-form';
-import {useParams} from 'react-router-dom';
-import {useEffect, useState} from 'react';
-import {useAlert} from 'react-alert';
+import { useDispatch, useSelector } from 'react-redux';
+import { useForm } from 'react-hook-form';
+import { useParams } from 'react-router-dom';
+import { useEffect, useState } from 'react';
 // * COMPONENTS
 import Modal from '../../../components/Modal';
 // * REDUX
@@ -14,13 +13,12 @@ import {
   selectBrands,
   selectCategories,
   selectProductById,
-  updateProductAsync,
+  updateProductAsync
 } from '../../product/productSlice';
 
 export default function ProductForm() {
   const dispatch = useDispatch();
   const params = useParams();
-  const alert = useAlert();
   const [openModal, setOpenModal] = useState(null);
   const brands = useSelector(selectBrands);
   const categories = useSelector(selectCategories);
@@ -29,7 +27,7 @@ export default function ProductForm() {
     register,
     handleSubmit,
     setValue,
-    reset,
+    reset
     // formState: { errors },
   } = useForm();
 
@@ -58,10 +56,10 @@ export default function ProductForm() {
   }, [selectedProduct, params.id, setValue]);
 
   const handleDelete = () => {
-    const product = {...selectedProduct};
+    const product = { ...selectedProduct };
     product.deleted = true;
     dispatch(updateProductAsync(product));
-    alert.success('Product Deleted');
+    alert('Product Deleted');
   };
 
   return (
@@ -71,7 +69,7 @@ export default function ProductForm() {
         className="add_product-form"
         noValidate
         onSubmit={handleSubmit((data) => {
-          const products = {...data};
+          const products = { ...data };
           products.images = [products.image1, products.image2, products.image3];
           products.rating = selectedProduct ? selectedProduct.rating || 0 : 0;
           delete products['image1'];
@@ -85,25 +83,21 @@ export default function ProductForm() {
           if (params.id) {
             products.id = params.id;
             dispatch(updateProductAsync(products));
-            alert.success('Product Updated');
+            alert('Product Updated');
           } else {
             dispatch(createProductAsync(products));
-            alert.success('Product Created');
+            alert('Product Created');
           }
           reset();
         })}>
         <section>
           {selectedProduct && selectedProduct.deleted && (
-            <h2 className="text-red-500 sm:col-span-6">
-              This product is deleted
-            </h2>
+            <h2 className="text-red-500 sm:col-span-6">This product is deleted</h2>
           )}
           {/* //! Name and description */}
           <div className="grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
             <div className="sm:col-span-6">
-              <label
-                htmlFor="title"
-                className="block text-sm font-medium leading-6 text-gray-900">
+              <label htmlFor="title" className="block text-sm font-medium leading-6 text-gray-900">
                 Product Name
               </label>
               <div className="mt-2">
@@ -113,7 +107,7 @@ export default function ProductForm() {
                     placeholder="Product Name"
                     {...register('title', {
                       required: 'Title is required',
-                      maxLength: 15,
+                      maxLength: 15
                     })}
                     id="title"
                     className="border-0 w-full bg-transparent py-1.5 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
@@ -123,9 +117,7 @@ export default function ProductForm() {
             </div>
 
             <div className="col-span-full">
-              <label
-                htmlFor="description"
-                className="block text-sm font-medium leading-6 text-gray-900">
+              <label htmlFor="description" className="block text-sm font-medium leading-6 text-gray-900">
                 Description
               </label>
               <div className="mt-2">
@@ -133,10 +125,10 @@ export default function ProductForm() {
                   id="description"
                   placeholder="Write a few sentences about your product."
                   {...register('description', {
-                    required: 'description is required',
+                    required: 'description is required'
                   })}
                   rows={5}
-                  className="block w-full border-0 w-full py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-700 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                  className="block w-full border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-700 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                 />
               </div>
             </div>
@@ -144,9 +136,7 @@ export default function ProductForm() {
           {/* //! CATEGORY */}
           <div className="mt-8 w-full flex items-center gap-3">
             <div className="sm:col-span-2 w-full">
-              <label
-                htmlFor="brand"
-                className="block text-sm font-medium leading-6 text-gray-900">
+              <label htmlFor="brand" className="block text-sm font-medium leading-6 text-gray-900">
                 Brand
               </label>
               <div className="mt-2">
@@ -154,19 +144,19 @@ export default function ProductForm() {
                   id="brand"
                   className="w-full"
                   {...register('brand', {
-                    required: 'Brand is required',
+                    required: 'Brand is required'
                   })}>
                   <option value="">Select</option>
-                  {brands.map((brands) => (
-                    <option value={brands.value}>{brands.label}</option>
+                  {brands.map((brands, idx) => (
+                    <option key={idx} value={brands.value}>
+                      {brands.label}
+                    </option>
                   ))}
                 </select>
               </div>
             </div>
             <div className="sm:col-span-2 w-full">
-              <label
-                htmlFor="category"
-                className="block text-sm font-medium leading-6 text-gray-900">
+              <label htmlFor="category" className="block text-sm font-medium leading-6 text-gray-900">
                 Category
               </label>
               <div className="mt-2">
@@ -174,11 +164,13 @@ export default function ProductForm() {
                   id="category"
                   className="w-full"
                   {...register('category', {
-                    required: 'Category is required',
+                    required: 'Category is required'
                   })}>
                   <option value="">Select</option>
-                  {categories.map((categories) => (
-                    <option value={categories.value}>{categories.label}</option>
+                  {categories.map((categories, idx) => (
+                    <option key={idx} value={categories.value}>
+                      {categories.label}
+                    </option>
                   ))}
                 </select>
               </div>
@@ -187,9 +179,7 @@ export default function ProductForm() {
           {/* //! IMAGES */}
           <div className="mt-8">
             <div className="sm:col-span-2">
-              <label
-                htmlFor="thumbnail"
-                className="block text-sm font-medium leading-6 text-gray-900">
+              <label htmlFor="thumbnail" className="block text-sm font-medium leading-6 text-gray-900">
                 Thumbnail
               </label>
               <div className="mt-2">
@@ -197,7 +187,7 @@ export default function ProductForm() {
                   <input
                     type="text"
                     {...register('thumbnail', {
-                      required: 'Thumbnail is required',
+                      required: 'Thumbnail is required'
                     })}
                     id="thumbnail"
                     className="border-0 w-full bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
@@ -206,9 +196,7 @@ export default function ProductForm() {
               </div>
             </div>
             <div className="sm:col-span-2 py-3">
-              <label
-                htmlFor="image2"
-                className="block text-sm font-medium leading-6 text-gray-900">
+              <label htmlFor="image2" className="block text-sm font-medium leading-6 text-gray-900">
                 Image 1
               </label>
               <div className="mt-2">
@@ -216,7 +204,7 @@ export default function ProductForm() {
                   <input
                     type="text"
                     {...register('image2', {
-                      required: 'Image2 is required',
+                      required: 'Image2 is required'
                     })}
                     id="image2"
                     className="border-0 w-full bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
@@ -225,9 +213,7 @@ export default function ProductForm() {
               </div>
             </div>
             <div className="sm:col-span-2">
-              <label
-                htmlFor="image3"
-                className="block text-sm font-medium leading-6 text-gray-900">
+              <label htmlFor="image3" className="block text-sm font-medium leading-6 text-gray-900">
                 Image 2
               </label>
               <div className="mt-2">
@@ -235,7 +221,7 @@ export default function ProductForm() {
                   <input
                     type="text"
                     {...register('image3', {
-                      required: 'Image3 is required',
+                      required: 'Image3 is required'
                     })}
                     id="image3"
                     className="border-0 w-full bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
@@ -244,9 +230,7 @@ export default function ProductForm() {
               </div>
             </div>
             <div className="sm:col-span-2 pt-3">
-              <label
-                htmlFor="image3"
-                className="block text-sm font-medium leading-6 text-gray-900">
+              <label htmlFor="image3" className="block text-sm font-medium leading-6 text-gray-900">
                 Image 3
               </label>
               <div className="mt-2">
@@ -254,7 +238,7 @@ export default function ProductForm() {
                   <input
                     type="text"
                     {...register('image3', {
-                      required: 'Image3 is required',
+                      required: 'Image3 is required'
                     })}
                     id="image3"
                     className="border-0 w-full bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
@@ -269,9 +253,7 @@ export default function ProductForm() {
           {/* //! Price and discount */}
           <div>
             <div className="sm:col-span-2">
-              <label
-                htmlFor="price"
-                className="block text-sm font-medium leading-6 text-gray-900">
+              <label htmlFor="price" className="block text-sm font-medium leading-6 text-gray-900">
                 Product Price
               </label>
               <div className="mt-2">
@@ -280,7 +262,7 @@ export default function ProductForm() {
                     type="number"
                     {...register('price', {
                       required: 'Price is required',
-                      min: 1,
+                      min: 1
                     })}
                     id="price"
                     className="border-0 w-full bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
@@ -289,9 +271,7 @@ export default function ProductForm() {
               </div>
             </div>
             <div className="sm:col-span-2 py-3">
-              <label
-                htmlFor="discountPercentage"
-                className="block text-sm font-medium leading-6 text-gray-900">
+              <label htmlFor="discountPercentage" className="block text-sm font-medium leading-6 text-gray-900">
                 Discount Percentage
               </label>
               <div className="mt-2">
@@ -301,7 +281,7 @@ export default function ProductForm() {
                     {...register('discountPercentage', {
                       required: 'Discount is required',
                       min: 0,
-                      max: 100,
+                      max: 100
                     })}
                     id="discount"
                     className="border-0 w-full bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
@@ -310,9 +290,7 @@ export default function ProductForm() {
               </div>
             </div>
             <div className="sm:col-span-2">
-              <label
-                htmlFor="stock"
-                className="block text-sm font-medium leading-6 text-gray-900">
+              <label htmlFor="stock" className="block text-sm font-medium leading-6 text-gray-900">
                 Stock available
               </label>
               <div className="mt-2">
@@ -321,7 +299,7 @@ export default function ProductForm() {
                     type="number"
                     {...register('stock', {
                       required: 'Stock is required',
-                      min: 0,
+                      min: 0
                     })}
                     id="stock"
                     className="border-0 w-full bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
@@ -332,10 +310,7 @@ export default function ProductForm() {
           </div>
           {/* //! BUTTON */}
           <div className="mt-8 flex items-center justify-end gap-x-2">
-            <button
-              onClick={() => reset()}
-              type="button"
-              className="btn secondary-btn ">
+            <button onClick={() => reset()} type="button" className="btn secondary-btn ">
               Discard
             </button>
             {selectedProduct && !selectedProduct.deleted && (
@@ -368,3 +343,4 @@ export default function ProductForm() {
     </main>
   );
 }
+

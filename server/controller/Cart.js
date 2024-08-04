@@ -24,14 +24,14 @@ exports.addToCart = async (req, res) => {
 
 exports.deleteFromCart = async (req, res) => {
   const { id } = req.params;
-  console.log('Deleted Product ID:', id); 
+  // console.log('Deleted Product ID:', id);
   try {
-      const doc = await Cart.findOneAndDelete(id);
-      res.status(200).json(doc);
-      console.log('Deleted doc:', doc); 
+    const doc = await Cart.findOneAndDelete(id);
+    res.status(200).json(doc);
+    // console.log('Deleted doc:', doc);
   } catch (err) {
-      console.error('Error deleting document:', err); 
-      res.status(400).json(err);
+    console.error('Error deleting document:', err);
+    res.status(400).json(err);
   }
 };
 
@@ -39,7 +39,7 @@ exports.updateCart = async (req, res) => {
   const { id } = req.params;
   try {
     const cart = await Cart.findByIdAndUpdate(id, req.body, {
-      new: true,
+      new: true
     });
     const result = await cart.populate('product');
 
@@ -48,3 +48,4 @@ exports.updateCart = async (req, res) => {
     res.status(400).json(err);
   }
 };
+

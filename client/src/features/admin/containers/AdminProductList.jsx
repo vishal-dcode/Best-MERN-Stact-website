@@ -1,11 +1,11 @@
 // * IMPORTS
-import React, {useState, Fragment, useEffect} from 'react';
-import {useSelector, useDispatch} from 'react-redux';
-import {Link} from 'react-router-dom';
+import React, { useState, Fragment, useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { Link } from 'react-router-dom';
 // * UI
-import {Dialog, Disclosure, Menu, Transition} from '@headlessui/react';
+import { Dialog, Disclosure, Menu, Transition } from '@headlessui/react';
 // * CONTAINERS
-import {ITEMS_PER_PAGE, DISCOUNTED_PRICE} from '../../../app/constants';
+import { ITEMS_PER_PAGE, DISCOUNTED_PRICE } from '../../../app/constants';
 // * REDUX
 import {
   fetchBrandsAsync,
@@ -15,15 +15,15 @@ import {
   selectBrands,
   selectCategories,
   selectProductListStatus,
-  selectTotalItems,
+  selectTotalItems
 } from '../../product/productSlice';
 import Loader from '../../../components/Loader';
 import Pagination from '../../../components/Pagination';
 
 const sortOptions = [
-  {name: 'Best Rating', sort: 'rating', order: 'desc', current: false},
-  {name: 'Price: Low to High', sort: 'price', order: 'asc', current: false},
-  {name: 'Price: High to Low', sort: 'price', order: 'desc', current: false},
+  { name: 'Best Rating', sort: 'rating', order: 'desc', current: false },
+  { name: 'Price: Low to High', sort: 'price', order: 'asc', current: false },
+  { name: 'Price: High to Low', sort: 'price', order: 'desc', current: false }
 ];
 
 function classNames(...classes) {
@@ -42,13 +42,13 @@ export default function AdminProductList() {
     {
       id: 'category',
       name: 'Category',
-      options: categories,
+      options: categories
     },
     {
       id: 'brand',
       name: 'Brands',
-      options: brands,
-    },
+      options: brands
+    }
   ];
 
   const [filter, setFilter] = useState({});
@@ -56,8 +56,8 @@ export default function AdminProductList() {
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
   const [page, setPage] = useState(1);
   const handleFilter = (e, section, option) => {
-    console.log(e.target.checked);
-    const newFilter = {...filter};
+    // console.log(e.target.checked);
+    const newFilter = { ...filter };
     // TODO : on server it will support multiple categories
     if (e.target.checked) {
       if (newFilter[section.id]) {
@@ -66,32 +66,28 @@ export default function AdminProductList() {
         newFilter[section.id] = [option.value];
       }
     } else {
-      const index = newFilter[section.id].findIndex(
-        (el) => el === option.value
-      );
+      const index = newFilter[section.id].findIndex((el) => el === option.value);
       newFilter[section.id].splice(index, 1);
     }
-    console.log({newFilter});
+    // console.log({newFilter});
 
     setFilter(newFilter);
   };
 
   const handleSort = (e, option) => {
-    const sort = {_sort: option.sort, _order: option.order};
-    console.log({sort});
+    const sort = { _sort: option.sort, _order: option.order };
+    console.log({ sort });
     setSort(sort);
   };
 
   const handlePage = (page) => {
-    console.log({page});
+    console.log({ page });
     setPage(page);
   };
 
   useEffect(() => {
-    const pagination = {_page: page, _limit: ITEMS_PER_PAGE};
-    dispatch(
-      fetchProductsByFiltersAsync({filter, sort, pagination, admin: true})
-    );
+    const pagination = { _page: page, _limit: ITEMS_PER_PAGE };
+    dispatch(fetchProductsByFiltersAsync({ filter, sort, pagination, admin: true }));
   }, [dispatch, filter, sort, page]);
 
   useEffect(() => {
@@ -124,9 +120,7 @@ export default function AdminProductList() {
             </button>
           </div>
 
-          <section
-            className="product_list-wrapper"
-            aria-labelledby="products-heading">
+          <section className="product_list-wrapper" aria-labelledby="products-heading">
             <div className="product_list-ctr">
               {/* //! ------------------------------ DESKTOP FILTER ----------------------------- */}
               <DesktopFilter handleFilter={handleFilter} filters={filters} />
@@ -155,13 +149,11 @@ export default function AdminProductList() {
                           <div className="py-1">
                             {sortOptions.map((option) => (
                               <Menu.Item key={option.name}>
-                                {({active}) => (
+                                {({ active }) => (
                                   <p
                                     onClick={(e) => handleSort(e, option)}
                                     className={classNames(
-                                      option.current
-                                        ? 'font-medium text-gray-900'
-                                        : 'text-gray-500',
+                                      option.current ? 'font-medium text-gray-900' : 'text-gray-500',
                                       active ? 'bg-gray-100' : '',
                                       'block px-4 py-2 text-sm'
                                     )}>
@@ -180,12 +172,7 @@ export default function AdminProductList() {
                         type="button"
                         className="hidden -m-2 ml-4 p-2 text-gray-400 hover:text-gray-500 sm:ml-6 lg:hidden"
                         onClick={() => setMobileFiltersOpen(true)}>
-                        <svg
-                          width="26"
-                          height="26"
-                          viewBox="0 0 26 26"
-                          fill="none"
-                          xmlns="http://www.w3.org/2000/svg">
+                        <svg width="26" height="26" viewBox="0 0 26 26" fill="none" xmlns="http://www.w3.org/2000/svg">
                           <path
                             d="M23 0H3C1.35 0 0 1.35 0 3V4.17C0 4.97 0.31 5.73 0.88 6.29L9 14.41V25C9 25.32 9.15 25.62 9.41 25.81C9.59 25.94 9.79 26 10 26C10.1 26 10.21 25.98 10.31 25.95L14.95 24.4C16.18 24 17 22.85 17 21.56V14.41L25.12 6.29C25.69 5.73 26 4.97 26 4.17V3C26 1.35 24.65 0 23 0Z"
                             fill="black"
@@ -199,12 +186,7 @@ export default function AdminProductList() {
                 <ProductGrid products={products} />
 
                 {/* //! ------------------------------ PAGINATION ----------------------------- */}
-                <Pagination
-                  page={page}
-                  setPage={setPage}
-                  handlePage={handlePage}
-                  totalItems={totalItems}
-                />
+                <Pagination page={page} setPage={setPage} handlePage={handlePage} totalItems={totalItems} />
               </div>
             </div>
           </section>
@@ -214,18 +196,10 @@ export default function AdminProductList() {
   );
 }
 
-function MobileFilter({
-  mobileFiltersOpen,
-  setMobileFiltersOpen,
-  handleFilter,
-  filters,
-}) {
+function MobileFilter({ mobileFiltersOpen, setMobileFiltersOpen, handleFilter, filters }) {
   return (
     <Transition.Root show={mobileFiltersOpen} as={Fragment}>
-      <Dialog
-        as="div"
-        className="relative z-40 lg:hidden"
-        onClose={setMobileFiltersOpen}>
+      <Dialog as="div" className="relative z-40 lg:hidden" onClose={setMobileFiltersOpen}>
         <Transition.Child
           as={Fragment}
           enter="transition-opacity ease-linear duration-300"
@@ -253,32 +227,14 @@ function MobileFilter({
                   type="button"
                   className="-mr-2 flex h-10 w-10 items-center justify-center rounded-md bg-white p-2 text-gray-400"
                   onClick={() => setMobileFiltersOpen(false)}>
-                  <svg
-                    width="26"
-                    height="26"
-                    viewBox="0 0 26 26"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg">
-                    <g clip-path="url(#clip0_25_281)">
-                      <path
-                        d="M6.36395 6.36396L19.0919 19.0919"
-                        stroke="black"
-                        strokeWidth="2"
-                      />
-                      <path
-                        d="M6.36394 19.0919L19.0919 6.36396"
-                        stroke="black"
-                        strokeWidth="2"
-                      />
+                  <svg width="26" height="26" viewBox="0 0 26 26" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <g clipPath="url(#clip0_25_281)">
+                      <path d="M6.36395 6.36396L19.0919 19.0919" stroke="black" strokeWidth="2" />
+                      <path d="M6.36394 19.0919L19.0919 6.36396" stroke="black" strokeWidth="2" />
                     </g>
                     <defs>
                       <clipPath id="clip0_25_281">
-                        <rect
-                          width="18"
-                          height="18"
-                          fill="white"
-                          transform="translate(12.7279) rotate(45)"
-                        />
+                        <rect width="18" height="18" fill="white" transform="translate(12.7279) rotate(45)" />
                       </clipPath>
                     </defs>
                   </svg>
@@ -288,17 +244,12 @@ function MobileFilter({
               {/* Filters */}
               <form className="mt-4 border-t border-gray-200">
                 {filters.map((section) => (
-                  <Disclosure
-                    as="div"
-                    key={section.id}
-                    className="border-t border-gray-200 px-4 py-6">
-                    {({open}) => (
+                  <Disclosure as="div" key={section.id} className="border-t border-gray-200 px-4 py-6">
+                    {({ open }) => (
                       <>
                         <h3 className="-mx-2 -my-3 flow-root">
                           <Disclosure.Button className="flex w-full items-center justify-between bg-white px-2 py-3 text-gray-400 hover:text-gray-500">
-                            <span className="font-medium text-gray-900">
-                              {section.name}
-                            </span>
+                            <span className="font-medium text-gray-900">{section.name}</span>
                             <span className="ml-6 flex items-center">
                               {open ? (
                                 <svg
@@ -307,13 +258,7 @@ function MobileFilter({
                                   viewBox="0 0 18 2"
                                   fill="none"
                                   xmlns="http://www.w3.org/2000/svg">
-                                  <line
-                                    y1="1"
-                                    x2="18"
-                                    y2="1"
-                                    stroke="black"
-                                    strokeWidth="2.5"
-                                  />
+                                  <line y1="1" x2="18" y2="1" stroke="black" strokeWidth="2.5" />
                                 </svg>
                               ) : (
                                 <svg
@@ -322,21 +267,8 @@ function MobileFilter({
                                   viewBox="0 0 18 18"
                                   fill="none"
                                   xmlns="http://www.w3.org/2000/svg">
-                                  <line
-                                    y1="9"
-                                    x2="18"
-                                    y2="9"
-                                    stroke="black"
-                                    strokeWidth="2.5"
-                                  />
-                                  <line
-                                    x1="9"
-                                    y1="18"
-                                    x2="9"
-                                    y2="4.37114e-08"
-                                    stroke="black"
-                                    strokeWidth="2.5"
-                                  />
+                                  <line y1="9" x2="18" y2="9" stroke="black" strokeWidth="2.5" />
+                                  <line x1="9" y1="18" x2="9" y2="4.37114e-08" stroke="black" strokeWidth="2.5" />
                                 </svg>
                               )}
                             </span>
@@ -345,18 +277,14 @@ function MobileFilter({
                         <Disclosure.Panel className="pt-6">
                           <div className="space-y-6">
                             {section.options.map((option, optionIdx) => (
-                              <div
-                                key={option.value}
-                                className="flex items-center">
+                              <div key={option.value} className="flex items-center">
                                 <input
                                   id={`filter-mobile-${section.id}-${optionIdx}`}
                                   name={`${section.id}[]`}
                                   defaultValue={option.value}
                                   type="checkbox"
                                   defaultChecked={option.checked}
-                                  onChange={(e) =>
-                                    handleFilter(e, section, option)
-                                  }
+                                  onChange={(e) => handleFilter(e, section, option)}
                                   className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
                                 />
                                 <label
@@ -381,53 +309,24 @@ function MobileFilter({
   );
 }
 
-function DesktopFilter({handleFilter, filters}) {
+function DesktopFilter({ handleFilter, filters }) {
   return (
     <form className="product_filter-wrapper">
       {filters.map((section) => (
         <Disclosure as="div" key={section.id} className="product_filter-ctr">
-          {({open}) => (
+          {({ open }) => (
             <>
               <Disclosure.Button className="filter_menu">
                 <span>{section.name}</span>
                 <span>
                   {open ? (
-                    <svg
-                      width="13"
-                      height="2"
-                      viewBox="0 0 18 2"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg">
-                      <line
-                        y1="1"
-                        x2="18"
-                        y2="1"
-                        stroke="black"
-                        strokeWidth="2.5"
-                      />
+                    <svg width="13" height="2" viewBox="0 0 18 2" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <line y1="1" x2="18" y2="1" stroke="black" strokeWidth="2.5" />
                     </svg>
                   ) : (
-                    <svg
-                      width="13"
-                      height="13"
-                      viewBox="0 0 18 18"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg">
-                      <line
-                        y1="9"
-                        x2="18"
-                        y2="9"
-                        stroke="black"
-                        strokeWidth="2.5"
-                      />
-                      <line
-                        x1="9"
-                        y1="18"
-                        x2="9"
-                        y2="4.37114e-08"
-                        stroke="black"
-                        strokeWidth="2.5"
-                      />
+                    <svg width="13" height="13" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <line y1="9" x2="18" y2="9" stroke="black" strokeWidth="2.5" />
+                      <line x1="9" y1="18" x2="9" y2="4.37114e-08" stroke="black" strokeWidth="2.5" />
                     </svg>
                   )}
                 </span>
@@ -444,9 +343,7 @@ function DesktopFilter({handleFilter, filters}) {
                         defaultChecked={option.checked}
                         onChange={(e) => handleFilter(e, section, option)}
                       />
-                      <label
-                        htmlFor={`filter-${section.id}-${optionIdx}`}
-                        className="ml-3 text-sm text-gray-600">
+                      <label htmlFor={`filter-${section.id}-${optionIdx}`} className="ml-3 text-sm text-gray-600">
                         {option.label}
                       </label>
                     </div>
@@ -461,31 +358,22 @@ function DesktopFilter({handleFilter, filters}) {
   );
 }
 
-function ProductGrid({products}) {
+function ProductGrid({ products }) {
   return (
     <section className="product_grid-ctr mt-4 mb-2">
       {products.map((product) => (
-        <Link
-          className="product_wrapper relative"
-          to={`/product-detail/${product.id}`}
-          key={product.id}>
+        <Link className="product_wrapper relative" to={`/product-detail/${product.id}`} key={product.id}>
           {product.stock <= 0 && (
             <div>
               <p className="out_of_stock">out of stock</p>
             </div>
           )}
-          <Link
-            to={`/admin/product-form/edit/${product.id}`}
-            className="edit_product">
+          <Link to={`/admin/product-form/edit/${product.id}`} className="edit_product">
             Edit Product
           </Link>
-          {product.deleted && (
-            <p className="deleted_product">product deleted</p>
-          )}
+          {product.deleted && <p className="deleted_product">product deleted</p>}
           <div
-            className={`product_card ${
-              product.stock === 0 ? 'product-not-allowed' : ''
-            }  group relative border-solid`}>
+            className={`product_card ${product.stock === 0 ? 'product-not-allowed' : ''}  group relative border-solid`}>
             <div className="product_img min-h-60 aspect-h-1 aspect-w-1 w-full overflow-hidden lg:aspect-none lg:h-60">
               <img
                 src={product.thumbnail}
@@ -495,19 +383,11 @@ function ProductGrid({products}) {
             </div>
             <div className="product_detail">
               <h3 className="text-gray-700 font-black">{product.title}</h3>
-              <p className="my-1 text-sm text-gray-500 line-clamp-1">
-                {product.description}
-              </p>
+              <p className="my-1 text-sm text-gray-500 line-clamp-1">{product.description}</p>
               <div className="product_price flex gap-2">
-                <h5 className="block font-medium text-gray-900">
-                  ${DISCOUNTED_PRICE(product)}
-                </h5>
-                <p className=" block line-through font-medium text-gray-400">
-                  ${product.price}
-                </p>
-                <h6 className=" block  font-medium text-gray-400">
-                  -{Math.round(product.discountPercentage)}%
-                </h6>
+                <h5 className="block font-medium text-gray-900">${DISCOUNTED_PRICE(product)}</h5>
+                <p className=" block line-through font-medium text-gray-400">${product.price}</p>
+                <h6 className=" block  font-medium text-gray-400">-{Math.round(product.discountPercentage)}%</h6>
               </div>
             </div>
           </div>
@@ -516,3 +396,4 @@ function ProductGrid({products}) {
     </section>
   );
 }
+

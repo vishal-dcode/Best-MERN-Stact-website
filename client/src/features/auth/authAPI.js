@@ -1,27 +1,29 @@
+import { baseURL } from '../api.js';
+
 export function createUser(userData) {
   return new Promise(async (resolve) => {
-    const response = await fetch('https://mern-stact-backend.onrender.com/auth/signup', {
+    const response = await fetch(`${baseURL}/auth/signup`, {
       method: 'POST',
       body: JSON.stringify(userData),
-      headers: {'content-type': 'application/json'},
+      headers: { 'content-type': 'application/json' }
     });
     const data = await response.json();
     // TODO: on server it will only return some info of user (not password)
-    resolve({data});
+    resolve({ data });
   });
 }
 
 export function checkUser(loginInfo) {
   return new Promise(async (resolve, reject) => {
     try {
-      const response = await fetch('https://mern-stact-backend.onrender.com/auth/login', {
+      const response = await fetch(`${baseURL}/auth/login`, {
         method: 'POST',
         body: JSON.stringify(loginInfo),
-        headers: {'content-type': 'application/json'},
+        headers: { 'content-type': 'application/json' }
       });
       if (response.ok) {
         const data = await response.json();
-        resolve({data});
+        resolve({ data });
       } else {
         const error = await response.json();
         reject(error);
@@ -37,6 +39,7 @@ export function checkUser(loginInfo) {
 export function signOut(userId) {
   return new Promise(async (resolve) => {
     // TODO: on server we will remove user session info
-    resolve({data: 'success'});
+    resolve({ data: 'success' });
   });
 }
+

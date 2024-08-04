@@ -1,9 +1,9 @@
-import {useSelector, useDispatch} from 'react-redux';
-import {Link} from 'react-router-dom';
-import {Navigate} from 'react-router-dom';
-import {useForm} from 'react-hook-form';
+import { useSelector, useDispatch } from 'react-redux';
+import { Link } from 'react-router-dom';
+import { Navigate } from 'react-router-dom';
+import { useForm } from 'react-hook-form';
 
-import {selectLoggedInUser, createUserAsync} from '../authSlice';
+import { selectLoggedInUser, createUserAsync } from '../authSlice';
 
 export default function Signup() {
   const dispatch = useDispatch();
@@ -12,7 +12,7 @@ export default function Signup() {
   const {
     register,
     handleSubmit,
-    formState: {errors},
+    formState: { errors }
   } = useForm();
 
   return (
@@ -39,7 +39,7 @@ export default function Signup() {
                 email: data.email,
                 password: data.password,
                 addresses: [],
-                role: 'User',
+                role: 'User'
               })
             );
             // console.log(data);
@@ -49,7 +49,7 @@ export default function Signup() {
               placeholder="Your Name"
               id="userName"
               {...register('userName', {
-                required: 'User Name is required',
+                required: 'User Name is required'
               })}
               type="userName"
             />
@@ -63,21 +63,19 @@ export default function Signup() {
                 {...register('email', {
                   required: 'email is required',
                   pattern: {
-                    message: 'email not valid',
-                  },
+                    message: 'email not valid'
+                  }
                 })}
                 type="email"
               />
-              {errors.email && (
-                <p className="text-red-500">{errors.email.message}</p>
-              )}
+              {errors.email && <p className="text-red-500">{errors.email.message}</p>}
             </div>
             <div>
               <input
                 placeholder="Phone"
-                id="email"
+                id="phone"
                 {...register('phone', {
-                  required: 'Phone number is required',
+                  required: 'Phone number is required'
                 })}
                 type="number"
               />
@@ -90,19 +88,16 @@ export default function Signup() {
               {...register('password', {
                 required: 'password is required',
                 pattern: {
-                  value:
-                    /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/gm,
+                  value: /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/gm,
                   message: `- at least 8 characters\n
                       - must contain at least 1 uppercase letter, 1 lowercase letter, and 1 number\n
-                      - Can contain special characters`,
-                },
+                      - Can contain special characters`
+                }
               })}
               type="password"
               placeholder="Password"
             />
-            {errors.password && (
-              <p className="text-red-500">{errors.password.message}</p>
-            )}
+            {errors.password && <p className="text-red-500">{errors.password.message}</p>}
           </div>
 
           <div>
@@ -110,15 +105,12 @@ export default function Signup() {
               id="confirmPassword"
               {...register('confirmPassword', {
                 required: 'confirm password is required',
-                validate: (value, formValues) =>
-                  value === formValues.password || 'password not matching',
+                validate: (value, formValues) => value === formValues.password || 'password not matching'
               })}
               placeholder="Confirm Password"
               type="password"
             />
-            {errors.confirmPassword && (
-              <p className="text-red-500">{errors.confirmPassword.message}</p>
-            )}
+            {errors.confirmPassword && <p className="text-red-500">{errors.confirmPassword.message}</p>}
           </div>
 
           <div className="signup_ctr-btn">
@@ -127,11 +119,11 @@ export default function Signup() {
             </button>
           </div>
           <span className="auth_note">
-            “You can sign up with a temporary account to continue. All products
-            listed are dummy”
+            “You can sign up with a temporary account to continue. All products listed are dummy”
           </span>
         </form>
       </div>
     </main>
   );
 }
+

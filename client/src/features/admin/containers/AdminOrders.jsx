@@ -1,20 +1,20 @@
 // * IMPORTS
-import {useState} from 'react';
-import {useDispatch, useSelector} from 'react-redux';
+import { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 // * REDUX
-import {selectOrders, updateOrderAsync} from '../../order/orderSlice';
-import {selectLoggedInUser} from '../../auth/authSlice';
-import {Link} from 'react-router-dom';
+import { selectOrders, updateOrderAsync } from '../../order/orderSlice';
+// import { selectLoggedInUser } from '../../auth/authSlice';
+import { Link } from 'react-router-dom';
 
 export default function AdminOrders() {
   const dispatch = useDispatch();
   const orders = useSelector(selectOrders);
-  const loggedInUser = useSelector(selectLoggedInUser);
+  // const loggedInUser = useSelector(selectLoggedInUser);
   const [editOrderStatus, setEditOrderStatus] = useState(-1);
   // console.log(orders);
-  console.log(loggedInUser);
+  // console.log(loggedInUser);
   const handleStatus = (e, order) => {
-    const updatedOrder = {...order, status: e.target.value};
+    const updatedOrder = { ...order, status: e.target.value };
     dispatch(updateOrderAsync(updatedOrder));
     setEditOrderStatus(-1); // Close the select dropdown after updating the status
   };
@@ -86,9 +86,7 @@ export default function AdminOrders() {
                           {/* {item.id.substring(item.id.length - 4)} */}
                           User ID: {orders.user.substring(orders.id.length - 4)}
                         </span>
-                        <p className="user_name">
-                          {orders.userName ? orders.userName : 'New User'}
-                        </p>
+                        <p className="user_name">{orders.userName ? orders.userName : 'New User'}</p>
                       </div>
                     </div>
                   </td>
@@ -97,10 +95,7 @@ export default function AdminOrders() {
                       <div className="flex flex-col">
                         <Link to={`/product-detail/${item.product.id}`}>
                           <span className="order_id">
-                            Order ID:{' '}
-                            {item.product.id.substring(
-                              item.product.id.length - 5
-                            )}
+                            Order ID: {item.product.id.substring(item.product.id.length - 5)}
                           </span>
                           <p className="product_name">{item.product.title}</p>
                         </Link>
@@ -111,9 +106,7 @@ export default function AdminOrders() {
                     <div className="flex flex-col justify-center items-center">
                       {orders.items.map((item) => (
                         <p key={item.id} className="quantity">
-                          {orders.totalItems < 10
-                            ? '0' + orders.totalItems
-                            : orders.totalItems}
+                          {orders.totalItems < 10 ? '0' + orders.totalItems : orders.totalItems}
                         </p>
                       ))}
                     </div>
@@ -140,10 +133,7 @@ export default function AdminOrders() {
                           <option value="canceled">Canceled</option>
                         </select>
                       ) : (
-                        <p
-                          className={`status_color ${statusColor(
-                            orders.status
-                          )}`}>
+                        <p className={`status_color ${statusColor(orders.status)}`}>
                           <span>{orders.status}</span>
                         </p>
                       )}
@@ -180,3 +170,4 @@ export default function AdminOrders() {
     </main>
   );
 }
+
