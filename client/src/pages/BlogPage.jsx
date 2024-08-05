@@ -11,8 +11,7 @@ export default function BlogPage() {
     fetch(`https://newsapi.org/v2/everything?q=tech&apiKey=${process.env.REACT_APP_NEWS_API_KEY}`)
       .then((response) => response.json())
       .then((data) => {
-        const filteredArticles = data.articles.filter((article) => article.urlToImage);
-        setArticles(filteredArticles);
+        setArticles(data.articles);
         setLoading(false);
       })
       .catch((error) => {
