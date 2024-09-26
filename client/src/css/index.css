@@ -112,7 +112,8 @@ div#root {
   height: 48px;
   border-radius: 50%;
   border: 10px solid;
-  border-color: rgba(196, 239, 120, 1) rgba(253, 213, 111, 1) rgba(246, 121, 121, 1) rgba(125, 114, 255, 1);
+  border-color: rgba(196, 239, 120, 1) rgba(253, 213, 111, 1)
+    rgba(246, 121, 121, 1) rgba(125, 114, 255, 1);
   animation: rotation 1s linear infinite;
   z-index: 1000;
 }
@@ -224,7 +225,6 @@ nav .active {
 }
 .login_ctr h2,
 .signup_ctr h2 {
-  white-space: nowrap;
   font-size: 2rem;
   text-transform: uppercase;
   font-weight: var(--fw-bold);
@@ -814,6 +814,12 @@ footer .about_me > div:nth-of-type(2) {
 @media only screen and (max-width: 768px) {
   .product_list {
     padding: 1rem;
+  }
+  .auth_wrapper {
+    grid-template-columns: 1fr;
+  }
+  .loginpage_profile {
+    display: none;
   }
 }
 .sorting-wrapper {
@@ -1598,4 +1604,3 @@ table tbody td .action {
 .modal-danger_btn:hover {
   background-color: var(--clr-secondary-400);
 }
-
