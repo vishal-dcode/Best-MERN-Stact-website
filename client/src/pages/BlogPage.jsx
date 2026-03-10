@@ -11,18 +11,20 @@ export default function BlogPage() {
     fetch(`https://newsapi.org/v2/everything?q=tech&apiKey=${process.env.REACT_APP_NEWS_API_KEY}`)
       .then((response) => response.json())
       .then((data) => {
-        setArticles(data.articles);
+        setArticles(data.articles || []);
         setLoading(false);
       })
       .catch((error) => {
         console.error('Error fetching articles:', error);
+        setArticles([]);
         setLoading(false);
       });
   }, []);
 
+  const safeArticles = Array.isArray(articles) ? articles : [];
   const indexOfLastArticle = currentPage * articlesPerPage;
   const indexOfFirstArticle = indexOfLastArticle - articlesPerPage;
-  const currentArticles = articles.slice(indexOfFirstArticle, indexOfLastArticle);
+  const currentArticles = safeArticles.slice(indexOfFirstArticle, indexOfLastArticle);
 
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
@@ -76,12 +78,12 @@ export default function BlogPage() {
           <div className="mt-8 flex items-center justify-between">
             <div className="page_count text-sm text-gray-700 whitespace-nowrap">
               Showing {(currentPage - 1) * articlesPerPage + 1} to{' '}
-              {currentPage * articlesPerPage > articles.length ? articles.length : currentPage * articlesPerPage} of{' '}
-              {articles.length} results
+              {currentPage * articlesPerPage > safeArticles.length ? safeArticles.length : currentPage * articlesPerPage} of{' '}
+              {safeArticles.length} results
             </div>
 
             <div className="w-fit flex rounded-full border border-black overflow-hidden">
-              {Array.from({ length: Math.ceil(articles.length / articlesPerPage) }, (_, i) => (
+              {Array.from({ length: Math.ceil(safeArticles.length / articlesPerPage) }, (_, i) => (
                 <button
                   key={i}
                   onClick={() => paginate(i + 1)}

@@ -28,19 +28,30 @@ export default function ProductDetail() {
 
   // ! UNSPLASH API
   useEffect(() => {
+    const fallbackImages = product?.images?.length >= 3 
+      ? product.images 
+      : [product?.thumbnail, product?.thumbnail, product?.thumbnail];
+
     const fetchUnsplashImages = async () => {
+      if (!process.env.REACT_APP_UNSPLASH_ACCESS_KEY) {
+        setUnsplashImages(fallbackImages);
+        return;
+      }
       try {
         const result = await unsplash.search.getPhotos({
           query: product.title,
           page: 1,
           perPage: 3
         });
-        if (result.type === 'success') {
+        if (result.type === 'success' && result.response.results.length >= 3) {
           const imageUrls = result.response.results.map((photo) => photo.urls.regular);
           setUnsplashImages(imageUrls);
+        } else {
+          setUnsplashImages(fallbackImages);
         }
       } catch (error) {
-        console.error('Error fetching Unsplash images:', error);
+        console.error('Error fetching Unsplash images. Using fallbacks:', error);
+        setUnsplashImages(fallbackImages);
       }
     };
 

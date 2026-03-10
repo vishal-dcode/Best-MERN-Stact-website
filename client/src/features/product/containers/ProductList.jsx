@@ -1,9 +1,10 @@
 // * IMPORTS
-import React, { useState, Fragment, useEffect } from 'react';
+import React, { useState, Fragment, useEffect, useCallback, memo } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 // * UI
 import { Dialog, Disclosure, Menu, Transition } from '@headlessui/react';
+import Skeleton from 'react-loading-skeleton';
 import 'react-loading-skeleton/dist/skeleton.css';
 // * COMPONENTS
 import Pagination from '../../../components/Pagination';
@@ -59,32 +60,35 @@ export default function ProductList() {
     }
   ];
 
-  const handleFilter = (e, section, option) => {
-    console.log(e.target.checked);
-    const newFilter = { ...filter };
-    if (e.target.checked) {
-      if (newFilter[section.id]) {
-        newFilter[section.id].push(option.value);
+  const handleFilter = useCallback((e, section, option) => {
+    // console.log(e.target.checked);
+    setFilter((prevFilter) => {
+      const newFilter = { ...prevFilter };
+      if (e.target.checked) {
+        if (newFilter[section.id]) {
+          newFilter[section.id] = [...newFilter[section.id], option.value];
+        } else {
+          newFilter[section.id] = [option.value];
+        }
       } else {
-        newFilter[section.id] = [option.value];
+        newFilter[section.id] = newFilter[section.id].filter(el => el !== option.value);
+        if (newFilter[section.id].length === 0) {
+           delete newFilter[section.id];
+        }
       }
-    } else {
-      const index = newFilter[section.id].findIndex((el) => el === option.value);
-      newFilter[section.id].splice(index, 1);
-    }
-    // console.log({newFilter});
+      return newFilter;
+    });
+  }, []);
 
-    setFilter(newFilter);
-  };
-  const handleSort = (e, option) => {
+  const handleSort = useCallback((e, option) => {
     let newSort = { _sort: option.sort, _order: option.order, name: option.name };
-
     setSort(newSort);
-  };
-  const handlePage = (page) => {
+  }, []);
+
+  const handlePage = useCallback((page) => {
     // console.log({page});
     setPage(page);
-  };
+  }, []);
 
   useEffect(() => {
     const pagination = { _page: page, _limit: ITEMS_PER_PAGE };
@@ -181,7 +185,7 @@ export default function ProductList() {
   );
 }
 
-function MobileFilter({ mobileFiltersOpen, setMobileFiltersOpen, handleFilter, filters }) {
+const MobileFilter = memo(function MobileFilter({ mobileFiltersOpen, setMobileFiltersOpen, handleFilter, filters }) {
   return (
     <Transition.Root show={mobileFiltersOpen} as={Fragment}>
       <Dialog as="div" className="relative z-40 lg:hidden" onClose={setMobileFiltersOpen}>
@@ -292,9 +296,9 @@ function MobileFilter({ mobileFiltersOpen, setMobileFiltersOpen, handleFilter, f
       </Dialog>
     </Transition.Root>
   );
-}
+});
 
-function DesktopFilter({ handleFilter, filters }) {
+const DesktopFilter = memo(function DesktopFilter({ handleFilter, filters }) {
   return (
     <form className="product_filter-wrapper hidden md:block">
       {filters.map((section) => (
@@ -342,9 +346,25 @@ function DesktopFilter({ handleFilter, filters }) {
       ))}
     </form>
   );
-}
+});
 
-function ProductGrid({ products }) {
+const ProductImage = memo(function ProductImage({ src, alt }) {
+  const [loaded, setLoaded] = useState(false);
+  return (
+    <>
+      {!loaded && <div className="absolute inset-0"><Skeleton height="100%" className="h-full w-full" /></div>}
+      <img
+        src={src}
+        alt={alt}
+        loading="lazy"
+        onLoad={() => setLoaded(true)}
+        className={`h-full w-full object-cover object-center lg:h-full lg:w-full ${loaded ? 'block' : 'invisible'}`}
+      />
+    </>
+  );
+});
+
+const ProductGrid = memo(function ProductGrid({ products }) {
   return (
     <section className="product_grid-ctr mt-4 mb-2">
       {products.map((product) => (
@@ -357,13 +377,8 @@ function ProductGrid({ products }) {
 
           <div
             className={`product_card ${product.stock === 0 ? 'product-not-allowed' : ''}  group relative border-solid`}>
-            <div className="product_img min-h-60 aspect-h-1 aspect-w-1 w-full overflow-hidden lg:aspect-none lg:h-60">
-              <img
-                src={product.thumbnail}
-                alt={product.title}
-                loading="lazy"
-                className="h-full w-full object-cover object-center lg:h-full lg:w-full"
-              />
+            <div className="product_img min-h-60 aspect-h-1 aspect-w-1 w-full overflow-hidden lg:aspect-none lg:h-60 relative bg-gray-100">
+              <ProductImage src={product.thumbnail} alt={product.title} />
             </div>
             <div className="product_detail">
               <h3 className="text-gray-700 font-black">{product.title}</h3>
@@ -380,5 +395,5 @@ function ProductGrid({ products }) {
       ))}
     </section>
   );
-}
+});
 
